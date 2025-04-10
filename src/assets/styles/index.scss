@@ -1,0 +1,11 @@
+@use '@fontsource/roboto/300.css' as *;
+@use '@fontsource/roboto/400.css' as *;
+@use '@fontsource/roboto/500.css' as *;
+@use '@fontsource/roboto/700.css' as *;
+
+body {
+  --global-header-height: 50px;
+
+  overflow: hidden;
+  background-color: var(--color-grey-min);
+}
