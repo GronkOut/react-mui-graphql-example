@@ -5,7 +5,7 @@ import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
 
-interface Tenant {
+interface Content {
   id: number;
   name: string;
   createdAt: string;
@@ -13,7 +13,7 @@ interface Tenant {
 }
 
 interface DB {
-  tenants: Tenant[];
+  contents: Content[];
 }
 
 const DB_PATH = path.join(process.cwd(), 'db.json');
@@ -26,7 +26,7 @@ async function readDB(): Promise<DB> {
   } catch (error) {
     console.error(error);
 
-    return { tenants: [] };
+    return { contents: [] };
   }
 }
 
@@ -35,7 +35,7 @@ async function writeDB(data: DB): Promise<void> {
 }
 
 const typeDefs = `#graphql
-type Tenant {
+type Content {
   id: ID!
   name: String!
   createdAt: String!
@@ -43,73 +43,73 @@ type Tenant {
 }
 
 type Query {
-  tenant(id: ID!): Tenant
-  tenants: [Tenant!]!
+  content(id: ID!): Content
+  contents: [Content!]!
 }
 
 type Mutation {
-  createTenant(name: String!): Tenant!
-  updateTenant(id: ID!, name: String): Tenant!
-  deleteTenants(ids: [ID!]!): Boolean!
+  createContent(name: String!): Content!
+  updateContent(id: ID!, name: String): Content!
+  deleteContents(ids: [ID!]!): Boolean!
 }
 `;
 
 const resolvers = {
   Query: {
-    tenant: async (_: unknown, { id }: { id: string }) => {
+    content: async (_: unknown, { id }: { id: string }) => {
       const db = await readDB();
 
-      return db.tenants.find((tenant) => tenant.id === parseInt(id));
+      return db.contents.find((content) => content.id === parseInt(id));
     },
-    tenants: async () => {
+    contents: async () => {
       const db = await readDB();
 
-      return db.tenants;
+      return db.contents;
     },
   },
   Mutation: {
-    createTenant: async (_: unknown, { name }: { name: string }) => {
+    createContent: async (_: unknown, { name }: { name: string }) => {
       const db = await readDB();
       const currentDate = new Date().toISOString();
-      const newTenant: Tenant = {
-        id: db.tenants.length > 0 ? Math.max(...db.tenants.map((t) => t.id)) + 1 : 1,
+      const newContent: Content = {
+        id: db.contents.length > 0 ? Math.max(...db.contents.map((t) => t.id)) + 1 : 1,
         name,
         createdAt: currentDate,
         updatedAt: currentDate,
       };
 
-      db.tenants.push(newTenant);
+      db.contents.push(newContent);
 
       await writeDB(db);
 
-      return newTenant;
+      return newContent;
     },
-    updateTenant: async (_: unknown, { id, name }: { id: string; name?: string }) => {
+    updateContent: async (_: unknown, { id, name }: { id: string; name?: string }) => {
       const db = await readDB();
       const idAsNumber = parseInt(id);
-      const tenantIndex = db.tenants.findIndex((tenant) => tenant.id === idAsNumber);
+      const contentIndex = db.contents.findIndex((content) => content.id === idAsNumber);
 
-      if (tenantIndex === -1) {
-        throw new Error(`Tenant with ID ${id} not found`);
+      if (contentIndex === -1) {
+        throw new Error(`Content with ID ${id} not found`);
       }
 
-      const updatedTenant: Tenant = {
-        ...db.tenants[tenantIndex],
-        name: name !== undefined ? name : db.tenants[tenantIndex].name,
+      const updatedContent: Content = {
+        ...db.contents[contentIndex],
+        name: name !== undefined ? name : db.contents[contentIndex].name,
         updatedAt: new Date().toISOString(),
       };
 
-      db.tenants[tenantIndex] = updatedTenant;
+      db.contents[contentIndex] = updatedContent;
 
       await writeDB(db);
 
-      return updatedTenant;
+      return updatedContent;
     },
-    deleteTenants: async (_: unknown, { ids }: { ids: string[] }) => {
+    deleteContents: async (_: unknown, { ids }: { ids: string[] }) => {
       const db = await readDB();
       const idNumbers = ids.map((id) => parseInt(id));
 
-      db.tenants = db.tenants.filter((tenant) => !idNumbers.includes(tenant.id));
+      db.contents = db.contents.filter((content) => !idNumbers.includes(content.id));
 
       await writeDB(db);
 
@@ -123,16 +123,16 @@ async function startServer() {
     await fs.access(DB_PATH);
   } catch {
     const initialData: DB = {
-      tenants: [
+      contents: [
         {
           id: 1,
-          name: '엔씨소프트',
+          name: '데이터 1',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
         {
           id: 2,
-          name: 'F&F',
+          name: '데이터 2',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -152,7 +152,7 @@ async function startServer() {
   app.use('/', cors(), express.json(), expressMiddleware(server) as unknown as express.RequestHandler);
 
   app.listen(4000, () => {
-    console.log('http://localhost:4000/');
+    // console.log('http://localhost:4000/');
   });
 }
 

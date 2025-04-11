@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { GET_TENANT, ReadTenantVariables, TenantData, UPDATE_TENANT, UpdateTenantResponse, UpdateTenantVariables } from '@/graphql/tenant';
+import { ContentData, GET_CONTENT, ReadContentVariables, UPDATE_CONTENT, UpdateContentResponse, UpdateContentVariables } from '@/graphql/content';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
@@ -9,7 +9,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { z } from 'zod';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
 
-export default function PagesTenantManagementEdit() {
+export default function PagesContentManagementEdit() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const notifications = useNotifications();
@@ -18,19 +18,19 @@ export default function PagesTenantManagementEdit() {
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const tenantFormSchema = z.object({
+  const contentFormSchema = z.object({
     name: z.string().min(1, { message: '이름을 입력해주세요.' }).trim(),
   });
 
-  const { data, loading } = useQuery<TenantData, ReadTenantVariables>(GET_TENANT, {
+  const { data, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
     variables: { id: id || '' },
     skip: !id,
     fetchPolicy: 'network-only',
   });
 
-  const [updateTenant, { loading: isSubmitting }] = useMutation<UpdateTenantResponse, UpdateTenantVariables>(UPDATE_TENANT, {
+  const [updateContent, { loading: isSubmitting }] = useMutation<UpdateContentResponse, UpdateContentVariables>(UPDATE_CONTENT, {
     onCompleted: () => {
-      navigate(`/tenant-management/${id}`);
+      navigate(`/content-management/${id}`);
     },
   });
 
@@ -40,12 +40,12 @@ export default function PagesTenantManagementEdit() {
   }, []);
 
   const handleClickCancel = useCallback(() => {
-    navigate(`/tenant-management/${id}`);
+    navigate(`/content-management/${id}`);
   }, [navigate, id]);
 
   const handleClickSave = useCallback(async () => {
     try {
-      const result = tenantFormSchema.safeParse({ name });
+      const result = contentFormSchema.safeParse({ name });
 
       if (!result.success) {
         const formattedErrors = result.error.format();
@@ -57,24 +57,24 @@ export default function PagesTenantManagementEdit() {
 
       setError(null);
 
-      await updateTenant({ variables: { id: id || '', name: result.data.name } });
+      await updateContent({ variables: { id: id || '', name: result.data.name } });
 
-      notifications.show('테넌트를 수정했습니다.', { severity: 'success', autoHideDuration: 3000 });
+      notifications.show('컨텐츠를 수정했습니다.', { severity: 'success', autoHideDuration: 3000 });
     } catch (error) {
       console.error(error);
 
-      setError('테넌트 수정 중 오류가 발생했습니다.');
+      setError('컨텐츠 수정 중 오류가 발생했습니다.');
     }
-  }, [tenantFormSchema, name, updateTenant, id, notifications]);
+  }, [contentFormSchema, name, updateContent, id, notifications]);
 
   useEffect(() => {
-    if (data?.tenant) {
-      setName(data.tenant.name);
+    if (data?.content) {
+      setName(data.content.name);
     }
   }, [data]);
 
   useEffect(() => {
-    if (nameRef.current && !loading && data?.tenant) {
+    if (nameRef.current && !loading && data?.content) {
       nameRef.current.focus();
     }
   }, [data, loading]);

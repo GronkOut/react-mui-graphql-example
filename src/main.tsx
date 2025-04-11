@@ -1,13 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
+import ContentManagementCreatePage from '@/pages/ContentManagement/Create';
+import ContentManagementListPage from '@/pages/ContentManagement/List';
+import ContentManagementReadPage from '@/pages/ContentManagement/Read';
+import ContentManagementUpdatePage from '@/pages/ContentManagement/Update';
 import DashboardPage from '@/pages/Dashboard';
 import NotFoundPage from '@/pages/Error/NotFound';
 import SignInPage from '@/pages/SignIn';
-import TenantManagementCreatePage from '@/pages/TenantManagement/Create';
-import TenantManagementListPage from '@/pages/TenantManagement/List';
-import TenantManagementReadPage from '@/pages/TenantManagement/Read';
-import TenantManagementUpdatePage from '@/pages/TenantManagement/Update';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import DefaultLayout from '@/components/DefaultLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -45,23 +45,23 @@ createRoot(document.getElementById('application')!).render(
                       Component: DashboardPage,
                     },
                     {
-                      path: 'tenant-management',
+                      path: 'content-management',
                       children: [
                         {
                           path: '',
-                          Component: TenantManagementListPage,
+                          Component: ContentManagementListPage,
                         },
                         {
                           path: 'create',
-                          Component: TenantManagementCreatePage,
+                          Component: ContentManagementCreatePage,
                         },
                         {
                           path: ':id',
-                          Component: TenantManagementReadPage,
+                          Component: ContentManagementReadPage,
                         },
                         {
                           path: ':id/edit',
-                          Component: TenantManagementUpdatePage,
+                          Component: ContentManagementUpdatePage,
                         },
                       ],
                     },

@@ -11,30 +11,30 @@ export default function DefaultLayout() {
   let title = '';
   let breadcrumbs = undefined;
 
-  if (pathSegments[0] === 'tenant-management') {
+  if (pathSegments[0] === 'content-management') {
     if (pathSegments[1] === 'create') {
-      title = '테넌트 생성';
+      title = '컨텐츠 생성';
       breadcrumbs = [
-        { title: '테넌트 관리', path: 'tenant-management' },
-        { title: '생성', path: 'tenant-management/create' },
+        { title: '컨텐츠 관리', path: 'content-management' },
+        { title: '생성', path: 'content-management/create' },
       ];
     } else if (params.id) {
       if (pathSegments[2] === 'edit') {
-        title = '테넌트 수정';
+        title = '컨텐츠 수정';
         breadcrumbs = [
-          { title: '테넌트 관리', path: 'tenant-management' },
-          { title: params.id, path: `tenant-management/${params.id}` },
-          { title: '수정', path: `tenant-management/${params.id}/edit` },
+          { title: '컨텐츠 관리', path: 'content-management' },
+          { title: params.id, path: `content-management/${params.id}` },
+          { title: '수정', path: `content-management/${params.id}/edit` },
         ];
       } else {
-        title = '테넌트 정보';
+        title = '컨텐츠 정보';
         breadcrumbs = [
-          { title: '테넌트 관리', path: 'tenant-management' },
-          { title: params.id, path: `tenant-management/${params.id}` },
+          { title: '컨텐츠 관리', path: 'content-management' },
+          { title: params.id, path: `content-management/${params.id}` },
         ];
       }
     } else {
-      title = '테넌트 목록';
+      title = '컨텐츠 목록';
     }
   }
 

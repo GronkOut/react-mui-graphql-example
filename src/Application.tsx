@@ -19,10 +19,10 @@ const navigation: Navigation = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'tenant-management',
-    title: '테넌트 관리',
+    segment: 'content-management',
+    title: '컨텐츠 관리',
     icon: <AccountTreeIcon />,
-    pattern: 'tenant-management{/:id}*',
+    pattern: 'content-management{/:id}*',
   },
 ];
 

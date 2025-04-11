@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { DELETE_TENANTS, DeleteTenantsResponse, DeleteTenantsVariables, GET_TENANT, GET_TENANTS, ReadTenantVariables, TenantData, TenantsData } from '@/graphql/tenant';
+import { ContentData, ContentsData, DELETE_CONTENTS, DeleteContentsResponse, DeleteContentsVariables, GET_CONTENT, GET_CONTENTS, ReadContentVariables } from '@/graphql/content';
 import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import { useMutation, useQuery } from '@apollo/client';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,28 +11,28 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
 import dayjs from 'dayjs';
 
-export default function PagesTenantManagementDetail() {
+export default function PagesContentManagementDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { refetch } = useQuery<TenantsData>(GET_TENANTS);
-  const { data, loading } = useQuery<TenantData, ReadTenantVariables>(GET_TENANT, {
+  const { refetch } = useQuery<ContentsData>(GET_CONTENTS);
+  const { data, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
     variables: { id: id || '' },
     skip: !id,
   });
-  const [deleteTenants] = useMutation<DeleteTenantsResponse, DeleteTenantsVariables>(DELETE_TENANTS);
+  const [deleteContents] = useMutation<DeleteContentsResponse, DeleteContentsVariables>(DELETE_CONTENTS);
 
   const deleteConfirm = useConfirmDialog({
     onConfirm: async () => {
       try {
-        await deleteTenants({ variables: { ids: [id as string] } });
+        await deleteContents({ variables: { ids: [id as string] } });
 
         await refetch();
 
-        notifications.show('테넌트를 삭제했습니다.', { severity: 'success', autoHideDuration: 3000 });
+        notifications.show('컨텐츠를 삭제했습니다.', { severity: 'success', autoHideDuration: 3000 });
 
-        navigate('/tenant-management');
+        navigate('/content-management');
       } catch (error) {
         console.error(error);
       }
@@ -40,18 +40,18 @@ export default function PagesTenantManagementDetail() {
   });
 
   const handleClickBack = useCallback(() => {
-    navigate('/tenant-management');
+    navigate('/content-management');
   }, [navigate]);
 
   const handleClickEdit = useCallback(() => {
-    navigate(`/tenant-management/${id}/edit`);
+    navigate(`/content-management/${id}/edit`);
   }, [navigate, id]);
 
   if (loading) {
     return <LoadingIndicator />;
   }
 
-  if (!data?.tenant) {
+  if (!data?.content) {
     return (
       <Stack
         sx={{
@@ -65,17 +65,17 @@ export default function PagesTenantManagementDetail() {
     );
   }
 
-  const { tenant } = data;
+  const { content } = data;
 
   return (
     <>
       <Card sx={{ background: 'none', boxShadow: 'none' }}>
         <CardContent>
           <Stack spacing={3}>
-            <TextField label="이름" value={tenant.name} slotProps={{ input: { readOnly: true } }} />
+            <TextField label="이름" value={content.name} slotProps={{ input: { readOnly: true } }} />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
-              <TextField label="생성일" value={dayjs(tenant.createdAt).format('YYYY-MM-DD HH:mm:ss')} slotProps={{ input: { readOnly: true } }} sx={{ flexGrow: 1 }} />
-              <TextField label="수정일" value={dayjs(tenant.updatedAt).format('YYYY-MM-DD HH:mm:ss')} slotProps={{ input: { readOnly: true } }} sx={{ flexGrow: 1 }} />
+              <TextField label="생성일" value={dayjs(content.createdAt).format('YYYY-MM-DD HH:mm:ss')} slotProps={{ input: { readOnly: true } }} sx={{ flexGrow: 1 }} />
+              <TextField label="수정일" value={dayjs(content.updatedAt).format('YYYY-MM-DD HH:mm:ss')} slotProps={{ input: { readOnly: true } }} sx={{ flexGrow: 1 }} />
             </Stack>
           </Stack>
         </CardContent>
@@ -96,7 +96,7 @@ export default function PagesTenantManagementDetail() {
       <Dialog container={document.getElementById('layers')} open={deleteConfirm.isOpen} onClose={deleteConfirm.handleClose}>
         <DialogTitle>삭제 확인</DialogTitle>
         <DialogContent>
-          <DialogContentText>테넌트를 삭제하시겠습니까?</DialogContentText>
+          <DialogContentText>컨텐츠를 삭제하시겠습니까?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={deleteConfirm.handleClose} color="primary">

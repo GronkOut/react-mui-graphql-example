@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { CREATE_TENANT, CreateTenantResponse, CreateTenantVariables, GET_TENANTS, TenantsData } from '@/graphql/tenant';
+import { CREATE_CONTENT, ContentsData, CreateContentResponse, CreateContentVariables, GET_CONTENTS } from '@/graphql/content';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
@@ -8,19 +8,19 @@ import { Button, Card, CardActions, CardContent, Divider, Stack, TextField } fro
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { z } from 'zod';
 
-export default function PagesTenantManagementCreate() {
+export default function PagesContentManagementCreate() {
   const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement>(null);
 
-  const { refetch } = useQuery<TenantsData>(GET_TENANTS);
-  const [createTenant, { loading: isSubmitting }] = useMutation<CreateTenantResponse, CreateTenantVariables>(CREATE_TENANT);
+  const { refetch } = useQuery<ContentsData>(GET_CONTENTS);
+  const [createContent, { loading: isSubmitting }] = useMutation<CreateContentResponse, CreateContentVariables>(CREATE_CONTENT);
 
   const notifications = useNotifications();
 
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const tenantFormSchema = z.object({
+  const contentFormSchema = z.object({
     name: z.string().min(1, { message: '이름을 입력해주세요.' }).trim(),
   });
 
@@ -30,12 +30,12 @@ export default function PagesTenantManagementCreate() {
   }, []);
 
   const handleClickCancel = useCallback(() => {
-    navigate('/tenant-management');
+    navigate('/content-management');
   }, [navigate]);
 
   const handleClickCreate = useCallback(async () => {
     try {
-      const result = tenantFormSchema.safeParse({ name });
+      const result = contentFormSchema.safeParse({ name });
 
       if (!result.success) {
         const formattedErrors = result.error.format();
@@ -47,19 +47,19 @@ export default function PagesTenantManagementCreate() {
 
       setError(null);
 
-      const { data } = await createTenant({ variables: { name: result.data.name } });
+      const { data } = await createContent({ variables: { name: result.data.name } });
 
       await refetch();
 
       notifications.show('테턴트를 생성했습니다.', { severity: 'success', autoHideDuration: 3000 });
 
-      navigate(`/tenant-management/${data?.createTenant.id}`);
+      navigate(`/content-management/${data?.createContent.id}`);
     } catch (error) {
       console.error(error);
 
-      setError('테넌트 생성 중 오류가 발생했습니다.');
+      setError('컨텐츠 생성 중 오류가 발생했습니다.');
     }
-  }, [tenantFormSchema, name, createTenant, refetch, navigate]);
+  }, [contentFormSchema, name, createContent, refetch, navigate]);
 
   useEffect(() => {
     if (nameRef.current) {

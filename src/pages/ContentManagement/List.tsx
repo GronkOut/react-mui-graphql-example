@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { DELETE_TENANTS, DeleteTenantsResponse, DeleteTenantsVariables, GET_TENANTS, TenantsData } from '@/graphql/tenant';
+import { ContentsData, DELETE_CONTENTS, DeleteContentsResponse, DeleteContentsVariables, GET_CONTENTS } from '@/graphql/content';
 import { useMutation, useQuery } from '@apollo/client';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -80,7 +80,7 @@ function CustomToolbar(props: GridToolbarProps & ToolbarPropsOverrides) {
             }}
           />
           <Button variant="contained" size="small" startIcon={<CreateIcon />} onClick={onClickCreate}>
-            테넌트 생성
+            컨텐츠 생성
           </Button>
         </Stack>
       </Box>
@@ -88,12 +88,12 @@ function CustomToolbar(props: GridToolbarProps & ToolbarPropsOverrides) {
   );
 }
 
-export default function PagesTenantManagementList() {
+export default function PagesContentManagementList() {
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { loading, data, refetch } = useQuery<TenantsData>(GET_TENANTS);
-  const [deleteTenants] = useMutation<DeleteTenantsResponse, DeleteTenantsVariables>(DELETE_TENANTS);
+  const { loading, data, refetch } = useQuery<ContentsData>(GET_CONTENTS);
+  const [deleteContents] = useMutation<DeleteContentsResponse, DeleteContentsVariables>(DELETE_CONTENTS);
 
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -167,7 +167,7 @@ export default function PagesTenantManagementList() {
 
   const handleRowClick: GridEventListener<'rowClick'> = useCallback(
     ({ row }) => {
-      navigate(`/tenant-management/${row.id}`);
+      navigate(`/content-management/${row.id}`);
     },
     [navigate],
   );
@@ -180,20 +180,20 @@ export default function PagesTenantManagementList() {
     setDeleteDialogOpen(false);
 
     try {
-      await deleteTenants({ variables: { ids: rowSelectionModel as string[] } });
+      await deleteContents({ variables: { ids: rowSelectionModel as string[] } });
 
       await refetch();
 
-      notifications.show('테넌트를 삭제했습니다.', { severity: 'success', autoHideDuration: 3000 });
+      notifications.show('컨텐츠를 삭제했습니다.', { severity: 'success', autoHideDuration: 3000 });
 
       setRowSelectionModel([]);
     } catch (error) {
       console.error(error);
     }
-  }, [deleteTenants, refetch, rowSelectionModel]);
+  }, [deleteContents, refetch, rowSelectionModel]);
 
   const handleCreateClick = useCallback(() => {
-    navigate('/tenant-management/create');
+    navigate('/content-management/create');
   }, [navigate]);
 
   const handleDeleteClick = useCallback(() => {
@@ -204,11 +204,11 @@ export default function PagesTenantManagementList() {
     return <LoadingIndicator />;
   }
 
-  if (!data?.tenants) {
+  if (!data?.contents) {
     return null;
   }
 
-  const { tenants } = data;
+  const { contents } = data;
 
   return (
     <>
@@ -217,7 +217,7 @@ export default function PagesTenantManagementList() {
           <DataGrid
             loading={loading}
             columns={columns}
-            rows={tenants || []}
+            rows={contents || []}
             initialState={{
               pagination: { paginationModel: { page: 0, pageSize: 10 } },
               filter: {
