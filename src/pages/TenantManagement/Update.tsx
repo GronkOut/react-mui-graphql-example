@@ -141,7 +141,7 @@ export default function PagesTenantManagementUpdate() {
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
-        <Stack spacing={3}>
+        <Stack sx={{ gap: '20px' }}>
           <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
 
           {/* 콘텐츠 목록 */}

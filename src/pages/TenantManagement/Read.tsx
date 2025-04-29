@@ -68,7 +68,7 @@ export default function PagesTenantManagementRead() {
     <>
       <Card sx={{ background: 'none', boxShadow: 'none' }}>
         <CardContent>
-          <Stack spacing={3}>
+          <Stack sx={{ gap: '20px' }}>
             <TextField label="이름" value={tenant.name} autoComplete="off" disabled />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
               <TextField label="생성일" value={dayjs(tenant.createdAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />

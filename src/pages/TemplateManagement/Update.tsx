@@ -87,7 +87,7 @@ export default function PagesTemplateManagementUpdate() {
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
-        <Stack spacing={5}>
+        <Stack sx={{ gap: '20px' }}>
           <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
         </Stack>
       </CardContent>

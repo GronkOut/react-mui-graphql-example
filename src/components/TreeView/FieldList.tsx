@@ -95,7 +95,7 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
 
   return (
     <Box key={`field-item-${index}`} sx={{ marginBottom: '30px' }}>
-      <Stack direction="row" alignItems="center" sx={{ marginBottom: '20px', gap: '10px' }}>
+      <Stack sx={{ flexDirection: 'row', alignItems: 'center', marginBottom: '20px', gap: '10px' }}>
         <Typography variant="body2">필드 아이템</Typography>
         <Button size="small" color="error" sx={{ minWidth: '40px' }} onClick={handleClickFieldDelete}>
           삭제

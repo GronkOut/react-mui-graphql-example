@@ -369,43 +369,39 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange }: Pr
       <Divider sx={{ display: { xs: 'block', lg: 'none' } }} />
 
       {/* 노드 상세 정보 영역 */}
-      <Paper sx={{ overflowY: 'auto', flex: 1, padding: '20px', boxShadow: 'none', borderRadius: '0' }}>
-        {!selectedItem ? (
-          <Typography>왼쪽 트리에서 노드를 선택하세요.</Typography>
-        ) : (
-          <>
-            <Typography sx={{ marginBottom: '20px', fontSize: '20px' }}>기본 정보</Typography>
-            <Stack>
-              <TextField label="ID" value={selectedItem.id} autoComplete="off" disabled sx={{ marginBottom: '20px' }} />
-              <TextField inputRef={keyInputRef} label="Key" value={localNodeKeyValue} autoComplete="off" error={!!keyError} helperText={keyError} sx={{ marginBottom: '20px' }} onChange={handleChangeNodeKey} onBlur={handleNodeKeyBlur} />
-              <FormControlLabel
-                label="사용자 어드민에서 현재 노드를 삭제할 수 있도록 허용합니다."
-                labelPlacement="start"
-                control={<Switch checked={selectedItem.editable ?? true} onChange={handleChangeItemPropToggle('editable')} />}
-                sx={{ marginBottom: '5px', width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
-              />
-              <FormControlLabel
-                label="사용자 어드민에서 하위 노드의 순서를 바꿀 수 있도록 허용 합니다."
-                labelPlacement="start"
-                control={<Switch checked={selectedItem.orderable ?? true} onChange={handleChangeItemPropToggle('orderable')} />}
-                sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
-              />
-            </Stack>
-
-            {/* 필드 목록 */}
-            <FieldList
-              localFields={localFields}
-              containerRef={containerRef}
-              fieldErrors={fieldErrors}
-              handleAddField={handleAddField}
-              handleDeleteField={handleDeleteField}
-              handleChangeField={handleChangeField}
-              handleChangeFieldType={handleChangeFieldType}
-              handleChangeFieldToggle={handleChangeFieldToggle}
+      {selectedItem && (
+        <Paper sx={{ overflowY: 'auto', flex: 1, padding: '20px', boxShadow: 'none', borderRadius: '0' }}>
+          <Typography sx={{ marginBottom: '20px', fontSize: '20px' }}>기본 정보</Typography>
+          <Stack>
+            <TextField label="ID" value={selectedItem.id} autoComplete="off" disabled sx={{ marginBottom: '20px' }} />
+            <TextField inputRef={keyInputRef} label="Key" value={localNodeKeyValue} autoComplete="off" error={!!keyError} helperText={keyError} sx={{ marginBottom: '20px' }} onChange={handleChangeNodeKey} onBlur={handleNodeKeyBlur} />
+            <FormControlLabel
+              label="사용자 어드민에서 현재 노드를 삭제할 수 있도록 허용합니다."
+              labelPlacement="start"
+              control={<Switch checked={selectedItem.editable ?? true} onChange={handleChangeItemPropToggle('editable')} />}
+              sx={{ marginBottom: '5px', width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
             />
-          </>
-        )}
-      </Paper>
+            <FormControlLabel
+              label="사용자 어드민에서 하위 노드의 순서를 바꿀 수 있도록 허용 합니다."
+              labelPlacement="start"
+              control={<Switch checked={selectedItem.orderable ?? true} onChange={handleChangeItemPropToggle('orderable')} />}
+              sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
+            />
+          </Stack>
+
+          {/* 필드 목록 */}
+          <FieldList
+            localFields={localFields}
+            containerRef={containerRef}
+            fieldErrors={fieldErrors}
+            handleAddField={handleAddField}
+            handleDeleteField={handleDeleteField}
+            handleChangeField={handleChangeField}
+            handleChangeFieldType={handleChangeFieldType}
+            handleChangeFieldToggle={handleChangeFieldToggle}
+          />
+        </Paper>
+      )}
 
       {/* 노드 삭제 다이얼로그 */}
       {deleteConfirm.ConfirmDialog}

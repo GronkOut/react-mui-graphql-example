@@ -69,7 +69,7 @@ export default function PagesContentManagementRead() {
     <>
       <Card sx={{ background: 'none', boxShadow: 'none', marginBottom: '100px' }}>
         <CardContent>
-          <Stack spacing={3}>
+          <Stack sx={{ gap: '20px' }}>
             <TextField label="이름" value={content.name} autoComplete="off" disabled />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
               <TextField label="생성일" value={dayjs(content.createdAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />

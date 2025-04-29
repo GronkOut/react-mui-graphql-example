@@ -148,7 +148,7 @@ export default function PagesTemplateManagementRead() {
     <>
       <Card sx={{ background: 'none', boxShadow: 'none', marginBottom: '100px' }}>
         <CardContent>
-          <Stack spacing={3}>
+          <Stack sx={{ gap: '20px' }}>
             <TextField label="이름" value={template?.name} autoComplete="off" disabled />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
               <TextField label="생성일" value={dayjs(template?.createdAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
