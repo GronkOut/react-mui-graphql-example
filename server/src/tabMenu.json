@@ -1,0 +1,158 @@
+[
+  {
+    "id": "01fef0ca-df14-470c-8499-79e82e484628",
+    "key": "tabMenu",
+    "orderable": true,
+    "editable": false,
+    "fields": [
+      {
+        "key": "name_ko",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "탭 노출"
+      },
+      {
+        "key": "name_en",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "Tab Menu"
+      }
+    ],
+    "children": [
+      {
+        "id": "43beae77-fc7a-4269-b0fd-9307983982a4",
+        "key": "volumeImage",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "입체 효과"
+          },
+          {
+            "key": "name_en",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "Volume Image"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useSendStorage",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useCopySettings",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "id": "2e0b805c-84aa-4871-bd44-5443913e8df3",
+        "key": "virtualTryOn",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "인물 착장"
+          },
+          {
+            "key": "name_en",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "Virtual Try On"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useSendStorage",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useCopySettings",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": false
+          }
+        ],
+        "children": []
+      },
+      {
+        "id": "0f7aaaae-b5d2-4533-bfc9-dcf5c1aba152",
+        "key": "imageGenerate",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "생성"
+          },
+          {
+            "key": "name_en",
+            "type": "none",
+            "editable": true,
+            "required": true,
+            "value": "Image generate"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useSendStorage",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": true
+          },
+          {
+            "key": "useCopySettings",
+            "type": "none",
+            "editable": false,
+            "required": true,
+            "value": true
+          }
+        ],
+        "children": []
+      }
+    ]
+  }
+]

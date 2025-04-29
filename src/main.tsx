@@ -5,9 +5,15 @@ import ContentManagementCreatePage from '@/pages/ContentManagement/Create';
 import ContentManagementListPage from '@/pages/ContentManagement/List';
 import ContentManagementReadPage from '@/pages/ContentManagement/Read';
 import ContentManagementUpdatePage from '@/pages/ContentManagement/Update';
-import DashboardPage from '@/pages/Dashboard';
 import NotFoundPage from '@/pages/Error/NotFound';
 import SignInPage from '@/pages/SignIn';
+import TemplateManagementCreatePage from '@/pages/TemplateManagement/Create';
+import TemplateManagementReadPage from '@/pages/TemplateManagement/Read';
+import TemplateManagementUpdatePage from '@/pages/TemplateManagement/Update';
+import TenantManagementCreatePage from '@/pages/TenantManagement/Create';
+import TenantManagementListPage from '@/pages/TenantManagement/List';
+import TenantManagementReadPage from '@/pages/TenantManagement/Read';
+import TenantManagementUpdatePage from '@/pages/TenantManagement/Update';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import DefaultLayout from '@/components/DefaultLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
@@ -17,6 +23,14 @@ import { AuthenticationProvider } from '@/contexts/Authentication';
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+    },
+  },
 });
 
 createRoot(document.getElementById('application')!).render(
@@ -41,8 +55,30 @@ createRoot(document.getElementById('application')!).render(
                   ),
                   children: [
                     {
-                      path: 'dashboard',
-                      Component: DashboardPage,
+                      path: 'tenant-management',
+                      children: [
+                        {
+                          path: '',
+                          Component: TenantManagementListPage,
+                        },
+                        {
+                          path: 'create',
+                          Component: TenantManagementCreatePage,
+                        },
+                        {
+                          path: ':tenantId',
+                          children: [
+                            {
+                              path: '',
+                              Component: TenantManagementReadPage,
+                            },
+                            {
+                              path: 'edit',
+                              Component: TenantManagementUpdatePage,
+                            },
+                          ],
+                        },
+                      ],
                     },
                     {
                       path: 'content-management',
@@ -56,20 +92,42 @@ createRoot(document.getElementById('application')!).render(
                           Component: ContentManagementCreatePage,
                         },
                         {
-                          path: ':id',
-                          Component: ContentManagementReadPage,
-                        },
-                        {
-                          path: ':id/edit',
-                          Component: ContentManagementUpdatePage,
+                          path: ':contentId',
+                          children: [
+                            {
+                              path: '',
+                              Component: ContentManagementReadPage,
+                            },
+                            {
+                              path: 'edit',
+                              Component: ContentManagementUpdatePage,
+                            },
+                            {
+                              path: 'create',
+                              Component: TemplateManagementCreatePage,
+                            },
+                            {
+                              path: ':templateId',
+                              children: [
+                                {
+                                  path: '',
+                                  Component: TemplateManagementReadPage,
+                                },
+                                {
+                                  path: 'edit',
+                                  Component: TemplateManagementUpdatePage,
+                                },
+                              ],
+                            },
+                          ],
                         },
                       ],
                     },
+                    {
+                      path: '*',
+                      Component: NotFoundPage,
+                    },
                   ],
-                },
-                {
-                  path: '*',
-                  Component: NotFoundPage,
                 },
               ],
             },

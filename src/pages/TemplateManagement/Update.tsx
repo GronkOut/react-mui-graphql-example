@@ -1,30 +1,30 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { ContentData, GET_CONTENT, ReadContentVariables, UPDATE_CONTENT, UpdateContentResponse, UpdateContentVariables } from '@/graphql/content';
+import { GET_TEMPLATE, ReadTemplateVariables, TemplateData, UPDATE_TEMPLATE, UpdateTemplateResponse, UpdateTemplateVariables } from '@/graphql/template';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import { Button, Card, CardActions, CardContent, Divider, Stack, TextField } from '@mui/material';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
-import { contentNameValidation } from '@/utils/dataGrid';
+import { templateNameValidation } from '@/utils/dataGrid';
 
-export default function PagesContentManagementUpdate() {
+export default function PagesTemplateManagementUpdate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
-  const { contentId } = useParams<{ contentId: string }>();
+  const { contentId, templateId } = useParams<{ contentId: string; templateId: string }>();
   const nameRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { data, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
-    variables: { id: contentId || '' },
-    skip: !contentId,
+  const { data, loading } = useQuery<TemplateData, ReadTemplateVariables>(GET_TEMPLATE, {
+    variables: { id: templateId || '' },
+    skip: !templateId,
   });
-  const [updateContent, { loading: isSubmitting }] = useMutation<UpdateContentResponse, UpdateContentVariables>(UPDATE_CONTENT, {
+  const [updateTemplate, { loading: isSubmitting }] = useMutation<UpdateTemplateResponse, UpdateTemplateVariables>(UPDATE_TEMPLATE, {
     onCompleted: () => {
-      navigate(`/content-management/${contentId}`);
+      navigate(`/content-management/${contentId}/${templateId}`);
     },
   });
 
@@ -34,12 +34,12 @@ export default function PagesContentManagementUpdate() {
   }, []);
 
   const handleClickCancel = useCallback(() => {
-    navigate(`/content-management/${contentId}`);
-  }, [navigate, contentId]);
+    navigate(`/content-management/${contentId}/${templateId}`);
+  }, [navigate, contentId, templateId]);
 
   const handleClickSave = useCallback(async () => {
     try {
-      const result = contentNameValidation.safeParse({ name });
+      const result = templateNameValidation.safeParse({ name });
 
       if (!result.success) {
         const formattedErrors = result.error.format();
@@ -51,15 +51,15 @@ export default function PagesContentManagementUpdate() {
 
       setError(null);
 
-      await updateContent({ variables: { id: contentId as string, name: result.data.name } });
+      await updateTemplate({ variables: { id: templateId as string, name: result.data.name } });
 
-      notifications.show('콘텐츠를 수정했습니다.', { severity: 'success', autoHideDuration: 1000 });
+      notifications.show('템플릿을 수정했습니다.', { severity: 'success', autoHideDuration: 1000 });
     } catch (error) {
-      notifications.show('콘텐츠 수정 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
+      notifications.show('템플릿 수정 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
 
-      setError(error instanceof Error ? error.message : '콘텐츠 수정 중 오류가 발생했습니다.');
+      setError(error instanceof Error ? error.message : '템플릿 수정 중 오류가 발생했습니다.');
     }
-  }, [name, updateContent, contentId, notifications]);
+  }, [name, updateTemplate, templateId, notifications]);
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -69,13 +69,13 @@ export default function PagesContentManagementUpdate() {
   );
 
   useEffect(() => {
-    if (data?.content) {
-      setName(data.content.name);
+    if (data?.template) {
+      setName(data.template.name);
     }
   }, [data]);
 
   useEffect(() => {
-    if (nameRef.current && !loading && data?.content) {
+    if (nameRef.current && !loading && data?.template) {
       nameRef.current.focus();
     }
   }, [data, loading]);

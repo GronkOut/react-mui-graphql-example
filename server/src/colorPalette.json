@@ -1,0 +1,2019 @@
+[
+  {
+    "id": "eca35d54-f1de-46eb-ba7d-a08a182bae2e",
+    "key": "colorPalette",
+    "orderable": true,
+    "editable": true,
+    "fields": [
+      {
+        "key": "name_ko",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "컬러 팔레트"
+      },
+      {
+        "key": "name_en",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "Color Palette"
+      }
+    ],
+    "children": [
+      {
+        "id": "28952825-b04f-41f2-97ed-faef392c1601",
+        "key": "common",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "공통"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "COMMON"
+          }
+        ],
+        "children": [
+          {
+            "id": "d77fd1ff-f771-4635-9190-985ab05149ef",
+            "key": "red",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "RED"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "RED"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#B22D29",
+                  "#C9C9C9",
+                  "#EFECDF",
+                  "#AD4545",
+                  "#772F2F",
+                  "#EAEAEA",
+                  "#DBD8CC"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "3f7afe39-0db7-4040-8623-114266982bdb",
+            "key": "brown",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BROWN"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BROWN"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#95644B",
+                  "#AB7E37",
+                  "#C69720",
+                  "#A07C6B",
+                  "#7A5646",
+                  "#CC9F5E",
+                  "#895F27"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "63272b8a-0f8f-4cbc-8278-eb393aadc26c",
+            "key": "khaki",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "KHAKI"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "KHAKI"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#B29F84",
+                  "#6C7269",
+                  "#465148",
+                  "#A0978D",
+                  "#ACB5A9",
+                  "#364736"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "b7307a8e-d18c-4a8a-b115-e9f1344bd9ed",
+            "key": "orange",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "ORANGE"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "ORANGE"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#D36922",
+                  "#625668",
+                  "#2A2B2B",
+                  "#DD9F76",
+                  "#C15105",
+                  "#A390AF",
+                  "#523463",
+                  "#5E5E5E",
+                  "#A0A0A0"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "2808d8f1-1f27-4bc3-8257-637e081a0197",
+        "key": "duvetica25fw",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "DUVETICA 25FW"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "DUVETICA 25FW"
+          }
+        ],
+        "children": [
+          {
+            "id": "383001aa-13d3-487e-b6f1-16f8e94f5c62",
+            "key": "classicLuxDuve",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Classic (Lux-Duve)"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Classic (Lux-Duve)"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#FFFFFC",
+                  "#ECE5DC",
+                  "#E4E0D9",
+                  "#F0E8D5"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "fc4c3eab-b984-4643-8652-3582f66c049a",
+            "key": "apresGolf",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Apres-Golf"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Apres-Golf"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#D2B694",
+                  "#C1A289",
+                  "#A58062",
+                  "#A78960",
+                  "#472D29"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "b87c4117-5c13-4f4f-8a1e-5149ac15c7e5",
+            "key": "premiumLifestyle",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Premium-Lifestyle"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Premium-Lifestyle"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#BEBD99",
+                  "#676446",
+                  "#706533",
+                  "#BEBD99",
+                  "#676446",
+                  "#706533",
+                  "#48422D"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "38f79cf7-b195-4cf2-86fc-e841c9be252d",
+            "key": "wellCation",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Well-cation"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Well-cation"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#CFD1D3",
+                  "#ABAAAA",
+                  "#726F6F",
+                  "#505154"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "1e17da96-9716-4956-ae05-dc8a33f2f0a5",
+            "key": "donna",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Donna"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Donna"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#E2A6C9",
+                  "#D17BAF",
+                  "#541020"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "2f1ad839-5825-45ed-a61a-b1b50f3ad0d4",
+            "key": "uomo",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Uomo"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Uomo"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#467FB3",
+                  "#3D6280",
+                  "#273D5E"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "ef158cfa-d90c-49af-bc93-89c9e0749040",
+            "key": "luxLeisure",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Lux-Leisure"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Lux-Leisure"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#FFFFFC",
+                  "#233465",
+                  "#111D3D"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "e14aced1-74e3-4f60-8f5d-b1d128f0c899",
+            "key": "apresSki",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Apres-Ski"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Apres-Ski"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#F0E8D5",
+                  "#D298C2",
+                  "#879ACE"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "6c80a59a-6af5-4d69-a7e1-239673ff7773",
+        "key": "sergioTacchini25fw",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "SERGIO TACCHINI 25FW"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "SERGIO TACCHINI 25FW"
+          }
+        ],
+        "children": [
+          {
+            "id": "e5732b49-a631-4380-9610-f962ec2e9bc2",
+            "key": "brandDna1",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brand DNA 1"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brand DNA 1"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#EFEFEA",
+                  "#A6232D",
+                  "#2C2D2F"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "652327ab-0c80-4f5f-bf04-ad72cab5ce6a",
+            "key": "brandDna2",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brand DNA 2"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brand DNA 2"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#EFEFEA",
+                  "#145148",
+                  "#2C3746"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "f991ccc4-9ec4-4a5c-87af-a408a3fdfe81",
+            "key": "athleisure1",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athleisure 1"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athleisure 1"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#EFEFEA",
+                  "#B49F8A",
+                  "#802941",
+                  "#907860",
+                  "#453833",
+                  "#E0D8C7",
+                  "#A85F6A",
+                  "#145148",
+                  "#40546B",
+                  "#2C3746",
+                  "#E6DCAB"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "efc3a785-9879-4282-baba-f44425bccbd6",
+            "key": "athleisure2",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athleisure 2"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athleisure 2"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#EFEFEA",
+                  "#40546B",
+                  "#E6DCAB",
+                  "#907860",
+                  "#453833",
+                  "#E0D8C7",
+                  "#A85F6A",
+                  "#802941",
+                  "#145148",
+                  "#2C3746"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "70f1ac73-d980-4a7e-996e-79e645bb0f93",
+            "key": "modern1",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Modern 1"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Modern 1"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#605C44",
+                  "#B8BBD3",
+                  "#CBCCC9",
+                  "#979798",
+                  "#4B4B4D",
+                  "#2C3746",
+                  "#2C2D2F",
+                  "#ACAC98"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "e5a9e926-7c1c-4e21-82f9-e84a29276855",
+            "key": "modern2",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Modern 2"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Modern 2"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#CBCCC9",
+                  "#ACAC98",
+                  "#2C3746",
+                  "#979798",
+                  "#4B4B4D",
+                  "#2C3746",
+                  "#2C2D2F",
+                  "#605C44",
+                  "#B8BBD3"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "22c91080-4291-4abd-8b8f-a346103dc1bd",
+            "key": "season1",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Season 1"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Season 1"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#EFEFEA",
+                  "#E57F4E",
+                  "#605C44",
+                  "#E6DCAB",
+                  "#ACAC98",
+                  "#453833",
+                  "#979798",
+                  "#4B4B4D"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "38bcf5ae-9a95-4bc2-aa2f-a5722bca667f",
+            "key": "season2",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Season 2"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Season 2"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#E6DCAB",
+                  "#453833",
+                  "#605C44",
+                  "#979798",
+                  "#4B4B4D",
+                  "#ACAC98",
+                  "#E57F4E",
+                  "#EFEFEA"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "d9c97353-88e7-4295-97cb-d0993c9222a2",
+        "key": "supra25fw",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "SUPRA 25FW"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "SUPRA 25FW"
+          }
+        ],
+        "children": [
+          {
+            "id": "f21d9c40-f6f1-4b5f-8ea1-73f00a33161c",
+            "key": "metal",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Metal"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Metal"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#C1C0C0",
+                  "#515151",
+                  "#081E2A",
+                  "#A4A4A4",
+                  "#6A6B6A",
+                  "#424142",
+                  "#2A2B2B",
+                  "#040000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "5d16e19f-0ea6-4bba-8874-26d6a26f0b3a",
+            "key": "brown",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brown"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Brown"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#967E5E",
+                  "#4E3429",
+                  "#040000",
+                  "#AA9675",
+                  "#9D9173",
+                  "#807459",
+                  "#6E4737",
+                  "#7E6453",
+                  "#5F4840",
+                  "#3D2E2E"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "50acd03b-0d9d-49a1-8fdd-1db373a40368",
+            "key": "autumn",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Autumn"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Autumn"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#F2EEEB",
+                  "#CA6D2E",
+                  "#35392A",
+                  "#D4CEC8",
+                  "#B29F84",
+                  "#967E5E",
+                  "#9E4B2A",
+                  "#6D715A",
+                  "#4E503D",
+                  "#757240",
+                  "#555030"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "68bea6ae-a8de-400a-a96e-aab3d992e643",
+            "key": "red",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Red"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Red"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#BB4654",
+                  "#D08A8F",
+                  "#6B6639",
+                  "#962838",
+                  "#A86A74",
+                  "#E0A6AD",
+                  "#555030",
+                  "#4E503D",
+                  "#35392A",
+                  "#39606F",
+                  "#153947"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "8230e672-03b1-4bb4-bbca-d0475c570211",
+            "key": "moncler",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Moncler"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Moncler"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#206A40",
+                  "#6D8AB3",
+                  "#3D2E2E",
+                  "#3F6959",
+                  "#2B463E",
+                  "#4F6588",
+                  "#2F4A77",
+                  "#18305F",
+                  "#5F4840",
+                  "#6E4737",
+                  "#4E3429"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "23ef2956-8368-44bf-a6dd-ce87e799b76d",
+            "key": "vintage",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#6D715A",
+                  "#DFAD54",
+                  "#4A3F5E",
+                  "#4E503D",
+                  "#35392A",
+                  "#757240",
+                  "#555030",
+                  "#B98D2F",
+                  "#65577B",
+                  "#784F6C",
+                  "#54334A"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "0ee5d032-31c7-480d-bdc8-6f264d6b654e",
+            "key": "leaves",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Leaves "
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Leaves "
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#9D9173",
+                  "#2B463E",
+                  "#040000",
+                  "#AA9675",
+                  "#967E5E",
+                  "#807459",
+                  "#3F6959",
+                  "#206A40",
+                  "#323333",
+                  "#424142",
+                  "#3D2E2E"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "a6654f7e-4907-471a-af6d-23595fa32c7d",
+            "key": "purple",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Purple"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Purple"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#7A7A7A",
+                  "#54334A",
+                  "#040000",
+                  "#A4A4A4",
+                  "#6A6B6A",
+                  "#424142",
+                  "#784F6C",
+                  "#65577B",
+                  "#4A3F5E",
+                  "#323333",
+                  "#3D2E2E"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "9a0b5bbb-b1ad-49cc-9a4a-2479bb7bff2a",
+        "key": "discovery25fw",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "DISCOVERY 25FW"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "DISCOVERY 25FW"
+          }
+        ],
+        "children": [
+          {
+            "id": "a24e58b6-11d4-4e52-807b-9a410bbb6957",
+            "key": "natural",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "NATURAL"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "NATURAL"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#E4E1D9",
+                  "#B5A68C",
+                  "#978A76",
+                  "#6C7269"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "f1f1a264-fa82-46d7-b7b2-80879168b162",
+            "key": "morden",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "MORDEN"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "MORDEN"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#D5F1DA",
+                  "#A7D1B6",
+                  "#ECEAE1"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "f12479c7-7af9-402c-a342-9bb6d179759e",
+            "key": "depthness",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "DEPTHNESS"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "DEPTHNESS"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#42312C",
+                  "#3F4244",
+                  "#58737A",
+                  "#1D2332",
+                  "#1A3531",
+                  "#465148",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "580d80e9-9595-405a-b074-04cee7c3baff",
+            "key": "prestigeOutdoor",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "PRESTIGE OUTDOOR"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "PRESTIGE OUTDOOR"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#4E4D33",
+                  "#677889",
+                  "#A36338",
+                  "#907B60",
+                  "#6E3438",
+                  "#435265",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "436faec3-8bb4-4077-b032-aea411291b64",
+            "key": "performance",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "PERFORMANCE"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "PERFORMANCE"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#55716D",
+                  "#273565",
+                  "#868942",
+                  "#4E2430",
+                  "#473D4E",
+                  "#C49B55",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "e8b3443a-340b-4d4e-9bc0-12bbdac803ba",
+            "key": "softscape",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "SOFTSCAPE"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "SOFTSCAPE"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#867366",
+                  "#79836F",
+                  "#B78790",
+                  "#998FA5",
+                  "#D2D4D7",
+                  "#8794A2"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "5d2b5872-d4ca-453e-bd9e-11cf3f1998f9",
+        "key": "mlbKids",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "MLB KIDS"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "MLB KIDS"
+          }
+        ],
+        "children": [
+          {
+            "id": "beed182e-a73d-4df3-b19f-188b73a4f193",
+            "key": "beige",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BEIGE"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BEIGE"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#040000",
+                  "#F8F3EC",
+                  "#C0B3A6",
+                  "#d8c4ac",
+                  "#e3d7ca",
+                  "#e7ded9",
+                  "#ded4c5",
+                  "#997c5c",
+                  "#837766"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "0167ae45-ef84-4ab4-9efd-0ac7f221a107",
+            "key": "lavender",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "LAVENDER"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "LAVENDER"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#040000",
+                  "#bfbec6",
+                  "#d2c5e1",
+                  "#E8cbe1",
+                  "#bba5ce",
+                  "#c5b3d6",
+                  "#bbadd3"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "874bad53-4932-4655-a42a-56399be52671",
+            "key": "brown",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BROWN"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "BROWN"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#693d1c",
+                  "#75502d",
+                  "#c4aa7c",
+                  "#997c5c",
+                  "#837766",
+                  "#5a4c42",
+                  "#3a2a21",
+                  "#3d2f21",
+                  "#331d19"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "07aa7edf-7db4-4d36-9436-f82b53771bf8",
+            "key": "grey",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "GREY"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "GREY"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#97979e",
+                  "#808084",
+                  "#dfdfde",
+                  "#bfbec6",
+                  "#b3afaf",
+                  "#595959",
+                  "#5d5e5e",
+                  "#383a42"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "bef47351-e6ef-4170-8047-00b3ddb38214",
+        "key": "mlb",
+        "orderable": true,
+        "editable": true,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "MLB"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "MLB"
+          }
+        ],
+        "children": [
+          {
+            "id": "66ea8206-a50a-47b7-af77-312a391030dc",
+            "key": "vintageUni",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage-uni"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage-uni"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#4C001D",
+                  "#515031",
+                  "#0A2E42",
+                  "#FCF7F0",
+                  "#F2EDE4",
+                  "#E0D6C6",
+                  "#847766",
+                  "#3A2B22",
+                  "#3D2F21",
+                  "#E5A95A",
+                  "#63685C",
+                  "#545443",
+                  "#2F331E",
+                  "#001835",
+                  "#3A3939",
+                  "#212121",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "2c8f1d8e-6f8b-482c-98f3-28c31662b231",
+            "key": "vintageVarsity",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage Varsity"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage Varsity"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#C14854",
+                  "#847766",
+                  "#3E7E89",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#E0D6C6",
+                  "#9B7D5C",
+                  "#5B4C42",
+                  "#4F322B",
+                  "#BC737A",
+                  "#E5A95A",
+                  "#545443",
+                  "#515031",
+                  "#5B5B89",
+                  "#595959",
+                  "#3A3939",
+                  "#212121",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "4aefacda-78d7-4b05-b7a2-7a9ff86c0df6",
+            "key": "vintageFeminine",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage-feminine"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Vintage-feminine"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#BC737A",
+                  "#5B5B89",
+                  "#3A3939",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#E0D6C6",
+                  "#CABEA3",
+                  "#BA909E",
+                  "#A8798B",
+                  "#63685C",
+                  "#3E7E89",
+                  "#9FB8D1",
+                  "#6C85A3",
+                  "#41557C",
+                  "#0A2E42",
+                  "#595959",
+                  "#3A3939",
+                  "#212121"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "1abcd2b6-93fa-4683-988b-b90e3c2ad3de",
+            "key": "athlesuire",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athlesuire"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athlesuire"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#417884",
+                  "#41557C",
+                  "#3A3939",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#F2EDE4",
+                  "#915C76",
+                  "#3A2B22",
+                  "#2F331E",
+                  "#41557C",
+                  "#001835",
+                  "#3A3939",
+                  "#212121",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "d17f00a4-928c-49a5-aced-ae6b953ce9cf",
+            "key": "athlesuireFeminine",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athlesuire-feminine"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Athlesuire-feminine"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#F2EDE4",
+                  "#936F83",
+                  "#3A3939",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#BA909E",
+                  "#915C76",
+                  "#3A2B22",
+                  "#417884",
+                  "#9FB8D1",
+                  "#6C85A3",
+                  "#41557C",
+                  "#001835",
+                  "#212121",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "7fabac51-9039-42b8-b6a6-daf093767f81",
+            "key": "outdoor1",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Outdoor-1"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Outdoor-1"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#C69720",
+                  "#2B2B89",
+                  "#2F331E",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#F2EDE4",
+                  "#E0D6C6",
+                  "#847766",
+                  "#3D2F21",
+                  "#545443",
+                  "#595959",
+                  "#3A3939",
+                  "#212121",
+                  "#000000",
+                  "#936F83",
+                  "#600027",
+                  "#CE4824",
+                  "#00525B",
+                  "#6C85A3",
+                  "#094C7A",
+                  "#001835"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "856bd168-82e2-4377-a5fd-178018adec6a",
+            "key": "outdoorGoreTex",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Outdoor-GORE TEX"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Outdoor-GORE TEX"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#F2EDE4",
+                  "#CE4824",
+                  "#212121",
+                  "#FFFEFC",
+                  "#FCF7F0",
+                  "#5B4C42",
+                  "#3A2B22",
+                  "#3D2F21",
+                  "#5F6868",
+                  "#595959",
+                  "#3A3939",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "16b55560-3bba-4649-a6ce-36dd485d3e89",
+            "key": "feminineGorpcore",
+            "orderable": true,
+            "editable": true,
+            "fields": [
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Feminine Gorpcore"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Feminine Gorpcore"
+              },
+              {
+                "key": "color",
+                "type": "color",
+                "editable": true,
+                "required": true,
+                "value": [
+                  "#936F83",
+                  "#5B4C42",
+                  "#6C85A3",
+                  "#FCF7F0",
+                  "#F2EDE4",
+                  "#3D2F21",
+                  "#545443",
+                  "#9FB8D1",
+                  "#41557C",
+                  "#595959",
+                  "#212121",
+                  "#000000"
+                ]
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

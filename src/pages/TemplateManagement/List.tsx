@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { ContentsData, DELETE_CONTENTS, DeleteContentsResponse, DeleteContentsVariables, GET_CONTENTS } from '@/graphql/content';
+import { useNavigate, useParams } from 'react-router';
+import { DELETE_TEMPLATES, DeleteTemplatesResponse, DeleteTemplatesVariables, GET_TEMPLATES_BY_CONTENT_ID, TemplatesByContentIdData } from '@/graphql/template';
 import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import { useMutation, useQuery } from '@apollo/client';
 import { Card, CardContent } from '@mui/material';
@@ -11,37 +11,35 @@ import { LoadingIndicator } from '@/components/LoadingIndicator';
 import { localeText, styles } from '@/utils/dataGrid';
 import dayjs from 'dayjs';
 
-export default function PagesContentManagementList() {
+export default function PagesTemplateManagementList() {
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
+  const { contentId } = useParams<{ contentId: string }>();
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { loading, data, refetch } = useQuery<ContentsData>(GET_CONTENTS);
-  const [deleteContents] = useMutation<DeleteContentsResponse, DeleteContentsVariables>(DELETE_CONTENTS);
+  const { loading, data, refetch } = useQuery<TemplatesByContentIdData>(GET_TEMPLATES_BY_CONTENT_ID, {
+    variables: { contentId: contentId || '' },
+    skip: !contentId,
+  });
+  const [deleteTemplates] = useMutation<DeleteTemplatesResponse, DeleteTemplatesVariables>(DELETE_TEMPLATES);
 
   const deleteConfirm = useConfirmDialog({
-    title: '콘텐츠 삭제',
-    content: (
-      <>
-        선택한 {rowSelectionModel.length}개의 콘텐츠를 삭제하시겠습니까?
-        <br />
-        포함된 템플릿도 모두 삭제됩니다.
-      </>
-    ),
+    title: '템플릿 삭제',
+    content: `선택한 ${rowSelectionModel.length}개의 템플릿을 삭제하시겠습니까?`,
     cancelText: '취소',
     confirmText: '삭제',
     onConfirm: async () => {
       try {
-        await deleteContents({ variables: { ids: rowSelectionModel as string[] } });
+        await deleteTemplates({ variables: { ids: rowSelectionModel as string[] } });
 
         await refetch();
 
-        notifications.show('콘텐츠를 삭제했습니다.', { severity: 'success', autoHideDuration: 1000 });
+        notifications.show('템플릿을 삭제했습니다.', { severity: 'success', autoHideDuration: 1000 });
 
         setRowSelectionModel([]);
       } catch (error) {
-        notifications.show(error instanceof Error ? error.message : '콘텐츠 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
+        notifications.show(error instanceof Error ? error.message : '템플릿 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
     },
   });
@@ -50,6 +48,7 @@ export default function PagesContentManagementList() {
     () => [
       { field: 'id', headerName: 'ID', width: 65 },
       { field: 'name', headerName: '이름', flex: 1 },
+      { field: 'tenantCount', headerName: '사용', width: 80 },
       {
         field: 'createdAt',
         headerName: '생성일',
@@ -68,24 +67,24 @@ export default function PagesContentManagementList() {
 
   const handleRowClick: GridEventListener<'rowClick'> = useCallback(
     ({ row }) => {
-      navigate(`/content-management/${row.id}`);
+      navigate(`/content-management/${contentId}/${row.id}`);
     },
-    [navigate],
+    [navigate, contentId],
   );
 
   const handleClickCreate = useCallback(() => {
-    navigate('/content-management/create');
-  }, [navigate]);
+    navigate(`/content-management/${contentId}/create`);
+  }, [navigate, contentId]);
 
   if (loading) {
     return <LoadingIndicator />;
   }
 
-  if (!data?.contents) {
+  if (!data?.templatesByContentId) {
     return null;
   }
 
-  const { contents } = data;
+  const { templatesByContentId: templates } = data;
 
   return (
     <>
@@ -94,7 +93,7 @@ export default function PagesContentManagementList() {
           <DataGrid
             loading={loading}
             columns={columns}
-            rows={contents || []}
+            rows={templates || []}
             initialState={{
               pagination: { paginationModel: { page: 0, pageSize: 10 } },
             }}
@@ -112,7 +111,7 @@ export default function PagesContentManagementList() {
             slots={{ toolbar: Toolbar }}
             slotProps={{
               toolbar: {
-                createButtonName: '콘텐츠 생성',
+                createButtonName: '템플릿 생성',
                 rowSelectionModel,
                 onClickCreate: handleClickCreate,
                 onClickDelete: deleteConfirm.handleOpen,
@@ -122,7 +121,7 @@ export default function PagesContentManagementList() {
         </CardContent>
       </Card>
 
-      {/* 콘텐츠 삭제 다이얼로그 */}
+      {/* 템플릿 삭제 다이얼로그 */}
       {deleteConfirm.ConfirmDialog}
     </>
   );

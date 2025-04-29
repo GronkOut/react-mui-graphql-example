@@ -7,16 +7,14 @@ export interface Content {
   updatedAt: string;
 }
 
-// 쿼리 응답 타입
 export interface ContentData {
-  content: Content;
+  content: Content | null;
 }
 
 export interface ContentsData {
-  contents: Content[];
+  contents: Pick<Content, 'id' | 'name' | 'createdAt' | 'updatedAt'>[];
 }
 
-// 변수 타입
 export interface CreateContentVariables {
   name: string;
 }
@@ -27,30 +25,28 @@ export interface ReadContentVariables {
 
 export interface UpdateContentVariables {
   id: string;
-  name: string;
+  name?: string;
 }
 
 export interface DeleteContentsVariables {
   ids: string[];
 }
 
-// 응답 타입
 export interface CreateContentResponse {
-  createContent: Content;
+  createContent: Pick<Content, 'id' | 'name' | 'createdAt' | 'updatedAt'>;
 }
 
 export interface UpdateContentResponse {
-  updateContent: Content;
+  updateContent: Pick<Content, 'id' | 'name' | 'updatedAt'>;
 }
 
 export interface DeleteContentsResponse {
   deleteContents: boolean;
 }
 
-// 쿼리/뮤테이션
-export const GET_CONTENT = gql`
-  query GetContent($id: ID!) {
-    content(id: $id) {
+export const GET_CONTENTS = gql`
+  query GetContents {
+    contents {
       id
       name
       createdAt
@@ -59,9 +55,9 @@ export const GET_CONTENT = gql`
   }
 `;
 
-export const GET_CONTENTS = gql`
-  query GetContents {
-    contents {
+export const GET_CONTENT = gql`
+  query GetContent($id: ID!) {
+    content(id: $id) {
       id
       name
       createdAt
@@ -82,7 +78,7 @@ export const CREATE_CONTENT = gql`
 `;
 
 export const UPDATE_CONTENT = gql`
-  mutation UpdateContent($id: ID!, $name: String!) {
+  mutation UpdateContent($id: ID!, $name: String) {
     updateContent(id: $id, name: $name) {
       id
       name

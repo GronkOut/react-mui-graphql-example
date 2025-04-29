@@ -1,10 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import type { Session } from '@toolpad/core/AppProvider';
 
 interface AuthenticationContextProps {
@@ -18,25 +12,19 @@ interface AuthenticationProviderProps {
   children: ReactNode;
 }
 
-const AuthenticationContext = createContext<AuthenticationContextProps | null>(
-  null,
-);
+const AuthenticationContext = createContext<AuthenticationContextProps | null>(null);
 
 export function useAuthentication() {
   const auth = useContext(AuthenticationContext);
 
   if (!auth) {
-    throw new Error(
-      'useAuthentication must be used within an AuthenticationProvider',
-    );
+    throw new Error('useAuthentication must be used within an AuthenticationProvider');
   }
 
   return auth;
 }
 
-export function AuthenticationProvider({
-  children,
-}: AuthenticationProviderProps) {
+export function AuthenticationProvider({ children }: AuthenticationProviderProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
 
@@ -80,9 +68,5 @@ export function AuthenticationProvider({
     setSession(null);
   };
 
-  return (
-    <AuthenticationContext value={{ loading, session, signIn, signOut }}>
-      {children}
-    </AuthenticationContext>
-  );
+  return <AuthenticationContext value={{ loading, session, signIn, signOut }}>{children}</AuthenticationContext>;
 }

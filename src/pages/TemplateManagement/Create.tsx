@@ -1,15 +1,14 @@
 import { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { ContentData, GET_CONTENT, ReadContentVariables, UPDATE_CONTENT, UpdateContentResponse, UpdateContentVariables } from '@/graphql/content';
+import { CREATE_TEMPLATE, CreateTemplateResponse, CreateTemplateVariables, GET_TEMPLATES_BY_CONTENT_ID, TemplatesByContentIdData } from '@/graphql/template';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import { Button, Card, CardActions, CardContent, Divider, Stack, TextField } from '@mui/material';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { LoadingIndicator } from '@/components/LoadingIndicator';
-import { contentNameValidation } from '@/utils/dataGrid';
+import { templateNameValidation } from '@/utils/dataGrid';
 
-export default function PagesContentManagementUpdate() {
+export default function PagesTemplateManagementCreate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
@@ -18,15 +17,11 @@ export default function PagesContentManagementUpdate() {
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { data, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
-    variables: { id: contentId || '' },
+  const { refetch } = useQuery<TemplatesByContentIdData>(GET_TEMPLATES_BY_CONTENT_ID, {
+    variables: { contentId: contentId || '' },
     skip: !contentId,
   });
-  const [updateContent, { loading: isSubmitting }] = useMutation<UpdateContentResponse, UpdateContentVariables>(UPDATE_CONTENT, {
-    onCompleted: () => {
-      navigate(`/content-management/${contentId}`);
-    },
-  });
+  const [createTemplate, { loading: isSubmitting }] = useMutation<CreateTemplateResponse, CreateTemplateVariables>(CREATE_TEMPLATE);
 
   const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -37,9 +32,9 @@ export default function PagesContentManagementUpdate() {
     navigate(`/content-management/${contentId}`);
   }, [navigate, contentId]);
 
-  const handleClickSave = useCallback(async () => {
+  const handleClickCreate = useCallback(async () => {
     try {
-      const result = contentNameValidation.safeParse({ name });
+      const result = templateNameValidation.safeParse({ name });
 
       if (!result.success) {
         const formattedErrors = result.error.format();
@@ -51,38 +46,47 @@ export default function PagesContentManagementUpdate() {
 
       setError(null);
 
-      await updateContent({ variables: { id: contentId as string, name: result.data.name } });
+      const { data } = await createTemplate({
+        variables: {
+          contentId: contentId as string,
+          name: result.data.name,
+          data: JSON.stringify([
+            {
+              id: crypto.randomUUID(),
+              key: 'newTemplate',
+              orderable: true,
+              editable: true,
+              fields: [],
+              children: [],
+            },
+          ]),
+        },
+      });
 
-      notifications.show('콘텐츠를 수정했습니다.', { severity: 'success', autoHideDuration: 1000 });
+      await refetch();
+
+      notifications.show('템플릿을 생성했습니다.', { severity: 'success', autoHideDuration: 1000 });
+
+      navigate(`/content-management/${contentId}/${data?.createTemplate.id}`);
     } catch (error) {
-      notifications.show('콘텐츠 수정 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
+      notifications.show('템플릿 생성 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
 
-      setError(error instanceof Error ? error.message : '콘텐츠 수정 중 오류가 발생했습니다.');
+      setError(error instanceof Error ? error.message : '템플릿 생성 중 오류가 발생했습니다.');
     }
-  }, [name, updateContent, contentId, notifications]);
+  }, [name, createTemplate, refetch, navigate, notifications, contentId]);
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) handleClickSave();
+      if (event.key === 'Enter' && !isSubmitting) handleClickCreate();
     },
-    [handleClickSave, isSubmitting],
+    [handleClickCreate, isSubmitting],
   );
 
   useEffect(() => {
-    if (data?.content) {
-      setName(data.content.name);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (nameRef.current && !loading && data?.content) {
+    if (nameRef.current) {
       nameRef.current.focus();
     }
-  }, [data, loading]);
-
-  if (loading) {
-    return <LoadingIndicator />;
-  }
+  }, []);
 
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
@@ -96,7 +100,7 @@ export default function PagesContentManagementUpdate() {
         <Button variant="outlined" size="small" startIcon={<CancelIcon />} onClick={handleClickCancel} disabled={isSubmitting}>
           취소
         </Button>
-        <Button variant="contained" size="small" startIcon={<SaveIcon />} onClick={handleClickSave} disabled={isSubmitting}>
+        <Button variant="contained" size="small" startIcon={<SaveIcon />} onClick={handleClickCreate} disabled={isSubmitting}>
           저장
         </Button>
       </CardActions>

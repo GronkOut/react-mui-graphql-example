@@ -10,10 +10,7 @@ export default function SignInPage() {
   const handleClickSignIn = () => {
     signIn();
 
-    notifications.show('SignIn', {
-      severity: 'success',
-      autoHideDuration: 3000,
-    });
+    notifications.show('SignIn', { severity: 'success', autoHideDuration: 1000 });
   };
 
   if (session?.user) {

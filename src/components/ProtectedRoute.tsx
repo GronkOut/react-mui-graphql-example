@@ -1,9 +1,10 @@
+import { ReactNode } from 'react';
 import { Navigate } from 'react-router';
 import { Box, CircularProgress } from '@mui/material';
 import { useAuthentication } from '@/contexts/Authentication';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function ProtectedRoute({ children }: Props) {

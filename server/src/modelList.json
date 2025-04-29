@@ -1,0 +1,578 @@
+[
+  {
+    "id": "a29098e5-d6e7-400d-b2aa-2cabaf1099e6",
+    "key": "model",
+    "orderable": true,
+    "editable": false,
+    "fields": [
+      {
+        "key": "name_ko",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "모델"
+      },
+      {
+        "key": "name_en",
+        "type": "none",
+        "editable": true,
+        "required": true,
+        "value": "Model"
+      }
+    ],
+    "children": [
+      {
+        "id": "5989da36-bd88-4917-b11f-6512e14d28b0",
+        "key": "generateProductImage",
+        "orderable": true,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "제품 이미지 생성"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "Generate product image"
+          }
+        ],
+        "children": [
+          {
+            "id": "c1e67951-8b86-414a-a809-0784610c9bbc",
+            "key": "realisticvisionv60b1V51vaeClothes",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "realisticVisionV60B1_v51VAE_clothes"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "제품_F&F_의류"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Fashion Clothes"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 제품(의류)"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "no humans, simple background, product shot, center alignment"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed, 8k uhd"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ25JP1JK7N"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "b82d2911-addf-419f-b036-46aebebc0583",
+            "key": "absoluterealityV181Accessories",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "absolutereality_v181_accessories"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "제품_F&F_용품"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Fashion Acc"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 제품(용품)"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "no humans, simple background, product shot, center alignment"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed, 8k uhd"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ1XC8YNZ5D"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "e20b17b9-1d97-4684-9faa-1ce65680a865",
+            "key": "realisticvisionv60b1V51vaeShoes",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "realisticVisionV60B1_v51VAE_shoes"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "제품_F&F_신발"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "Fashion Shoes"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 제품(신발)"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "no humans, simple background, product shot, center alignment"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed, 8k uhd"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ21Q34GQ65"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "2e76b14e-69b8-4064-96a8-5d8a6dac810b",
+            "key": "arthemyobjectsV10",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "arthemyObjects_v10"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "제품_A"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "ArthemyObjects"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 제품"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "no human, (masterpiece, best quality)+, (realistic)1.3, (hyperdetailed)1.3, depth of field, sharp focus, (object)+, (product photography)1.4, studio lighting, center alignment"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, sketch, cartoon, drawing, anime, (model)++, (person, people, human, girl, man, boy, guy)+, 1girl, female, male, woman, deformed, distorted, disfigured, camera, carmera lens, hanger"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ1MSEYDAYQ"
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c0de6ec0-cf9c-4b85-a354-18c99f6368a4",
+        "key": "characterProductImage",
+        "orderable": true,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "인물 이미지 생성"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "value": "Character product image"
+          }
+        ],
+        "children": [
+          {
+            "id": "35fa56cf-b0e6-4096-8c71-9df33d33f50c",
+            "key": "fluxV1Schnell",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "FLUX_v1_schnell"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "올라운더(FLUX)"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "All-Rounder(FLUX)"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "다양한 컨셉에 대해 고품질의 이미지"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "다양한 컨셉에 대해 고품질의 이미지"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-op.s3.ap-northeast-2.amazonaws.com/ncsoft-op/0J7K96KX22H7W"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "b096de15-1710-4ce4-8abf-b2c72b54717f",
+            "key": "absoluterealityF1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "AbsoluteReality_F1"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "인물_F&F_A"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "FnF AbsoluteReality"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 인물(동양인)"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "(8k, RAW photo, best quality, masterpiece)+, (photorealistic)1.3, sharp focus, detailed background, (hyperdetailed)1.3, depth of field, portrait, nutural lighting, epic composition"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ3M7DP2FMR"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "4b7d2701-e0ca-4f68-a5e5-109da73f4b0d",
+            "key": "cyberrealisticF1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "value": "CyberRealistic_F1"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "인물_F&F_C"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "value": "FnF CyberRealistic"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": "추천: 인물(전신)"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "value": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "(8k, photorealistic, physically based rendering, masterpiece)+, sharp focus, detailed background, (hyperdetailed)1.3, depth of field, portrait, nutural lighting, epic composition"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "extremely detailed"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, JPEG artifacts, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ3QCDYCQQV"
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

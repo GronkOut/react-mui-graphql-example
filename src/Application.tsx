@@ -1,28 +1,46 @@
 import { Outlet } from 'react-router';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import { GridRowSelectionModel } from '@mui/x-data-grid';
 import type { Navigation } from '@toolpad/core';
 import { Branding } from '@toolpad/core/AppProvider';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import { useAuthentication } from '@/contexts/Authentication';
 
+declare module '@mui/x-data-grid' {
+  interface ToolbarPropsOverrides {
+    createButtonName: string;
+    rowSelectionModel: GridRowSelectionModel;
+    onClickCreate: () => void;
+    onClickDelete: () => void;
+  }
+}
+
 const branding: Branding = {
-  title: 'Example',
-  logo: <img src="/vite.svg" alt="logo" />,
-  homeUrl: '/dashboard',
+  title: 'System Admin',
+  logo: <img src="/images/favicon196x196.png" alt="logo" />,
+  homeUrl: '/tenant-management',
 };
 
 const navigation: Navigation = [
   {
-    segment: 'dashboard',
-    title: '대시보드',
-    icon: <DashboardIcon />,
+    kind: 'header',
+    title: '데이터',
+  },
+  {
+    segment: 'tenant-management',
+    title: '테넌트 관리',
+    icon: <AccountTreeIcon />,
+    pattern: 'tenant-management{/:tenantId}*',
   },
   {
     segment: 'content-management',
-    title: '컨텐츠 관리',
-    icon: <AccountTreeIcon />,
-    pattern: 'content-management{/:id}*',
+    title: '콘텐츠 관리',
+    icon: <NewspaperIcon />,
+    pattern: 'content-management{/:contentId}*',
+  },
+  {
+    kind: 'divider',
   },
 ];
 
