@@ -1,0 +1,246 @@
+[
+  {
+    "id": "3ef71859-bd3d-4b7f-8298-90af833f9c39",
+    "key": "tabMenu",
+    "orderable": true,
+    "editable": false,
+    "fields": [
+      {
+        "key": "name_ko",
+        "type": "text",
+        "editable": true,
+        "required": true,
+        "visible": false,
+        "value": "탭 노출",
+        "regex": "문자열 정규식"
+      },
+      {
+        "key": "name_en",
+        "type": "text",
+        "editable": true,
+        "required": true,
+        "visible": false,
+        "value": "Tab Menu",
+        "regex": "문자열 정규식"
+      }
+    ],
+    "children": [
+      {
+        "id": "38c58d92-cbd8-40a3-8c6c-251d7e218362",
+        "key": "volumeImage",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "입체 효과",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "Volume Image",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useSendStorage",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useCopySettings",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": false,
+            "regex": ""
+          }
+        ],
+        "children": []
+      },
+      {
+        "id": "87dc536b-31b8-4074-8897-84e609fc6750",
+        "key": "virtualTryOn",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "인물 착장",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "Virtual Try On",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useSendStorage",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useCopySettings",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": false,
+            "regex": ""
+          }
+        ],
+        "children": []
+      },
+      {
+        "id": "1d39943e-4520-454a-90de-a7c670d3e862",
+        "key": "characterPose",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "캐릭터 포즈",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "Character Pose",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useSendStorage",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": false,
+            "regex": ""
+          },
+          {
+            "key": "useCopySettings",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": false,
+            "regex": ""
+          }
+        ],
+        "children": []
+      },
+      {
+        "id": "809fb07f-871d-4f07-a910-e9676d46f5ba",
+        "key": "imageGenerate",
+        "orderable": false,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "생성",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": false,
+            "value": "Image generate",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "use",
+            "type": "checkbox",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useSendStorage",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": true,
+            "regex": ""
+          },
+          {
+            "key": "useCopySettings",
+            "type": "checkbox",
+            "editable": true,
+            "required": false,
+            "visible": false,
+            "value": true,
+            "regex": ""
+          }
+        ],
+        "children": []
+      }
+    ]
+  }
+]

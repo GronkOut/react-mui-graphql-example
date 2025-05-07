@@ -47,13 +47,9 @@ export default function PagesContentManagementRead() {
     },
   });
 
-  const handleClickList = useCallback(() => {
-    navigate('/content-management');
-  }, [navigate]);
+  const handleClickList = useCallback(() => navigate('/content-management'), [navigate]);
 
-  const handleClickEdit = useCallback(() => {
-    navigate(`/content-management/${contentId}/edit`);
-  }, [navigate, contentId]);
+  const handleClickEdit = useCallback(() => navigate(`/content-management/${contentId}/edit`), [navigate, contentId]);
 
   if (loading) {
     return <LoadingIndicator />;

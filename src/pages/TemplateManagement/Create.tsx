@@ -28,9 +28,7 @@ export default function PagesTemplateManagementCreate() {
     setError(null);
   }, []);
 
-  const handleClickCancel = useCallback(() => {
-    navigate(`/content-management/${contentId}`);
-  }, [navigate, contentId]);
+  const handleClickCancel = useCallback(() => navigate(`/content-management/${contentId}`), [navigate, contentId]);
 
   const handleClickCreate = useCallback(async () => {
     try {
@@ -77,7 +75,9 @@ export default function PagesTemplateManagementCreate() {
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) handleClickCreate();
+      if (event.key === 'Enter' && !isSubmitting) {
+        handleClickCreate();
+      }
     },
     [handleClickCreate, isSubmitting],
   );

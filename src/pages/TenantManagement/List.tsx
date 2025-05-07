@@ -60,16 +60,9 @@ export default function PagesTenantManagementList() {
     [],
   );
 
-  const handleRowClick: GridEventListener<'rowClick'> = useCallback(
-    ({ row }) => {
-      navigate(`/tenant-management/${row.id}`);
-    },
-    [navigate],
-  );
+  const handleRowClick: GridEventListener<'rowClick'> = useCallback(({ row }) => navigate(`/tenant-management/${row.id}`), [navigate]);
 
-  const handleClickCreate = useCallback(() => {
-    navigate('/tenant-management/create');
-  }, [navigate]);
+  const handleClickCreate = useCallback(() => navigate('/tenant-management/create'), [navigate]);
 
   if (loading) {
     return <LoadingIndicator />;

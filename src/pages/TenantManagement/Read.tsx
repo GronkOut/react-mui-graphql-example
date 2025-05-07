@@ -44,13 +44,9 @@ export default function PagesTenantManagementRead() {
     },
   });
 
-  const handleClickList = useCallback(() => {
-    navigate('/tenant-management');
-  }, [navigate]);
+  const handleClickList = useCallback(() => navigate('/tenant-management'), [navigate]);
 
-  const handleClickEdit = useCallback(() => {
-    navigate(`/tenant-management/${tenantId}/edit`);
-  }, [navigate, tenantId]);
+  const handleClickEdit = useCallback(() => navigate(`/tenant-management/${tenantId}/edit`), [navigate, tenantId]);
 
   if (tenantLoading || contentsLoading || templatesLoading) {
     return <LoadingIndicator />;

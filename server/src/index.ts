@@ -4,10 +4,14 @@ import cors from 'cors';
 import express from 'express';
 import fs from 'fs/promises';
 import path from 'path';
-import colorPalette from './colorPalette.json';
-import modelList from './modelList.json';
-import tabMenu from './tabMenu.json';
-import textWizard from './textWizard.json';
+import demoColorPalette from './data/demo/colorPalette.json';
+import demoModelList from './data/demo/modelList.json';
+import demoTabMenu from './data/demo/tabMenu.json';
+import demoTextWizard from './data/demo/textWizard.json';
+import fnfColorPalette from './data/fnf/colorPalette.json';
+import fnfModelList from './data/fnf/modelList.json';
+import fnfTabMenu from './data/fnf/tabMenu.json';
+import fnfTextWizard from './data/fnf/textWizard.json';
 
 // 데이터 모델 인터페이스 정의
 interface Tenant {
@@ -581,7 +585,7 @@ async function startServer() {
           contentId: 1,
           name: '탭 메뉴 (기본값)',
           isDefault: true,
-          data: JSON.stringify(tabMenu),
+          data: JSON.stringify(demoTabMenu),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -590,7 +594,7 @@ async function startServer() {
           contentId: 2,
           name: '모델 (기본값)',
           isDefault: true,
-          data: JSON.stringify(modelList),
+          data: JSON.stringify(demoModelList),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -599,7 +603,7 @@ async function startServer() {
           contentId: 3,
           name: '텍스트 위저드 (기본값)',
           isDefault: true,
-          data: JSON.stringify(textWizard),
+          data: JSON.stringify(demoTextWizard),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -608,7 +612,7 @@ async function startServer() {
           contentId: 4,
           name: '컬러 팔레트 (기본값)',
           isDefault: true,
-          data: JSON.stringify(colorPalette),
+          data: JSON.stringify(demoColorPalette),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -617,16 +621,7 @@ async function startServer() {
           contentId: 1,
           name: '탭 메뉴 - F&F',
           isDefault: false,
-          data: JSON.stringify([
-            {
-              id: crypto.randomUUID(),
-              key: 'tabMenu_FnF',
-              orderable: true,
-              editable: true,
-              fields: [],
-              children: [],
-            },
-          ]),
+          data: JSON.stringify(fnfTabMenu),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
@@ -635,60 +630,77 @@ async function startServer() {
           contentId: 2,
           name: '모델 - F&F',
           isDefault: false,
-          data: JSON.stringify([
-            {
-              id: crypto.randomUUID(),
-              key: 'model_FnF',
-              orderable: true,
-              editable: true,
-              fields: [],
-              children: [],
-            },
-          ]),
+          data: JSON.stringify(fnfModelList),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        {
+          id: 7,
+          contentId: 3,
+          name: '텍스트 위저드 - F&F',
+          isDefault: false,
+          data: JSON.stringify(fnfTextWizard),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        {
+          id: 8,
+          contentId: 4,
+          name: '컬러 팔레트 - F&F',
+          isDefault: false,
+          data: JSON.stringify(fnfColorPalette),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         },
       ],
       tenantContents: [
+        // 엔씨소프트 - 탭메뉴 - 탭메뉴기본값
         {
           tenantId: 1,
           contentId: 1,
           templateId: 1,
         },
+        // 엔씨소프트 - 모델 - 모델기본값
         {
           tenantId: 1,
           contentId: 2,
           templateId: 2,
         },
+        // 엔씨소프트 - 텍스트위저드 - 텍스트위저드기본값
         {
           tenantId: 1,
           contentId: 3,
           templateId: 3,
         },
+        // 엔씨소프트 - 컬러팔레트 - 컬러팔레트기본값
         {
           tenantId: 1,
           contentId: 4,
           templateId: 4,
         },
+        // fnf - 탭메뉴 - 탭메뉴fnf
         {
           tenantId: 2,
           contentId: 1,
           templateId: 5,
         },
+        // fnf - 모델 - 모델fnf
         {
           tenantId: 2,
           contentId: 2,
           templateId: 6,
         },
+        // fnf - 텍스트위저드 - 텍스트위저드fnf
         {
           tenantId: 2,
           contentId: 3,
-          templateId: 3,
+          templateId: 7,
         },
+        // fnf - 컬러팔레트 - 컬러팔레트fnf
         {
           tenantId: 2,
           contentId: 4,
-          templateId: 4,
+          templateId: 8,
         },
       ],
     };

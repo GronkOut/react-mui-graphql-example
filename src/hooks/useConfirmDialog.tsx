@@ -1,15 +1,16 @@
 import { ReactNode, useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-type UseConfirmDialogParams = {
+interface Params {
+  container?: HTMLElement;
   title: ReactNode;
   content: ReactNode;
   cancelText?: string;
   confirmText?: string;
   onConfirm: () => Promise<void>;
-};
+}
 
-export const useConfirmDialog = ({ title, content, cancelText = '취소', confirmText = '확인', onConfirm }: UseConfirmDialogParams) => {
+export const useConfirmDialog = ({ container = document.getElementById('layers') as HTMLElement, title, content, cancelText = '취소', confirmText = '확인', onConfirm }: Params) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => setIsOpen(true);
@@ -17,13 +18,13 @@ export const useConfirmDialog = ({ title, content, cancelText = '취소', confir
   const handleClose = () => setIsOpen(false);
 
   const handleConfirm = async () => {
-    setIsOpen(false);
-
     await onConfirm();
+
+    setIsOpen(false);
   };
 
   const ConfirmDialog = (
-    <Dialog container={document.getElementById('layers')} open={isOpen} onClose={handleClose}>
+    <Dialog container={container} open={isOpen} onClose={handleClose}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{content}</DialogContentText>

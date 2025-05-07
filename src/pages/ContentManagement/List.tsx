@@ -66,16 +66,9 @@ export default function PagesContentManagementList() {
     [],
   );
 
-  const handleRowClick: GridEventListener<'rowClick'> = useCallback(
-    ({ row }) => {
-      navigate(`/content-management/${row.id}`);
-    },
-    [navigate],
-  );
+  const handleRowClick: GridEventListener<'rowClick'> = useCallback(({ row }) => navigate(`/content-management/${row.id}`), [navigate]);
 
-  const handleClickCreate = useCallback(() => {
-    navigate('/content-management/create');
-  }, [navigate]);
+  const handleClickCreate = useCallback(() => navigate('/content-management/create'), [navigate]);
 
   if (loading) {
     return <LoadingIndicator />;

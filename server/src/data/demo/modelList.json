@@ -1,0 +1,508 @@
+[
+  {
+    "id": "bf04ca4c-b786-459f-a9dc-00d3dfecd87d",
+    "key": "model",
+    "orderable": true,
+    "editable": false,
+    "fields": [
+      {
+        "key": "name_ko",
+        "type": "text",
+        "editable": true,
+        "required": true,
+        "visible": false,
+        "value": "모델",
+        "regex": "문자열 정규식"
+      },
+      {
+        "key": "name_en",
+        "type": "text",
+        "editable": true,
+        "required": true,
+        "visible": false,
+        "value": "Model",
+        "regex": "문자열 정규식"
+      }
+    ],
+    "children": [
+      {
+        "id": "1d34ecd1-839b-4a76-aed1-e7d8322c34dd",
+        "key": "generateProductImage",
+        "orderable": true,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": "제품 이미지 생성",
+            "regex": "문자열 정규식"
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": "Generate product image",
+            "regex": "문자열 정규식"
+          }
+        ],
+        "children": [
+          {
+            "id": "707ee94f-5268-4655-bdf9-4e29cd9cb22d",
+            "key": "realisticvisionv60b1V51vaeClothes",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "realisticVisionV60B1_v51VAE_clothes",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품_의류",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품_의류",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "상의, 하의, 전신 등 의류 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "상의, 하의, 전신 등 의류 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "no humans, simple background, product shot, center alignment",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "extremely detailed, 8k uhd",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://live-varco-saas-static.s3.ap-northeast-2.amazonaws.com/demo-fashion/0JCRKMGCPD5HY",
+                "regex": "이미지 정규식"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "6592daf2-42ab-46c9-9b4d-265134330dcc",
+            "key": "absoluterealityV181Accessories",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "absolutereality_v181_accessories",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품_용품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품_용품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "가방, 모자 등 용품 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "가방, 모자 등 용품 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "no humans, simple background, product shot, center alignment",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "extremely detailed, 8k uhd",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://live-varco-saas-static.s3.ap-northeast-2.amazonaws.com/demo-fashion/0JCRKN3J78XQC",
+                "regex": "이미지 정규식"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "ae20bff3-fca6-4764-b0de-b62f4f9ae65e",
+            "key": "realisticvisionv60b1V51vaeShoes",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "realisticVisionV60B1_v51VAE_shoes",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품_신발",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "Fashion Shoes",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "운동화, 부츠 등 실발 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "운동화, 부츠 등 실발 제품",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "no humans, simple background, product shot, center alignment",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "extremely detailed, 8k uhd",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://live-varco-saas-static.s3.ap-northeast-2.amazonaws.com/demo-fashion/0JCRKPA1N75QX",
+                "regex": "이미지 정규식"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "c2d4f15e-f2ba-46b9-a244-3670391060ba",
+            "key": "fluxV1Schnell",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "FLUX_v1_schnell",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "올라운더(FLUX)",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "All-Rounder(FLUX)",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "다양한 컨셉에 대해 고품질의 이미지",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "다양한 컨셉에 대해 고품질의 이미지",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://live-varco-saas-static.s3.ap-northeast-2.amazonaws.com/demo-fashion/0JCRKPSK7W9N8",
+                "regex": "이미지 정규식"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "470ee4d0-c243-496e-901e-60609faa70bc",
+            "key": "cyberrealisticF1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "CyberRealistic_F1",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "인물",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "CyberRealistic",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "현실감 넘치는 인물 이미지 생성",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "현실감 넘치는 인물 이미지 생성",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "(8k, photorealistic, physically based rendering, masterpiece)+, sharp focus, detailed background, (hyperdetailed)1.3, depth of field, portrait, nutural lighting, epic composition",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "extremely detailed",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, JPEG artifacts, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+                "regex": "문자열 정규식"
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://live-varco-saas-static.s3.ap-northeast-2.amazonaws.com/demo-fashion/0JCRKQ7D2DXQN",
+                "regex": "이미지 정규식"
+              }
+            ],
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+]

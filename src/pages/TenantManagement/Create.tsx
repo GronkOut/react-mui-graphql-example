@@ -23,9 +23,7 @@ export default function PagesTenantManagementCreate() {
     setError(null);
   }, []);
 
-  const handleClickCancel = useCallback(() => {
-    navigate('/tenant-management');
-  }, [navigate]);
+  const handleClickCancel = useCallback(() => navigate('/tenant-management'), [navigate]);
 
   const handleClickCreate = useCallback(async () => {
     try {
@@ -55,7 +53,9 @@ export default function PagesTenantManagementCreate() {
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) handleClickCreate();
+      if (event.key === 'Enter' && !isSubmitting) {
+        handleClickCreate();
+      }
     },
     [handleClickCreate, isSubmitting],
   );

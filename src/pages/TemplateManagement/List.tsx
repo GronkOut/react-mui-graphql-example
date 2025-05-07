@@ -65,16 +65,9 @@ export default function PagesTemplateManagementList() {
     [],
   );
 
-  const handleRowClick: GridEventListener<'rowClick'> = useCallback(
-    ({ row }) => {
-      navigate(`/content-management/${contentId}/${row.id}`);
-    },
-    [navigate, contentId],
-  );
+  const handleRowClick: GridEventListener<'rowClick'> = useCallback(({ row }) => navigate(`/content-management/${contentId}/${row.id}`), [navigate, contentId]);
 
-  const handleClickCreate = useCallback(() => {
-    navigate(`/content-management/${contentId}/create`);
-  }, [navigate, contentId]);
+  const handleClickCreate = useCallback(() => navigate(`/content-management/${contentId}/create`), [navigate, contentId]);
 
   if (loading) {
     return <LoadingIndicator />;

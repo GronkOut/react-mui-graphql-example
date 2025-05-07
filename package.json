@@ -1,7 +1,7 @@
 {
   "name": "react-mui-graphql-example",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -28,6 +28,7 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "graphql": "^16.10.0",
+    "lodash-es": "^4.17.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.0",

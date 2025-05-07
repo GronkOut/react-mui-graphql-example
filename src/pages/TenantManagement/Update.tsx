@@ -65,9 +65,7 @@ export default function PagesTenantManagementUpdate() {
     [],
   );
 
-  const handleClickCancel = useCallback(() => {
-    navigate(`/tenant-management/${tenantId}`);
-  }, [navigate, tenantId]);
+  const handleClickCancel = useCallback(() => navigate(`/tenant-management/${tenantId}`), [navigate, tenantId]);
 
   const handleClickSave = useCallback(async () => {
     try {
@@ -95,7 +93,9 @@ export default function PagesTenantManagementUpdate() {
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) handleClickSave();
+      if (event.key === 'Enter' && !isSubmitting) {
+        handleClickSave();
+      }
     },
     [handleClickSave, isSubmitting],
   );

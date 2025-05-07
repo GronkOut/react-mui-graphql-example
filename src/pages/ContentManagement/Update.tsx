@@ -33,9 +33,7 @@ export default function PagesContentManagementUpdate() {
     setError(null);
   }, []);
 
-  const handleClickCancel = useCallback(() => {
-    navigate(`/content-management/${contentId}`);
-  }, [navigate, contentId]);
+  const handleClickCancel = useCallback(() => navigate(`/content-management/${contentId}`), [navigate, contentId]);
 
   const handleClickSave = useCallback(async () => {
     try {
@@ -63,7 +61,9 @@ export default function PagesContentManagementUpdate() {
 
   const handleKeyDownName = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) handleClickSave();
+      if (event.key === 'Enter' && !isSubmitting) {
+        handleClickSave();
+      }
     },
     [handleClickSave, isSubmitting],
   );

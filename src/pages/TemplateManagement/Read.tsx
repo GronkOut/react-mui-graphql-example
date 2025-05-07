@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { DELETE_TEMPLATES, DeleteTemplatesResponse, DeleteTemplatesVariables, GET_TEMPLATE, ReadTemplateVariables, TemplateData, UPDATE_TEMPLATE, UpdateTemplateResponse, UpdateTemplateVariables } from '@/graphql/template';
 import { useConfirmDialog } from '@/hooks/useConfirmDialog';
-import type { TreeViewItem } from '@/types/treeView';
+import type { TreeViewHandle, TreeViewItem } from '@/types/treeView';
 import { useMutation, useQuery } from '@apollo/client';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -61,6 +61,8 @@ export default function PagesTemplateManagementRead() {
   const [treeData, setTreeData] = useState<TreeViewItem[]>([]);
   const [hasErrors, setHasErrors] = useState(false);
 
+  const treeViewRef = useRef<TreeViewHandle>(null);
+
   const { contentId, templateId } = useParams<{ contentId: string; templateId: string }>();
   const navigate = useNavigate();
   const notifications = useNotifications();
@@ -91,23 +93,25 @@ export default function PagesTemplateManagementRead() {
   });
 
   const template = data?.template;
-  const parsedTemplateData = useMemo(() => parseTemplateData(template?.data), [template?.data]);
+  const parsedInitialData = useMemo(() => parseTemplateData(template?.data), [template?.data]);
 
-  const handleClickList = useCallback(() => {
-    navigate(`/content-management/${contentId}`);
-  }, [navigate, contentId]);
+  const handleClickList = useCallback(() => navigate(`/content-management/${contentId}`), [navigate, contentId]);
 
-  const handleClickEdit = useCallback(() => {
-    navigate(`/content-management/${contentId}/${templateId}/edit`);
-  }, [navigate, contentId, templateId]);
+  const handleClickEdit = useCallback(() => navigate(`/content-management/${contentId}/${templateId}/edit`), [navigate, contentId, templateId]);
 
   const handleClickSave = async () => {
     if (!templateId) return;
 
-    try {
-      const dataToSave = JSON.stringify(removeTypename(treeData));
+    let dataToSave: TreeViewItem[] = treeData;
 
-      await updateTemplate({ variables: { id: templateId as string, name: data?.template?.name ?? '', data: dataToSave } });
+    if (treeViewRef.current) {
+      dataToSave = treeViewRef.current.flushChanges();
+    }
+
+    try {
+      const dataToSaveString = JSON.stringify(removeTypename(dataToSave));
+
+      await updateTemplate({ variables: { id: templateId as string, name: data?.template?.name ?? '', data: dataToSaveString } });
 
       notifications.show('데이터를 저장했습니다.', { severity: 'success', autoHideDuration: 1000 });
 
@@ -124,23 +128,28 @@ export default function PagesTemplateManagementRead() {
   };
 
   useEffect(() => {
-    const parsedData = parseTemplateData(template?.data);
+    if (!loading && data?.template) {
+      const parsedData = parseTemplateData(data.template.data);
 
-    setTreeData(parsedData);
-  }, [template]);
+      setTreeData(parsedData);
+      setOriginalTreeData(parsedData);
+    }
+  }, [data, loading]);
 
   useEffect(() => {
     if (showDataManagementDialog) {
-      setOriginalTreeData(parsedTemplateData);
-      setTreeData(parsedTemplateData);
-    }
-  }, [showDataManagementDialog, parsedTemplateData]);
+      const parsedData = parseTemplateData(data?.template?.data);
 
-  if (loading) {
+      setOriginalTreeData(parsedData);
+      setTreeData(parsedData);
+    }
+  }, [showDataManagementDialog, parsedInitialData, data?.template?.data]);
+
+  if (loading && !data) {
     return <LoadingIndicator />;
   }
 
-  if (!data?.template) {
+  if (!template) {
     return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>데이터가 없습니다.</Stack>;
   }
 
@@ -149,10 +158,10 @@ export default function PagesTemplateManagementRead() {
       <Card sx={{ background: 'none', boxShadow: 'none', marginBottom: '100px' }}>
         <CardContent>
           <Stack sx={{ gap: '20px' }}>
-            <TextField label="이름" value={template?.name} autoComplete="off" disabled />
+            <TextField label="이름" value={template?.name ?? ''} autoComplete="off" disabled />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
-              <TextField label="생성일" value={dayjs(template?.createdAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
-              <TextField label="수정일" value={dayjs(template?.updatedAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
+              <TextField label="생성일" value={template?.createdAt ? dayjs(template.createdAt).format('YYYY-MM-DD HH:mm:ss') : ''} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
+              <TextField label="수정일" value={template?.updatedAt ? dayjs(template.updatedAt).format('YYYY-MM-DD HH:mm:ss') : ''} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
             </Stack>
           </Stack>
         </CardContent>
@@ -182,7 +191,7 @@ export default function PagesTemplateManagementRead() {
         <AppBar sx={{ position: 'relative', boxShadow: 'none', borderBottom: 'solid 1px var(--mui-palette-divider)', backgroundColor: 'var(--mui-palette-background-default)' }}>
           <Toolbar sx={{ gap: '10px' }}>
             <Typography sx={{ flex: 1, color: 'var(--mui-palette-primary-main)' }} variant="h6" component="div">
-              [{template?.name}] 데이터 관리
+              [{template?.name ?? ''}] 데이터 관리
             </Typography>
             <Button variant="outlined" disableElevation startIcon={<CancelIcon />} onClick={handleClickCancel}>
               취소
@@ -193,7 +202,7 @@ export default function PagesTemplateManagementRead() {
           </Toolbar>
         </AppBar>
         <Box sx={{ overflow: { xs: 'auto', lg: 'hidden' }, display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, height: 'calc(100% - 64px)' }}>
-          <TreeView data={treeData} onDataChange={setTreeData} onErrorsChange={(hasErrors) => setHasErrors(hasErrors)} />
+          <TreeView ref={treeViewRef} data={treeData} onDataChange={setTreeData} onErrorsChange={setHasErrors} />
         </Box>
       </Dialog>
     </>
