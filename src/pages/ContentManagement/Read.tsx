@@ -34,7 +34,7 @@ export default function PagesContentManagementRead() {
     ),
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteContents({ variables: { ids: [contentId as string] } });
 
@@ -44,7 +44,7 @@ export default function PagesContentManagementRead() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '콘텐츠 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [contentId, deleteContents, navigate, notifications]),
   });
 
   const handleClickList = useCallback(() => navigate('/content-management'), [navigate]);

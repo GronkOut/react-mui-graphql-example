@@ -1,6 +1,7 @@
 import { ChangeEvent, FocusEvent, RefObject, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import type { Field, FieldErrors, FieldType, FieldValue } from '@/types/treeView';
+import { FIELD_TYPES, FIELD_TYPES_DEFAULT } from '@/types/treeView';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Box, Button, FormControl, FormControlLabel, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Switch, TextField, Tooltip, Typography } from '@mui/material';
 
@@ -26,8 +27,6 @@ interface FieldItemProps {
   handleChangeFieldToggle: (index: number, prop: 'required' | 'editable' | 'visible', checked: boolean) => void;
 }
 
-const FIELD_TYPES: FieldType[] = ['text', 'textList', 'number', 'checkbox', 'color', 'image', 'select', 'tag'];
-
 const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldError, handleChangeField, handleChangeFields, handleDeleteField, handleChangeFieldToggle }: FieldItemProps) {
   const [fieldUiType, setFieldUiType] = useState<FieldType>(field.type || 'text');
   const [fieldUiTypePending, setFieldUiTypePending] = useState<FieldType | null>(null);
@@ -41,41 +40,11 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
     content: '필드 타입을 변경하면 값과 정규식이 초기화됩니다. 계속하시겠습니까?',
     cancelText: '취소',
     confirmText: '확인',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       if (fieldUiTypePending !== null) {
         setFieldUiType(fieldUiTypePending);
 
-        let value: FieldValue;
-
-        switch (fieldUiTypePending) {
-          case 'text':
-            value = '';
-            break;
-          case 'textList':
-            value = [''];
-            break;
-          case 'number':
-            value = 0;
-            break;
-          case 'checkbox':
-            value = true;
-            break;
-          case 'color':
-            value = [''];
-            break;
-          case 'image':
-            value = '';
-            break;
-          case 'select':
-            value = [{ type: '', value: '' }];
-            break;
-          case 'tag':
-            value = [''];
-            break;
-          default:
-            value = '';
-            break;
-        }
+        const value = FIELD_TYPES_DEFAULT[fieldUiTypePending];
 
         handleChangeFields(index, [
           { key: 'type', value: fieldUiTypePending },
@@ -85,7 +54,7 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
 
         setFieldUiTypePending(null);
       }
-    },
+    }, [fieldUiTypePending, handleChangeFields, index]),
   });
 
   // 필드 키 변경 핸들러 (로컬 상태만 업데이트)
@@ -158,13 +127,23 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
   const handleChangeFieldRequired = useCallback((_event: ChangeEvent<HTMLInputElement>, checked: boolean) => handleChangeFieldToggle(index, 'required', checked), [handleChangeFieldToggle, index]);
 
   // 필드 UI 노출(visible) 토글 핸들러
-  const handleChangeFieldVisible = useCallback((_event: ChangeEvent<HTMLInputElement>, checked: boolean) => handleChangeFieldToggle(index, 'visible', checked), [handleChangeFieldToggle, index]);
+  const handleChangeFieldVisible = useCallback(
+    (_event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+      handleChangeFieldToggle(index, 'visible', checked);
+
+      if (!checked) {
+        handleChangeFieldToggle(index, 'editable', false);
+        handleChangeFieldToggle(index, 'required', false);
+      }
+    },
+    [handleChangeFieldToggle, index],
+  );
 
   // 필드 삭제 핸들러
   const handleClickFieldDelete = useCallback(() => handleDeleteField(index), [handleDeleteField, index]);
 
   // 필드 타입에 따라 다른 값 입력 UI 렌더링
-  const renderValueInput = useCallback(() => {
+  const renderValueInput = useMemo(() => {
     switch (field.type) {
       case 'text':
         return <TextField label="Value" fullWidth size="small" value={String(fieldValue ?? '')} autoComplete="off" onChange={handleChangeFieldValue} onBlur={handleBlurFieldValue} />;
@@ -175,10 +154,11 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
       case 'image':
         return <TextField label="Value" fullWidth size="small" value={fieldValue} autoComplete="off" onChange={handleChangeFieldValue} onBlur={handleBlurFieldValue} />;
       default:
-        return '';
+        return null;
     }
   }, [field.type, fieldValue, handleChangeFieldValue, handleBlurFieldValue, handleChangeSwitchValue]);
 
+  // props 변경 시 로컬 상태 업데이트
   useEffect(() => {
     setFieldUiType(field.type || 'text');
     setFieldKey(field.key || '');
@@ -219,7 +199,11 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
             </Tooltip>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <FormControlLabel label="수정 가능" sx={{ margin: '0', gap: '5px', '& .MuiTypography-root': { fontSize: '14px' } }} control={<Switch size="small" checked={field.editable ?? true} onChange={handleChangeFieldEditable} />} />
+            <FormControlLabel
+              label="수정 가능"
+              sx={{ margin: '0', gap: '5px', '& .MuiTypography-root': { fontSize: '14px' } }}
+              control={<Switch size="small" checked={field.editable ?? true} disabled={!field.visible} onChange={handleChangeFieldEditable} />}
+            />
             <Tooltip title="사용자 어드민에서 해당 필드의 값을 수정할 수 있도록 허용합니다.">
               <IconButton size="small">
                 <HelpOutlineIcon fontSize="small" />
@@ -227,7 +211,11 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
             </Tooltip>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <FormControlLabel label="필수 입력" sx={{ margin: '0', gap: '5px', '& .MuiTypography-root': { fontSize: '14px' } }} control={<Switch size="small" checked={field.required ?? true} onChange={handleChangeFieldRequired} />} />
+            <FormControlLabel
+              label="필수 입력"
+              sx={{ margin: '0', gap: '5px', '& .MuiTypography-root': { fontSize: '14px' } }}
+              control={<Switch size="small" checked={field.required ?? true} disabled={!field.visible} onChange={handleChangeFieldRequired} />}
+            />
             <Tooltip title="사용자 어드민에서 해당 필드를 필수로 입력하도록 설정합니다.">
               <IconButton size="small">
                 <HelpOutlineIcon fontSize="small" />
@@ -240,7 +228,7 @@ const FieldItem = memo(function FieldItem({ field, index, containerRef, fieldErr
         <TextField label="Key" fullWidth size="small" value={fieldKey} autoComplete="off" error={!!fieldError} helperText={fieldError || ''} onChange={handleChangeFieldKey} onBlur={handleBlurFieldKey} />
 
         {/* 값 */}
-        {renderValueInput()}
+        {renderValueInput}
 
         {/* 정규식 */}
         {field.type !== 'checkbox' && <TextField label="RegEx" fullWidth size="small" value={fieldRegEx} autoComplete="off" onChange={handleChangeFieldRegEx} onBlur={handleBlurFieldRegEx} />}

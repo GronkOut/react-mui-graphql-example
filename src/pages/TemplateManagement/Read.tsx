@@ -79,7 +79,7 @@ export default function PagesTemplateManagementRead() {
     content: '템플릿을 삭제하시겠습니까?',
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteTemplates({ variables: { ids: [templateId as string] } });
 
@@ -89,7 +89,7 @@ export default function PagesTemplateManagementRead() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '템플릿 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [contentId, deleteTemplates, navigate, notifications, templateId]),
   });
 
   const template = data?.template;

@@ -31,7 +31,7 @@ export default function PagesContentManagementList() {
     ),
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteContents({ variables: { ids: rowSelectionModel as string[] } });
 
@@ -43,7 +43,7 @@ export default function PagesContentManagementList() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '콘텐츠 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [deleteContents, notifications, refetch, rowSelectionModel]),
   });
 
   const columns = useMemo<GridColDef[]>(

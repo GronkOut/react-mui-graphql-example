@@ -33,9 +33,33 @@ export interface ClipboardItem {
   sourceId: string;
 }
 
-export type FieldType = 'text' | 'textList' | 'number' | 'checkbox' | 'color' | 'image' | 'select' | 'tag';
+export const FIELD_TYPES = ['text', 'textList', 'number', 'checkbox', 'color', 'image', 'select', 'tag'] as const;
 
-export type FieldValue = string | number | boolean | string[] | { type: string; value: string }[];
+export type FieldType = (typeof FIELD_TYPES)[number];
+
+type FieldValueMap = {
+  text: string;
+  textList: string[];
+  number: number;
+  checkbox: boolean;
+  color: string[];
+  image: string;
+  select: { type: string; value: string }[];
+  tag: string[];
+};
+
+export type FieldValue = FieldValueMap[FieldType];
+
+export const FIELD_TYPES_DEFAULT: FieldValueMap = {
+  text: '',
+  textList: [''],
+  number: 0,
+  checkbox: true,
+  color: [''],
+  image: '',
+  select: [{ type: '', value: '' }],
+  tag: [''],
+};
 
 export interface Field {
   key: string;

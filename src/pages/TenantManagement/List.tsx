@@ -25,7 +25,7 @@ export default function PagesTenantManagementList() {
     content: `선택한 ${rowSelectionModel.length}개의 테넌트를 삭제하시겠습니까?`,
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteTenants({ variables: { ids: rowSelectionModel as string[] } });
 
@@ -37,7 +37,7 @@ export default function PagesTenantManagementList() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '테넌트 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [deleteTenants, notifications, refetch, rowSelectionModel]),
   });
 
   const columns = useMemo<GridColDef[]>(

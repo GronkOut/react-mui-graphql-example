@@ -31,7 +31,7 @@ export default function PagesTenantManagementRead() {
     content: '테넌트를 삭제하시겠습니까?',
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteTenants({ variables: { ids: [tenantId as string] } });
 
@@ -41,7 +41,7 @@ export default function PagesTenantManagementRead() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '테넌트 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [deleteTenants, navigate, notifications, tenantId]),
   });
 
   const handleClickList = useCallback(() => navigate('/tenant-management'), [navigate]);

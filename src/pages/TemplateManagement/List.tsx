@@ -29,7 +29,7 @@ export default function PagesTemplateManagementList() {
     content: `선택한 ${rowSelectionModel.length}개의 템플릿을 삭제하시겠습니까?`,
     cancelText: '취소',
     confirmText: '삭제',
-    onConfirm: async () => {
+    onConfirm: useCallback(async () => {
       try {
         await deleteTemplates({ variables: { ids: rowSelectionModel as string[] } });
 
@@ -41,7 +41,7 @@ export default function PagesTemplateManagementList() {
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '템플릿 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    },
+    }, [deleteTemplates, notifications, refetch, rowSelectionModel]),
   });
 
   const columns = useMemo<GridColDef[]>(
