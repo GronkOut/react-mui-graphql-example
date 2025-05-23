@@ -29,25 +29,6 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-
-      setSession({
-        user: {
-          id: parsedUser.email,
-          name: parsedUser.name,
-          email: parsedUser.email,
-          image: parsedUser.image,
-        },
-      });
-    }
-
-    setLoading(false);
-  }, []);
-
   const signIn = () => {
     const session: Session = {
       user: {
@@ -70,6 +51,25 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
 
     location.href = '/intro';
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+
+      setSession({
+        user: {
+          id: parsedUser.email,
+          name: parsedUser.name,
+          email: parsedUser.email,
+          image: parsedUser.image,
+        },
+      });
+    }
+
+    setLoading(false);
+  }, []);
 
   return <AuthenticationContext value={{ loading, session, signIn, signOut }}>{children}</AuthenticationContext>;
 }
