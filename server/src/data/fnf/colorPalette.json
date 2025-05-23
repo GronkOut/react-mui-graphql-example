@@ -1,6 +1,6 @@
 [
   {
-    "id": "f5177fab-9c13-4202-afc9-4efef42baa2b",
+    "id": "fe24e12c-627a-47b7-9bfb-603050d2a1e1",
     "key": "colorPalette",
     "orderable": true,
     "editable": true,
@@ -8,25 +8,27 @@
       {
         "key": "name_ko",
         "type": "text",
-        "editable": true,
-        "required": true,
+        "editable": false,
+        "required": false,
         "visible": false,
         "value": "컬러 팔레트",
-        "regex": "문자열 정규식"
+        "regex": "",
+        "extra": ""
       },
       {
         "key": "name_en",
         "type": "text",
-        "editable": true,
-        "required": true,
+        "editable": false,
+        "required": false,
         "visible": false,
         "value": "Color Palette",
-        "regex": "문자열 정규식"
+        "regex": "",
+        "extra": ""
       }
     ],
     "children": [
       {
-        "id": "ba21b80d-ff9d-487a-ac4e-f8133fe22f1e",
+        "id": "d1e92a25-ef1f-492b-9bd3-036712c65587",
         "key": "common",
         "orderable": true,
         "editable": true,
@@ -38,7 +40,8 @@
             "required": true,
             "visible": true,
             "value": "공통",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -47,12 +50,13 @@
             "required": true,
             "visible": true,
             "value": "COMMON",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "9d8abc3e-b23d-44d8-8133-15c6490aeb3f",
+            "id": "56afff24-77f2-48a0-a810-df4f6a5d585d",
             "key": "red",
             "orderable": true,
             "editable": true,
@@ -64,7 +68,8 @@
                 "required": true,
                 "visible": true,
                 "value": "RED",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -73,7 +78,8 @@
                 "required": true,
                 "visible": true,
                 "value": "RED",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -90,13 +96,14 @@
                   "#EAEAEA",
                   "#DBD8CC"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "204afb90-99a8-4f4b-a1d1-1fdaaca72152",
+            "id": "cd68bda3-1c36-46e7-9481-409c4466d776",
             "key": "brown",
             "orderable": true,
             "editable": true,
@@ -108,7 +115,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BROWN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -117,7 +125,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BROWN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -134,13 +143,14 @@
                   "#CC9F5E",
                   "#895F27"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "6759346e-ca25-40b8-a309-14f2ee152773",
+            "id": "87f03605-946a-454e-b567-64e43ca4c820",
             "key": "khaki",
             "orderable": true,
             "editable": true,
@@ -152,7 +162,8 @@
                 "required": true,
                 "visible": true,
                 "value": "KHAKI",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -161,7 +172,8 @@
                 "required": true,
                 "visible": true,
                 "value": "KHAKI",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -177,13 +189,14 @@
                   "#ACB5A9",
                   "#364736"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "6cf7c277-da15-4326-9d3e-b4ff47223883",
+            "id": "d39d00c3-592c-43d6-a725-3d52cfbc8fe6",
             "key": "orange",
             "orderable": true,
             "editable": true,
@@ -195,7 +208,8 @@
                 "required": true,
                 "visible": true,
                 "value": "ORANGE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -204,7 +218,8 @@
                 "required": true,
                 "visible": true,
                 "value": "ORANGE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -223,7 +238,8 @@
                   "#5E5E5E",
                   "#A0A0A0"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -231,7 +247,7 @@
         ]
       },
       {
-        "id": "e88b4e7f-6c2c-4152-83dd-d4d0cccf09e1",
+        "id": "6d53dd17-4b88-4732-8c78-13f4694d83c4",
         "key": "duvetica25fw",
         "orderable": true,
         "editable": true,
@@ -243,7 +259,8 @@
             "required": true,
             "visible": true,
             "value": "DUVETICA 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -252,12 +269,13 @@
             "required": true,
             "visible": true,
             "value": "DUVETICA 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "8b809cca-72ea-4483-b167-d08913292108",
+            "id": "fb7f1526-976c-4dcc-9106-8ce950bfbf9f",
             "key": "classicLuxDuve",
             "orderable": true,
             "editable": true,
@@ -269,7 +287,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Classic (Lux-Duve)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -278,7 +297,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Classic (Lux-Duve)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -292,13 +312,14 @@
                   "#E4E0D9",
                   "#F0E8D5"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "84823a1f-1908-408a-9300-83afe01ea389",
+            "id": "4d307b36-cc10-4b7a-b42e-20d29fc0b1b1",
             "key": "apresGolf",
             "orderable": true,
             "editable": true,
@@ -310,7 +331,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Apres-Golf",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -319,7 +341,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Apres-Golf",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -334,13 +357,14 @@
                   "#A78960",
                   "#472D29"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "4ae6af0f-f51a-4dec-af58-50f5103e218b",
+            "id": "29837e8d-fa40-4859-9203-06a52fe6516b",
             "key": "premiumLifestyle",
             "orderable": true,
             "editable": true,
@@ -352,7 +376,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Premium-Lifestyle",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -361,7 +386,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Premium-Lifestyle",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -373,18 +399,17 @@
                   "#BEBD99",
                   "#676446",
                   "#706533",
-                  "#BEBD99",
-                  "#676446",
                   "#706533",
                   "#48422D"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "8072310c-a545-48f6-8c77-1c08d3a0289c",
+            "id": "480ae8aa-a8cc-4dd8-b7d6-304eef00244b",
             "key": "wellCation",
             "orderable": true,
             "editable": true,
@@ -396,7 +421,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Well-cation",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -405,7 +431,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Well-cation",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -419,13 +446,14 @@
                   "#726F6F",
                   "#505154"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "f76942cd-c196-4949-814c-fa0b9337f277",
+            "id": "01df7c45-d337-4ef0-8a8b-b41ebc6ac489",
             "key": "donna",
             "orderable": true,
             "editable": true,
@@ -437,7 +465,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Donna",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -446,7 +475,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Donna",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -459,13 +489,14 @@
                   "#D17BAF",
                   "#541020"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "9409af33-189a-4572-99ee-f0172c333ec3",
+            "id": "a038c397-c742-49bf-9e67-54acd6bf857c",
             "key": "uomo",
             "orderable": true,
             "editable": true,
@@ -477,7 +508,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Uomo",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -486,7 +518,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Uomo",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -499,13 +532,14 @@
                   "#3D6280",
                   "#273D5E"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "a8fa2191-011a-4e35-ad50-d605278bdd8c",
+            "id": "57a3bcc3-0fc6-4d20-8601-1893261a6dbd",
             "key": "luxLeisure",
             "orderable": true,
             "editable": true,
@@ -517,7 +551,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Lux-Leisure",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -526,7 +561,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Lux-Leisure",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -539,13 +575,14 @@
                   "#233465",
                   "#111D3D"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "f00e1641-9f32-42ce-8e5a-2a0a2e04b935",
+            "id": "117d0b0d-f6bf-412d-ac63-e8b5a966afba",
             "key": "apresSki",
             "orderable": true,
             "editable": true,
@@ -557,7 +594,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Apres-Ski",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -566,7 +604,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Apres-Ski",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -579,7 +618,8 @@
                   "#D298C2",
                   "#879ACE"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -587,7 +627,7 @@
         ]
       },
       {
-        "id": "1317254a-862e-4a00-9a20-ad4ec5f38be9",
+        "id": "508cdbaa-8562-412b-86e6-2efa08308101",
         "key": "sergioTacchini25fw",
         "orderable": true,
         "editable": true,
@@ -599,7 +639,8 @@
             "required": true,
             "visible": true,
             "value": "SERGIO TACCHINI 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -608,12 +649,13 @@
             "required": true,
             "visible": true,
             "value": "SERGIO TACCHINI 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "e5273b2e-3168-4b72-b587-9acd2043e9d3",
+            "id": "5d569c05-25e4-4409-ad5a-afe99dbc3cde",
             "key": "brandDna1",
             "orderable": true,
             "editable": true,
@@ -625,7 +667,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brand DNA 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -634,7 +677,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brand DNA 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -647,13 +691,14 @@
                   "#A6232D",
                   "#2C2D2F"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "8efa421d-bdf9-4265-86b6-b92da9663231",
+            "id": "204a518a-2011-4b43-b52c-47c204d7795f",
             "key": "brandDna2",
             "orderable": true,
             "editable": true,
@@ -665,7 +710,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brand DNA 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -674,7 +720,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brand DNA 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -687,13 +734,14 @@
                   "#145148",
                   "#2C3746"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "83c318e6-5429-4fad-9bbe-739dd277e2ef",
+            "id": "67d48ede-b65f-4604-a6e9-2bcc46021829",
             "key": "athleisure1",
             "orderable": true,
             "editable": true,
@@ -705,7 +753,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athleisure 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -714,7 +763,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athleisure 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -735,13 +785,14 @@
                   "#2C3746",
                   "#E6DCAB"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "41c5e281-72d6-4a63-851a-848a3401dfac",
+            "id": "d744beb8-74a4-4f4d-ab20-ccfc17083079",
             "key": "athleisure2",
             "orderable": true,
             "editable": true,
@@ -753,7 +804,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athleisure 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -762,7 +814,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athleisure 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -782,13 +835,14 @@
                   "#145148",
                   "#2C3746"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "e08a9825-6a01-4869-8a12-51bf8fe1618f",
+            "id": "c554c3d6-d791-4fc3-8793-cb495b4ace3b",
             "key": "modern1",
             "orderable": true,
             "editable": true,
@@ -800,7 +854,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Modern 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -809,7 +864,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Modern 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -827,13 +883,14 @@
                   "#2C2D2F",
                   "#ACAC98"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "91d0c363-8c86-420e-85a9-7d2d2a477268",
+            "id": "1f6a0ebe-d477-4e8a-8710-472e86c27541",
             "key": "modern2",
             "orderable": true,
             "editable": true,
@@ -845,7 +902,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Modern 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -854,7 +912,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Modern 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -868,18 +927,18 @@
                   "#2C3746",
                   "#979798",
                   "#4B4B4D",
-                  "#2C3746",
                   "#2C2D2F",
                   "#605C44",
                   "#B8BBD3"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "44657702-ab52-4abc-863a-908796ed56e6",
+            "id": "f480aaa1-4245-4ae4-91e7-278f192662f4",
             "key": "season1",
             "orderable": true,
             "editable": true,
@@ -891,7 +950,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Season 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -900,7 +960,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Season 1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -918,13 +979,14 @@
                   "#979798",
                   "#4B4B4D"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "9782a851-3173-453b-a469-1505df1cd5ac",
+            "id": "605f5d26-e86a-4a82-a1b2-b1ed964d0c58",
             "key": "season2",
             "orderable": true,
             "editable": true,
@@ -936,7 +998,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Season 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -945,7 +1008,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Season 2",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -963,7 +1027,8 @@
                   "#E57F4E",
                   "#EFEFEA"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -971,7 +1036,7 @@
         ]
       },
       {
-        "id": "541ccd2a-1739-4eb6-a5bb-4fea91eaaa4d",
+        "id": "275a6be8-1207-454a-91b5-97a554c1c5f4",
         "key": "supra25fw",
         "orderable": true,
         "editable": true,
@@ -983,7 +1048,8 @@
             "required": true,
             "visible": true,
             "value": "SUPRA 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -992,12 +1058,13 @@
             "required": true,
             "visible": true,
             "value": "SUPRA 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "062cdb4a-1339-445b-878b-b786119de142",
+            "id": "4d194783-aa2d-4f30-906d-a42fa98d3b94",
             "key": "metal",
             "orderable": true,
             "editable": true,
@@ -1009,7 +1076,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Metal",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1018,7 +1086,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Metal",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1036,13 +1105,14 @@
                   "#2A2B2B",
                   "#040000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "1b8a59ca-d79b-4ee0-a03b-fb30b0257cd9",
+            "id": "ab45d210-1511-4630-9138-5962d2bc6f1d",
             "key": "brown",
             "orderable": true,
             "editable": true,
@@ -1054,7 +1124,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brown",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1063,7 +1134,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Brown",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1083,13 +1155,14 @@
                   "#5F4840",
                   "#3D2E2E"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "b3435056-770b-4e22-aba8-9d78b6a1f86f",
+            "id": "6b454eda-33b3-4cdc-8e74-35362f701b4c",
             "key": "autumn",
             "orderable": true,
             "editable": true,
@@ -1101,7 +1174,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Autumn",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1110,7 +1184,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Autumn",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1131,13 +1206,14 @@
                   "#757240",
                   "#555030"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "afb67e74-f219-450d-9f00-c20ee06651f7",
+            "id": "8eb79d04-46e7-488a-a62e-376492a13b0d",
             "key": "red",
             "orderable": true,
             "editable": true,
@@ -1149,7 +1225,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Red",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1158,7 +1235,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Red",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1179,13 +1257,14 @@
                   "#39606F",
                   "#153947"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "96eea143-a7a8-43ca-9aff-b7b3813e4ded",
+            "id": "c0c44772-ba2c-496f-bfd5-79166d00e7fb",
             "key": "moncler",
             "orderable": true,
             "editable": true,
@@ -1197,7 +1276,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Moncler",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1206,7 +1286,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Moncler",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1227,13 +1308,14 @@
                   "#6E4737",
                   "#4E3429"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "a62c185c-a1ff-4860-ac2d-63e61cc4310b",
+            "id": "37886cf7-fda2-469c-a534-4077dc4e64cc",
             "key": "vintage",
             "orderable": true,
             "editable": true,
@@ -1245,7 +1327,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1254,7 +1337,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1275,13 +1359,14 @@
                   "#784F6C",
                   "#54334A"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "fe8e3cca-917c-44a0-a770-4b95801074c8",
+            "id": "bf15238a-9007-4ac9-b16f-2e8d459eb132",
             "key": "leaves",
             "orderable": true,
             "editable": true,
@@ -1293,7 +1378,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Leaves ",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1302,7 +1388,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Leaves ",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1323,13 +1410,14 @@
                   "#424142",
                   "#3D2E2E"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "8762f627-8e6f-400b-8bd6-03d0f2069f53",
+            "id": "63c24355-42d3-44c7-8296-9671ac653125",
             "key": "purple",
             "orderable": true,
             "editable": true,
@@ -1341,7 +1429,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Purple",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1350,7 +1439,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Purple",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1371,7 +1461,8 @@
                   "#323333",
                   "#3D2E2E"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -1379,7 +1470,7 @@
         ]
       },
       {
-        "id": "456ad15d-3be1-4302-8a0a-76f232a853eb",
+        "id": "94e2d6ba-7f4f-4b04-97ca-d8c5c1a1d09e",
         "key": "discovery25fw",
         "orderable": true,
         "editable": true,
@@ -1391,7 +1482,8 @@
             "required": true,
             "visible": true,
             "value": "DISCOVERY 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -1400,12 +1492,13 @@
             "required": true,
             "visible": true,
             "value": "DISCOVERY 25FW",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "4d0785f2-d6ee-4838-8c53-d2e1cb98f489",
+            "id": "748e01e1-d408-4d61-b9ef-0677f46042de",
             "key": "natural",
             "orderable": true,
             "editable": true,
@@ -1417,7 +1510,8 @@
                 "required": true,
                 "visible": true,
                 "value": "NATURAL",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1426,7 +1520,8 @@
                 "required": true,
                 "visible": true,
                 "value": "NATURAL",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1440,13 +1535,14 @@
                   "#978A76",
                   "#6C7269"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "60305a40-f005-40b9-a4a5-6baf0ecf0cf6",
+            "id": "fdbc624c-6222-4926-a09b-f2b867f6500a",
             "key": "morden",
             "orderable": true,
             "editable": true,
@@ -1458,7 +1554,8 @@
                 "required": true,
                 "visible": true,
                 "value": "MORDEN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1467,7 +1564,8 @@
                 "required": true,
                 "visible": true,
                 "value": "MORDEN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1480,13 +1578,14 @@
                   "#A7D1B6",
                   "#ECEAE1"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "8ff7b6b5-e269-422b-b99e-f619ee5c57a9",
+            "id": "5c11fbac-b869-4975-afb1-d021344cce02",
             "key": "depthness",
             "orderable": true,
             "editable": true,
@@ -1498,7 +1597,8 @@
                 "required": true,
                 "visible": true,
                 "value": "DEPTHNESS",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1507,7 +1607,8 @@
                 "required": true,
                 "visible": true,
                 "value": "DEPTHNESS",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1524,13 +1625,14 @@
                   "#465148",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "13cebf33-b5d8-436c-a7c7-0cbd41e68613",
+            "id": "b250896c-ee2d-43c5-bd51-c324b199dd83",
             "key": "prestigeOutdoor",
             "orderable": true,
             "editable": true,
@@ -1542,7 +1644,8 @@
                 "required": true,
                 "visible": true,
                 "value": "PRESTIGE OUTDOOR",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1551,7 +1654,8 @@
                 "required": true,
                 "visible": true,
                 "value": "PRESTIGE OUTDOOR",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1568,13 +1672,14 @@
                   "#435265",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "5ae35318-13f0-4c36-b086-e6271b8b4337",
+            "id": "421a5a82-4931-4daf-9aca-fb8302cbf0ab",
             "key": "performance",
             "orderable": true,
             "editable": true,
@@ -1586,7 +1691,8 @@
                 "required": true,
                 "visible": true,
                 "value": "PERFORMANCE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1595,7 +1701,8 @@
                 "required": true,
                 "visible": true,
                 "value": "PERFORMANCE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1612,13 +1719,14 @@
                   "#C49B55",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "e8f5d63b-2917-4d22-9390-05a05b34801e",
+            "id": "4b9c95b4-8530-4489-93ae-07a3ca285cba",
             "key": "softscape",
             "orderable": true,
             "editable": true,
@@ -1630,7 +1738,8 @@
                 "required": true,
                 "visible": true,
                 "value": "SOFTSCAPE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1639,7 +1748,8 @@
                 "required": true,
                 "visible": true,
                 "value": "SOFTSCAPE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1655,7 +1765,8 @@
                   "#D2D4D7",
                   "#8794A2"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -1663,7 +1774,7 @@
         ]
       },
       {
-        "id": "60190cdf-397c-4507-932e-a0aba4bc3ebe",
+        "id": "73eb8774-24b5-4aac-8efc-848ea708aa1b",
         "key": "mlbKids",
         "orderable": true,
         "editable": true,
@@ -1675,7 +1786,8 @@
             "required": true,
             "visible": true,
             "value": "MLB KIDS",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -1684,12 +1796,13 @@
             "required": true,
             "visible": true,
             "value": "MLB KIDS",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "c99c78a1-5303-4491-a272-53f61b748c57",
+            "id": "fe5beb4b-5526-441c-87d1-1172dc975326",
             "key": "beige",
             "orderable": true,
             "editable": true,
@@ -1701,7 +1814,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BEIGE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1710,7 +1824,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BEIGE",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1729,13 +1844,14 @@
                   "#997c5c",
                   "#837766"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "886ab2b0-ae11-4b40-95f2-0ee476b0b8b1",
+            "id": "38679e84-3b67-4f29-8942-9009adc6d45e",
             "key": "lavender",
             "orderable": true,
             "editable": true,
@@ -1747,7 +1863,8 @@
                 "required": true,
                 "visible": true,
                 "value": "LAVENDER",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1756,7 +1873,8 @@
                 "required": true,
                 "visible": true,
                 "value": "LAVENDER",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1773,13 +1891,14 @@
                   "#c5b3d6",
                   "#bbadd3"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "6f1dd3b1-cedd-4e58-a094-d140b748f382",
+            "id": "5597f14e-a975-4b9a-ad8b-6d925cdfc775",
             "key": "brown",
             "orderable": true,
             "editable": true,
@@ -1791,7 +1910,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BROWN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1800,7 +1920,8 @@
                 "required": true,
                 "visible": true,
                 "value": "BROWN",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1819,13 +1940,14 @@
                   "#3d2f21",
                   "#331d19"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "5793dec2-045d-4433-9164-e2b4f16f4954",
+            "id": "3303ca4d-5511-43f1-a2f0-b97cd0a1513f",
             "key": "grey",
             "orderable": true,
             "editable": true,
@@ -1837,7 +1959,8 @@
                 "required": true,
                 "visible": true,
                 "value": "GREY",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1846,7 +1969,8 @@
                 "required": true,
                 "visible": true,
                 "value": "GREY",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1864,7 +1988,8 @@
                   "#5d5e5e",
                   "#383a42"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
@@ -1872,7 +1997,7 @@
         ]
       },
       {
-        "id": "593f9506-c44c-4c8a-94db-f6c320dc2235",
+        "id": "f57267b2-8f68-4681-8262-b89917ed48fa",
         "key": "mlb",
         "orderable": true,
         "editable": true,
@@ -1884,7 +2009,8 @@
             "required": true,
             "visible": true,
             "value": "MLB",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -1893,12 +2019,13 @@
             "required": true,
             "visible": true,
             "value": "MLB",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "862f514c-87f3-4c39-a191-ac5641ce71ac",
+            "id": "2920f76f-79b2-4841-8344-f1903698910d",
             "key": "vintageUni",
             "orderable": true,
             "editable": true,
@@ -1910,7 +2037,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage-uni",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1919,7 +2047,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage-uni",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -1946,13 +2075,14 @@
                   "#212121",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "183d8f61-4e1e-495d-90f7-f6a058727ed2",
+            "id": "e0fcf37e-bb79-4e86-b795-febd504fcddc",
             "key": "vintageVarsity",
             "orderable": true,
             "editable": true,
@@ -1964,7 +2094,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage Varsity",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -1973,7 +2104,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage Varsity",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2001,13 +2133,14 @@
                   "#212121",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "1b2261bf-17f6-4f4e-a511-fb18a4287757",
+            "id": "59b0040f-80df-45c3-a1be-fac438055079",
             "key": "vintageFeminine",
             "orderable": true,
             "editable": true,
@@ -2019,7 +2152,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage-feminine",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2028,7 +2162,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Vintage-feminine",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2053,16 +2188,16 @@
                   "#41557C",
                   "#0A2E42",
                   "#595959",
-                  "#3A3939",
                   "#212121"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "446a1cdb-dc58-4a6e-bfb5-700cc8348e9d",
+            "id": "834e61fb-50e2-4819-9dfc-6bcbdfa7315c",
             "key": "athlesuire",
             "orderable": true,
             "editable": true,
@@ -2074,7 +2209,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athlesuire",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2083,7 +2219,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athlesuire",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2101,19 +2238,18 @@
                   "#915C76",
                   "#3A2B22",
                   "#2F331E",
-                  "#41557C",
                   "#001835",
-                  "#3A3939",
                   "#212121",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "03f496af-99fb-4bd0-8bc9-3bd12838957a",
+            "id": "cb18855f-5813-4d07-9e05-a70a64190f7f",
             "key": "athlesuireFeminine",
             "orderable": true,
             "editable": true,
@@ -2125,7 +2261,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athlesuire-feminine",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2134,7 +2271,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Athlesuire-feminine",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2159,13 +2297,14 @@
                   "#212121",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "66bd485c-e511-4188-ac3a-8f3c7f2986b5",
+            "id": "c91f9034-d3ae-4645-8293-634011cf1d99",
             "key": "outdoor1",
             "orderable": true,
             "editable": true,
@@ -2177,7 +2316,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Outdoor-1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2186,7 +2326,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Outdoor-1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2217,13 +2358,14 @@
                   "#094C7A",
                   "#001835"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "a8577def-07ab-49ca-9fc7-cdbd83387587",
+            "id": "3fea222d-71fc-4d6b-8d70-5416a8781e9c",
             "key": "outdoorGoreTex",
             "orderable": true,
             "editable": true,
@@ -2235,7 +2377,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Outdoor-GORE TEX",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2244,7 +2387,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Outdoor-GORE TEX",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2266,13 +2410,14 @@
                   "#3A3939",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []
           },
           {
-            "id": "f6229fd9-6af3-43fa-9ee0-e7349a8fff16",
+            "id": "25c21240-27bd-4d7b-88df-26d0c303baa9",
             "key": "feminineGorpcore",
             "orderable": true,
             "editable": true,
@@ -2284,7 +2429,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Feminine Gorpcore",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -2293,7 +2439,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Feminine Gorpcore",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "color",
@@ -2315,7 +2462,8 @@
                   "#212121",
                   "#000000"
                 ],
-                "regex": "컬러 정규식"
+                "regex": "/^#?([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/",
+                "extra": "{minLength:1,maxLength:22}"
               }
             ],
             "children": []

@@ -115,6 +115,7 @@ type Mutation {
   createTemplate(contentId: ID!, name: String!, data: String): Template!
   updateTemplate(id: ID!, name: String, data: String): Template!
   deleteTemplates(ids: [ID!]!): Boolean!
+  duplicateTemplate(id: ID!): Template!
 }
 
 input ContentTemplateMappingInput {
@@ -480,6 +481,41 @@ const resolvers = {
 
       return updatedTemplate;
     },
+    // 템플릿 복제
+    duplicateTemplate: async (_: unknown, { id }: { id: string }): Promise<Template> => {
+      const db = await readDB();
+      const originalTemplateId = parseInt(id, 10);
+      const originalTemplate = db.templates.find((t) => t.id === originalTemplateId);
+
+      if (!originalTemplate) throw new Error(`ID가 ${id}인 템플릿을 찾을 수 없습니다.`);
+
+      let newName = `${originalTemplate.name} - 복사본`;
+      let suffixCounter = 1;
+
+      while (db.templates.some((t) => t.contentId === originalTemplate.contentId && t.name === newName)) {
+        suffixCounter++;
+
+        newName = `${originalTemplate.name} - 복사본 ${suffixCounter}`;
+      }
+
+      const currentDate = new Date().toISOString();
+
+      const newTemplate: Template = {
+        id: db.templates.length > 0 ? Math.max(...db.templates.map((t) => t.id)) + 1 : 1,
+        contentId: originalTemplate.contentId,
+        name: newName,
+        data: originalTemplate.data,
+        isDefault: false,
+        createdAt: currentDate,
+        updatedAt: currentDate,
+      };
+
+      db.templates.push(newTemplate);
+
+      await writeDB(db);
+
+      return newTemplate;
+    },
     // 템플릿 삭제
     deleteTemplates: async (_: unknown, { ids }: { ids: string[] }) => {
       const db = await readDB();
@@ -714,7 +750,8 @@ async function startServer() {
   await server.start();
 
   app.use(cors());
-  app.use(express.json());
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ limit: '10mb', extended: true }));
   app.use('/', cors(), express.json(), expressMiddleware(server) as unknown as express.RequestHandler);
 
   app.listen(4000, () => {

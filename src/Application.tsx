@@ -19,26 +19,30 @@ declare module '@mui/x-data-grid' {
 const branding: Branding = {
   title: 'System Admin',
   logo: <img src="/images/favicon196x196.png" alt="logo" />,
-  homeUrl: '/tenant-management',
+  homeUrl: '/',
 };
 
-const navigation: Navigation = [
+const artFashion: Navigation = [
   {
     kind: 'header',
-    title: '데이터',
+    title: 'Art Fashion',
   },
   {
-    segment: 'tenant-management',
+    segment: 'tenant',
     title: '테넌트 관리',
     icon: <AccountTreeIcon />,
-    pattern: 'tenant-management{/:tenantId}*',
+    pattern: 'tenant{/:tenantId}*',
   },
   {
-    segment: 'content-management',
+    segment: 'content',
     title: '콘텐츠 관리',
     icon: <NewspaperIcon />,
-    pattern: 'content-management{/:contentId}*',
+    pattern: 'content{/:contentId}*',
   },
+];
+
+const navigation: Navigation = [
+  ...artFashion,
   {
     kind: 'divider',
   },

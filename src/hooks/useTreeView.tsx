@@ -1,22 +1,22 @@
-import { ChangeEvent, MouseEvent, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useConfirmDialog } from '@/hooks/useConfirmDialog';
-import { ClipboardItem, FieldErrors, TreeViewItem } from '@/types/treeView';
+import { ChangeEvent, KeyboardEvent, MouseEvent, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { RegExKeyName, cloneItemWithNewIds, deleteItemById, findItemById, findParentId, isDescendantOf, isDuplicatedKey, updateItemById } from '@/utils/treeView';
+import { useConfirmDialog } from '@/hooks/useConfirmDialog';
+import { ClipboardNode, FieldErrors, Node } from '@/types/treeView';
+import { RegExKeyName, cloneNode, deleteNode, findNode, findParentNode, getVisibleNodes, isDescendant, isDuplicatedKey, updateNode } from '@/utils/treeView';
 
-export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: TreeViewItem[]) => void) => {
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
-  const [itemToCutId, setItemToCutId] = useState<string | null>(null);
-  const [itemToDeleteId, setItemToDeleteId] = useState<string | null>(null);
-  const [clipboard, setClipboard] = useState<ClipboardItem | null>(null);
-  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+export const useTreeView = (data: Node[], onDataChange: (updatedData: Node[]) => void) => {
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [clippedNodeId, setClippedNodeId] = useState<string | null>(null);
+  const [deleteNodeId, setDeleteNodeId] = useState<string | null>(null);
+  const [clipboard, setClipboard] = useState<ClipboardNode | null>(null);
+  const [expandedNodesIds, setExpandedNodesIds] = useState<string[]>([]);
   const [keyError, setKeyError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>(null);
 
-  const prevSelectedItemIdRef = useRef<string | null>(null);
+  const prevSelectedNodeIdRef = useRef<string | null>(null);
   const notifications = useNotifications();
 
-  const selectedItem = useMemo(() => (selectedItemId ? findItemById(data, selectedItemId) : null), [selectedItemId, data]);
+  const selectedNode = useMemo(() => (selectedNodeId ? findNode(data, selectedNodeId) : null), [selectedNodeId, data]);
   const hasErrors = useMemo(() => !!keyError || (!!fieldErrors && Object.keys(fieldErrors).length > 0), [keyError, fieldErrors]);
 
   // 삭제 확인 다이얼로그
@@ -33,14 +33,12 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
     confirmText: '삭제',
     onConfirm: useCallback(async () => {
       try {
-        if (!itemToDeleteId) return;
+        if (!deleteNodeId) return;
 
-        const updatedData = deleteItemById(data, itemToDeleteId);
+        onDataChange(deleteNode(data, deleteNodeId));
 
-        onDataChange(updatedData);
-
-        setItemToDeleteId(null);
-        setSelectedItemId(null);
+        setDeleteNodeId(null);
+        setSelectedNodeId(null);
         setKeyError(null);
         setFieldErrors(null);
 
@@ -48,7 +46,7 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '선택된 노드 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    }, [data, itemToDeleteId, onDataChange, notifications]),
+    }, [data, deleteNodeId, onDataChange, notifications]),
   });
 
   // 잘라내기 확인 다이얼로그
@@ -65,23 +63,21 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
     confirmText: '잘라내기',
     onConfirm: useCallback(async () => {
       try {
-        if (!itemToCutId) return;
+        if (!clippedNodeId) return;
 
-        const itemToCut = findItemById(data, itemToCutId);
+        const clippedNode = findNode(data, clippedNodeId);
 
-        if (!itemToCut) {
+        if (!clippedNode) {
           notifications.show('잘라낼 노드를 찾을 수 없습니다.', { severity: 'error', autoHideDuration: 2000 });
           return;
         }
 
-        setClipboard({ item: JSON.parse(JSON.stringify(itemToCut)), operation: 'cut', sourceId: itemToCutId });
+        setClipboard({ node: JSON.parse(JSON.stringify(clippedNode)), operation: 'cut', sourceId: clippedNodeId });
 
-        const updatedData = deleteItemById(data, itemToCutId);
+        onDataChange(deleteNode(data, clippedNodeId));
 
-        onDataChange(updatedData);
-
-        setItemToCutId(null);
-        setSelectedItemId(null);
+        setClippedNodeId(null);
+        setSelectedNodeId(null);
         setKeyError(null);
         setFieldErrors(null);
 
@@ -89,16 +85,16 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '선택된 노드 잘라내기에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
-    }, [data, itemToCutId, onDataChange, notifications]),
+    }, [data, clippedNodeId, onDataChange, notifications]),
   });
 
-  // 선택된 아이템 변경 시 오류 체크
+  // 선택된 노드 변경 시 오류 체크
   useEffect(() => {
-    const currentSelectedItemId = selectedItemId;
+    const currentSelectedNodeId = selectedNodeId;
 
-    if (selectedItem) {
-      const trimmedKey = selectedItem.key?.trim() ?? '';
-      const parentId = findParentId(data, selectedItem.id);
+    if (selectedNode) {
+      const trimmedKey = selectedNode.key?.trim() ?? '';
+      const parentId = findParentNode(data, selectedNode.id);
 
       let currentKeyError: string | null = null;
 
@@ -106,13 +102,13 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
         currentKeyError = '키명은 반드시 입력해야 합니다.';
       } else if (!RegExKeyName.test(trimmedKey)) {
         currentKeyError = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
-      } else if (isDuplicatedKey(data, trimmedKey, selectedItem.id, parentId)) {
+      } else if (isDuplicatedKey(data, trimmedKey, selectedNode.id, parentId)) {
         currentKeyError = '동일한 뎁스에 같은 키명이 존재합니다.';
       }
 
       setKeyError(currentKeyError);
 
-      if (currentSelectedItemId !== prevSelectedItemIdRef.current) {
+      if (currentSelectedNodeId !== prevSelectedNodeIdRef.current) {
         setFieldErrors(null);
       }
     } else {
@@ -120,381 +116,357 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
       setFieldErrors(null);
     }
 
-    prevSelectedItemIdRef.current = currentSelectedItemId;
-  }, [selectedItem, selectedItemId, data]);
+    prevSelectedNodeIdRef.current = currentSelectedNodeId;
+  }, [selectedNode, selectedNodeId, data, setFieldErrors]);
 
-  // 붙여넣기 가능 여부 확인 함수
+  // 붙여넣기 가능 여부 확인
   const canPaste = useCallback(() => {
-    if (!selectedItemId || !clipboard) return false;
-    if (selectedItemId === clipboard.sourceId && clipboard.operation === 'cut') return false;
+    if (!selectedNodeId || !clipboard) return false;
+    if (selectedNodeId === clipboard.sourceId && clipboard.operation === 'cut') return false;
 
-    const sourceExists = findItemById(data, clipboard.sourceId);
+    if (clipboard.operation === 'cut') {
+      const originalId = clipboard.node.id;
 
-    if (sourceExists && clipboard.operation === 'cut') {
-      return !isDescendantOf(data, clipboard.sourceId, selectedItemId);
+      if (isDescendant(data, selectedNodeId, originalId) || selectedNodeId === originalId) {
+        return false;
+      }
     }
 
     return true;
-  }, [selectedItemId, clipboard, data]);
+  }, [selectedNodeId, clipboard, data]);
 
-  // 붙여넣기 함수
-  const pasteToItem = useCallback((items: TreeViewItem[], parentId: string, clipboardItem: TreeViewItem): TreeViewItem[] => {
-    const itemToPaste = cloneItemWithNewIds(clipboardItem);
+  // 붙여넣기
+  const pasteNode = useCallback(
+    (nodes: Node[], parentId: string, clipboardNode: Node): Node[] => {
+      const clonedNode = cloneNode(clipboardNode);
 
-    let pasted = false;
+      let pasted = false;
 
-    const pasteRecursive = (currentItems: TreeViewItem[]): TreeViewItem[] => {
-      return currentItems.map((item) => {
-        if (item.id === parentId) {
-          pasted = true;
+      const pasteRecursive = (nodes: Node[]): Node[] => {
+        return nodes.map((node) => {
+          if (node.id === parentId) {
+            pasted = true;
 
-          const newChildren = [...(item.children || []), itemToPaste];
+            const newChildren = [...(node.children || []), clonedNode];
 
-          setExpandedItems((prev) => (!prev.includes(parentId) ? [...prev, parentId] : prev));
-          setSelectedItemId(itemToPaste.id);
+            setExpandedNodesIds((prev) => (!prev.includes(parentId) ? [...prev, parentId] : prev));
+            setSelectedNodeId(clonedNode.id);
 
-          return { ...item, children: newChildren };
-        }
+            return { ...node, children: newChildren };
+          }
 
-        if (item.children?.length) return { ...item, children: pasteRecursive(item.children) };
+          if (node.children?.length) return { ...node, children: pasteRecursive(node.children) };
 
-        return item;
-      });
-    };
+          return node;
+        });
+      };
 
-    const result = pasteRecursive(items);
+      const result = pasteRecursive(nodes);
 
-    if (!pasted) {
-      console.error('붙여넣기 대상 부모 노드를 찾지 못했습니다:', parentId);
+      if (!pasted) {
+        console.error('붙여넣기 대상 부모 노드를 찾지 못했습니다:', parentId);
 
-      return items;
-    }
+        return nodes;
+      }
 
-    return result;
-  }, []);
+      return result;
+    },
+    [setExpandedNodesIds, setSelectedNodeId],
+  );
 
-  // 위로 이동 가능 여부 확인 함수
+  // 위로 이동 가능 여부 확인
   const canMoveUp = useCallback(() => {
-    if (!selectedItemId) return false;
+    if (!selectedNodeId) return false;
 
-    const parentId = findParentId(data, selectedItemId);
+    const parentId = findParentNode(data, selectedNodeId);
 
     if (parentId) {
-      const parent = findItemById(data, parentId);
+      const parent = findNode(data, parentId);
 
       if (!parent?.children) return false;
 
-      const index = parent.children.findIndex((child) => child.id === selectedItemId);
-
-      return index > 0;
-    } else {
-      const index = data.findIndex((item) => item.id === selectedItemId);
+      const index = parent.children.findIndex((child) => child.id === selectedNodeId);
 
       return index > 0;
     }
-  }, [selectedItemId, data]);
 
-  // 아래로 이동 가능 여부 확인 함수
+    const index = data.findIndex((node) => node.id === selectedNodeId);
+
+    return index > 0;
+  }, [selectedNodeId, data]);
+
+  // 아래로 이동 가능 여부 확인
   const canMoveDown = useCallback(() => {
-    if (!selectedItemId) return false;
+    if (!selectedNodeId) return false;
 
-    const parentId = findParentId(data, selectedItemId);
+    const parentId = findParentNode(data, selectedNodeId);
 
     if (parentId) {
-      const parent = findItemById(data, parentId);
+      const parent = findNode(data, parentId);
 
       if (!parent?.children) return false;
 
-      const index = parent.children.findIndex((child) => child.id === selectedItemId);
+      const index = parent.children.findIndex((child) => child.id === selectedNodeId);
 
       return index >= 0 && index < parent.children.length - 1;
-    } else {
-      const index = data.findIndex((item) => item.id === selectedItemId);
-
-      return index >= 0 && index < data.length - 1;
     }
-  }, [selectedItemId, data]);
 
-  // 위로 이동 함수
-  const moveItemUp = useCallback(
-    (id: string): TreeViewItem[] => {
-      const moveRecursive = (items: TreeViewItem[]): TreeViewItem[] => {
-        const rootIndex = items.findIndex((item) => item.id === id);
+    const index = data.findIndex((node) => node.id === selectedNodeId);
 
-        if (rootIndex > 0) {
-          const newItems = [...items];
-          const itemToMove = newItems[rootIndex];
-          const itemToSwapWith = newItems[rootIndex - 1];
+    return index >= 0 && index < data.length - 1;
+  }, [selectedNodeId, data]);
 
-          if (itemToMove && itemToSwapWith) [newItems[rootIndex - 1], newItems[rootIndex]] = [itemToMove, itemToSwapWith];
+  // 위로 이동
+  const moveUpNode = useCallback(
+    (id: string): Node[] => {
+      const moveRecursive = (nodes: Node[], targetId: string): Node[] => {
+        const currentNodes = [...nodes];
+        const indexInCurrentLevel = currentNodes.findIndex((node) => node.id === targetId);
 
-          return newItems;
-        } else if (rootIndex === 0) {
-          return items;
+        if (indexInCurrentLevel > 0) {
+          // 현재 레벨에서 찾았고, 위로 이동 가능
+          const nodeToMove = currentNodes[indexInCurrentLevel]!;
+          const nodeToSwapWith = currentNodes[indexInCurrentLevel - 1]!;
+
+          currentNodes[indexInCurrentLevel - 1] = nodeToMove;
+          currentNodes[indexInCurrentLevel] = nodeToSwapWith;
+
+          return currentNodes;
         }
 
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
+        // 현재 레벨 최상단, 이동 불가
+        if (indexInCurrentLevel === 0) return currentNodes;
 
-          if (item && item.children && item.children.length > 0) {
-            const childIndex = item.children.findIndex((child) => child.id === id);
+        // 하위 레벨 탐색
+        for (let i = 0; i < currentNodes.length; i++) {
+          const node = currentNodes[i]!;
 
-            if (childIndex > 0) {
-              const newChildren = [...item.children];
-              const childToMove = newChildren[childIndex];
-              const childToSwapWith = newChildren[childIndex - 1];
+          if (node.children && node.children.length > 0) {
+            const updatedChildren = moveRecursive(node.children, targetId);
 
-              if (childToMove && childToSwapWith) [newChildren[childIndex - 1], newChildren[childIndex]] = [childToMove, childToSwapWith];
+            if (updatedChildren !== node.children) {
+              currentNodes[i] = { ...node, children: updatedChildren };
 
-              const newItems = [...items];
-              const currentItem = newItems[i];
-
-              if (currentItem) newItems[i] = { ...currentItem, children: newChildren };
-
-              return newItems;
-            } else if (childIndex === 0) {
-              return items;
-            } else {
-              const updatedChildren = moveRecursive(item.children);
-
-              if (updatedChildren !== item.children) {
-                const newItems = [...items];
-                const currentItem = newItems[i];
-
-                if (currentItem) newItems[i] = { ...currentItem, children: updatedChildren };
-
-                return newItems;
-              }
+              return currentNodes;
             }
           }
         }
 
-        return items;
+        return currentNodes;
       };
 
-      return moveRecursive([...data]);
+      return moveRecursive(data, id);
     },
     [data],
   );
 
-  // 아래로 이동 함수
-  const moveItemDown = useCallback(
-    (id: string): TreeViewItem[] => {
-      const moveRecursive = (items: TreeViewItem[]): TreeViewItem[] => {
-        const rootIndex = items.findIndex((item) => item.id === id);
+  // 아래로 이동
+  const moveDownNode = useCallback(
+    (id: string): Node[] => {
+      const moveRecursive = (nodes: Node[], targetId: string): Node[] => {
+        const currentNodes = [...nodes]; // 복사본으로 작업
+        const indexInCurrentLevel = currentNodes.findIndex((node) => node.id === targetId);
 
-        if (rootIndex >= 0 && rootIndex < items.length - 1) {
-          const newItems = [...items];
-          const itemToMove = newItems[rootIndex];
-          const itemToSwapWith = newItems[rootIndex + 1];
+        if (indexInCurrentLevel >= 0 && indexInCurrentLevel < currentNodes.length - 1) {
+          // 현재 레벨에서 찾았고, 아래로 이동 가능
+          const nodeToMove = currentNodes[indexInCurrentLevel]!;
+          const nodeToSwapWith = currentNodes[indexInCurrentLevel + 1]!;
 
-          if (itemToMove && itemToSwapWith) [newItems[rootIndex], newItems[rootIndex + 1]] = [itemToSwapWith, itemToMove];
+          currentNodes[indexInCurrentLevel + 1] = nodeToMove;
+          currentNodes[indexInCurrentLevel] = nodeToSwapWith;
 
-          return newItems;
-        } else if (rootIndex === items.length - 1) {
-          return items;
+          return currentNodes;
         }
 
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
+        // 현재 레벨 최하단, 이동 불가
+        if (indexInCurrentLevel === currentNodes.length - 1) return currentNodes;
 
-          if (item && item.children && item.children.length > 0) {
-            const childIndex = item.children.findIndex((child) => child.id === id);
+        // 하위 레벨 탐색
+        for (let i = 0; i < currentNodes.length; i++) {
+          const node = currentNodes[i]!;
 
-            if (childIndex >= 0 && childIndex < item.children.length - 1) {
-              const newChildren = [...item.children];
-              const childToMove = newChildren[childIndex];
-              const childToSwapWith = newChildren[childIndex + 1];
+          if (node.children && node.children.length > 0) {
+            const updatedChildren = moveRecursive(node.children, targetId);
 
-              if (childToMove && childToSwapWith) [newChildren[childIndex], newChildren[childIndex + 1]] = [childToSwapWith, childToMove];
+            if (updatedChildren !== node.children) {
+              currentNodes[i] = { ...node, children: updatedChildren };
 
-              const newItems = [...items];
-              const currentItem = newItems[i];
-
-              if (currentItem) newItems[i] = { ...currentItem, children: newChildren };
-
-              return newItems;
-            } else if (childIndex === item.children.length - 1) {
-              return items;
-            } else {
-              const updatedChildren = moveRecursive(item.children);
-
-              if (updatedChildren !== item.children) {
-                const newItems = [...items];
-                const currentItem = newItems[i];
-
-                if (currentItem) newItems[i] = { ...currentItem, children: updatedChildren };
-
-                return newItems;
-              }
+              return currentNodes;
             }
           }
         }
 
-        return items;
+        return currentNodes;
       };
 
-      return moveRecursive([...data]);
+      return moveRecursive(data, id);
     },
     [data],
   );
 
-  // 노드 확장 상태 변경 핸들러
-  const handleItemExpansionToggle = useCallback(
-    (event: SyntheticEvent | null, itemId: string, isExpanded: boolean) => {
-      if (hasErrors) return;
-      if (event) event.stopPropagation();
+  // 노드 확장/축소 상태 변경
+  const setNodeExpansion = useCallback(
+    (nodeId: string, expand: boolean) => {
+      if (hasErrors && selectedNodeId === nodeId) {
+        notifications.show('현재 노드의 오류를 먼저 수정해야 합니다.', { severity: 'error', autoHideDuration: 2000 });
+        return;
+      }
 
-      setExpandedItems((prev) => {
-        if (isExpanded) {
-          return prev.includes(itemId) ? prev : [...prev, itemId];
-        } else {
-          return prev.filter((id) => id !== itemId);
-        }
+      setExpandedNodesIds((prev) => {
+        const isCurrentlyExpanded = prev.includes(nodeId);
+
+        if (expand && !isCurrentlyExpanded) return [...prev, nodeId];
+        if (!expand && isCurrentlyExpanded) return prev.filter((id) => id !== nodeId);
+
+        return prev;
       });
     },
-    [hasErrors],
+    [hasErrors, selectedNodeId, notifications],
   );
 
+  // 노드 확장/축소 상태 변경 핸들러
+  const handleChangeNodeExpansionToggle = useCallback((_event: SyntheticEvent | null, nodeId: string, isExpanded: boolean) => setNodeExpansion(nodeId, isExpanded), [setNodeExpansion]);
+
   // 노드 클릭 핸들러
-  const handleClickItem = useCallback(
-    (_event: MouseEvent | null, itemId: string) => {
-      if (hasErrors && itemId !== selectedItemId) {
+  const handleClickNode = useCallback(
+    (_event: MouseEvent | null, nodeId: string) => {
+      if (hasErrors && nodeId !== selectedNodeId) {
         notifications.show('현재 노드의 오류를 먼저 수정해야 합니다.', { severity: 'error', autoHideDuration: 2000 });
 
         return;
       }
 
-      setSelectedItemId(itemId);
+      setSelectedNodeId(nodeId);
     },
-    [hasErrors, selectedItemId, notifications],
+    [hasErrors, selectedNodeId, notifications],
   );
 
   // 노드 추가 핸들러
-  const handleClickItemAdd = useCallback(() => {
-    const newId = crypto.randomUUID();
-
-    let updatedData: TreeViewItem[];
-
-    if (!selectedItemId) {
-      const newItem: TreeViewItem = { id: newId, key: '', editable: true, orderable: true, fields: [], children: [] };
-
-      updatedData = [...data, newItem];
-
-      notifications.show('최상위에 새 노드를 추가했습니다.', { severity: 'success', autoHideDuration: 1000 });
-    } else {
-      let foundParent = false;
-
-      const addChildRecursive = (items: TreeViewItem[], pId: string): TreeViewItem[] => {
-        return items.map((item) => {
-          if (item.id === pId) {
-            foundParent = true;
-
-            const newChild: TreeViewItem = { id: newId, key: '', editable: true, orderable: true, fields: [], children: [] };
-
-            setExpandedItems((prev) => (!prev.includes(pId) ? [...prev, pId] : prev));
-
-            return { ...item, children: [...(item.children || []), newChild] };
-          }
-
-          if (item.children?.length) return { ...item, children: addChildRecursive(item.children, pId) };
-
-          return item;
-        });
-      };
-
-      updatedData = addChildRecursive([...data], selectedItemId);
-
-      if (foundParent) {
-        notifications.show('선택된 노드 하위로 노드를 추가했습니다.', { severity: 'success', autoHideDuration: 1000 });
-      } else {
-        notifications.show('노드 추가에 실패했습니다. 부모 노드를 찾을 수 없습니다.', { severity: 'error', autoHideDuration: 2000 });
-
-        return;
-      }
-    }
-
-    onDataChange(updatedData);
-
-    setSelectedItemId(newId);
-  }, [selectedItemId, data, onDataChange, notifications]);
-
-  // 노드 삭제 핸들러
-  const handleClickItemDelete = useCallback(() => {
-    if (!selectedItemId) return;
-
-    setItemToDeleteId(selectedItemId);
-
-    deleteConfirm.handleOpen();
-  }, [selectedItemId, deleteConfirm]);
-
-  // 노드 복사 핸들러
-  const handleClickItemCopy = useCallback(() => {
-    if (!selectedItemId) return;
-
-    const itemToCopy = findItemById(data, selectedItemId);
-
-    if (!itemToCopy) return;
-
-    setClipboard({ item: JSON.parse(JSON.stringify(itemToCopy)), operation: 'copy', sourceId: selectedItemId });
-
-    notifications.show('선택된 노드를 복사했습니다.', { severity: 'success', autoHideDuration: 1000 });
-  }, [selectedItemId, data, notifications]);
-
-  // 노드 잘라내기 핸들러
-  const handleClickItemCut = useCallback(() => {
-    if (!selectedItemId) return;
-
-    setItemToCutId(selectedItemId);
-
-    cutConfirm.handleOpen();
-  }, [selectedItemId, cutConfirm]);
-
-  // 노드 붙여넣기 핸들러
-  const handleClickItemPaste = useCallback(() => {
-    if (!selectedItemId || !clipboard) return;
-
-    if (!canPaste()) {
-      notifications.show('선택된 위치에 붙여넣을 수 없습니다.', { severity: 'warning', autoHideDuration: 2000 });
+  const handleClickNodeAdd = useCallback(() => {
+    if (hasErrors && selectedNodeId) {
+      notifications.show('현재 노드의 오류를 먼저 수정해야 합니다. 이후에 자식 노드를 추가할 수 있습니다.', { severity: 'error', autoHideDuration: 2000 });
 
       return;
     }
 
-    const updatedData = pasteToItem(data, selectedItemId, clipboard.item);
+    const newId = crypto.randomUUID();
+    const newNode: Node = { id: newId, key: '', editable: true, orderable: true, fields: [], children: [] };
+
+    let updatedData: Node[];
+
+    if (!selectedNodeId) {
+      updatedData = [...data, newNode];
+
+      notifications.show('최상위에 새 노드를 추가했습니다.', { severity: 'success', autoHideDuration: 1000 });
+    } else {
+      const addChildRecursive = (nodes: Node[], parentId: string): Node[] => {
+        return nodes.map((node) => {
+          if (node.id === parentId) {
+            setExpandedNodesIds((prev) => (!prev.includes(parentId) ? [...prev, parentId] : prev));
+
+            return { ...node, children: [...(node.children || []), newNode] };
+          }
+
+          if (node.children?.length) return { ...node, children: addChildRecursive(node.children, parentId) };
+
+          return node;
+        });
+      };
+
+      updatedData = addChildRecursive([...data], selectedNodeId);
+
+      notifications.show('선택된 노드 하위로 노드를 추가했습니다.', { severity: 'success', autoHideDuration: 1000 });
+    }
+
+    onDataChange(updatedData);
+
+    setSelectedNodeId(newId);
+  }, [selectedNodeId, data, onDataChange, notifications, hasErrors, setExpandedNodesIds, setSelectedNodeId]);
+
+  // 노드 삭제 핸들러
+  const handleClickNodeDelete = useCallback(() => {
+    if (!selectedNodeId) return;
+
+    setDeleteNodeId(selectedNodeId);
+
+    deleteConfirm.handleOpen();
+  }, [selectedNodeId, deleteConfirm]);
+
+  // 노드 복사 핸들러
+  const handleClickNodeCopy = useCallback(() => {
+    if (!selectedNodeId) return;
+
+    if (hasErrors) {
+      notifications.show('오류가 있는 노드는 복사할 수 없습니다.', { severity: 'error', autoHideDuration: 2000 });
+
+      return;
+    }
+
+    setClipboard({ node: JSON.parse(JSON.stringify(findNode(data, selectedNodeId))), operation: 'copy', sourceId: selectedNodeId });
+
+    notifications.show('선택된 노드를 복사했습니다.', { severity: 'success', autoHideDuration: 1000 });
+  }, [selectedNodeId, data, notifications, hasErrors]);
+
+  // 노드 잘라내기 핸들러
+  const handleClickNodeCut = useCallback(() => {
+    if (!selectedNodeId) return;
+
+    if (hasErrors) {
+      notifications.show('오류가 있는 노드는 잘라낼 수 없습니다.', { severity: 'error', autoHideDuration: 2000 });
+
+      return;
+    }
+
+    setClippedNodeId(selectedNodeId);
+
+    cutConfirm.handleOpen();
+  }, [selectedNodeId, cutConfirm, hasErrors, notifications]);
+
+  // 노드 붙여넣기 핸들러
+  const handleClickNodePaste = useCallback(() => {
+    if (!selectedNodeId || !clipboard) return;
+
+    if (!canPaste()) {
+      notifications.show('선택된 위치에 붙여넣을 수 없습니다. (자기 자신 또는 하위 노드로 이동 불가)', { severity: 'warning', autoHideDuration: 2000 });
+
+      return;
+    }
+
+    const updatedData = pasteNode(data, selectedNodeId, clipboard.node);
 
     onDataChange(updatedData);
 
     if (clipboard.operation === 'cut') setClipboard(null);
 
     notifications.show('클립보드의 노드를 붙여넣기 했습니다.', { severity: 'success', autoHideDuration: 1000 });
-  }, [selectedItemId, clipboard, data, pasteToItem, onDataChange, notifications, canPaste]);
+  }, [selectedNodeId, clipboard, data, pasteNode, onDataChange, notifications, canPaste, setClipboard]);
 
   // 노드 위로 이동 핸들러
-  const handleClickItemUp = useCallback(() => {
-    if (!selectedItemId || !canMoveUp()) return;
+  const handleClickNodeUp = useCallback(() => {
+    if (!selectedNodeId || !canMoveUp()) return;
 
-    const updatedData = moveItemUp(selectedItemId);
+    const updatedData = moveUpNode(selectedNodeId);
 
     onDataChange(updatedData);
 
     notifications.show('선택된 노드를 위로 이동했습니다.', { severity: 'success', autoHideDuration: 1000 });
-  }, [selectedItemId, canMoveUp, moveItemUp, onDataChange, notifications]);
+  }, [selectedNodeId, canMoveUp, moveUpNode, onDataChange, notifications]);
 
   // 노드 아래로 이동 핸들러
-  const handleClickItemDown = useCallback(() => {
-    if (!selectedItemId || !canMoveDown()) return;
+  const handleClickNodeDown = useCallback(() => {
+    if (!selectedNodeId || !canMoveDown()) return;
 
-    const updatedData = moveItemDown(selectedItemId);
+    const updatedData = moveDownNode(selectedNodeId);
 
     onDataChange(updatedData);
 
     notifications.show('선택된 노드를 아래로 이동했습니다.', { severity: 'success', autoHideDuration: 1000 });
-  }, [selectedItemId, canMoveDown, moveItemDown, onDataChange, notifications]);
+  }, [selectedNodeId, canMoveDown, moveDownNode, onDataChange, notifications]);
 
   // 노드 속성 토글 핸들러
-  const handleChangeItemPropToggle = useCallback(
+  const handleChangeNodePropToggle = useCallback(
     (field: 'editable' | 'orderable') => (_: ChangeEvent<HTMLInputElement>, checked: boolean) => {
-      if (!selectedItemId) return;
+      if (!selectedNodeId) return;
 
       if (hasErrors) {
         notifications.show('오류가 있는 노드는 속성을 변경할 수 없습니다.', { severity: 'error', autoHideDuration: 2000 });
@@ -502,42 +474,98 @@ export const useTreeView = (data: TreeViewItem[], onDataChange: (updatedData: Tr
         return;
       }
 
-      const updatedData = updateItemById(data, selectedItemId, { [field]: checked });
+      const updatedData = updateNode(data, selectedNodeId, { [field]: checked });
 
       onDataChange(updatedData);
     },
-    [selectedItemId, data, onDataChange, hasErrors, notifications],
+    [selectedNodeId, data, onDataChange, hasErrors, notifications],
+  );
+
+  // 키보드 탐색 핸들러
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLElement>) => {
+      if (!selectedNodeId) {
+        if (data.length > 0 && data[0]) setSelectedNodeId(data[0].id);
+
+        return;
+      }
+
+      const currentNode = findNode(data, selectedNodeId);
+
+      if (!currentNode) return;
+      if (hasErrors) return;
+
+      const visibleNodes = getVisibleNodes(data, expandedNodesIds, data);
+      const currentIndex = visibleNodes.findIndex((node) => node.id === selectedNodeId);
+
+      switch (event.key) {
+        case 'ArrowUp':
+          event.preventDefault();
+          if (currentIndex > 0) setSelectedNodeId(visibleNodes[currentIndex - 1]!.id);
+          break;
+        case 'ArrowDown':
+          event.preventDefault();
+          if (currentIndex < visibleNodes.length - 1) setSelectedNodeId(visibleNodes[currentIndex + 1]!.id);
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          if (expandedNodesIds.includes(selectedNodeId) && currentNode.children && currentNode.children.length > 0) {
+            setNodeExpansion(selectedNodeId, false);
+          } else {
+            const parentId = findParentNode(data, selectedNodeId);
+
+            if (parentId) setSelectedNodeId(parentId);
+          }
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          if (currentNode.children && currentNode.children.length > 0) {
+            if (!expandedNodesIds.includes(selectedNodeId)) {
+              setNodeExpansion(selectedNodeId, true);
+            } else {
+              const firstChild = currentNode.children[0];
+
+              if (firstChild) setSelectedNodeId(firstChild.id);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    },
+    [selectedNodeId, data, expandedNodesIds, hasErrors, notifications, setNodeExpansion, setSelectedNodeId],
   );
 
   return {
     // 상태
-    selectedItemId,
-    setSelectedItemId,
+    selectedNodeId,
+    setSelectedNodeId,
     clipboard,
-    expandedItems,
-    selectedItem,
+    expandedNodesIds,
+    selectedNode,
     keyError,
     setKeyError,
     fieldErrors,
     setFieldErrors,
 
-    // 상태 체크 함수
+    // 상태 체크
     canPaste,
     canMoveUp,
     canMoveDown,
     hasErrors,
 
     // 이벤트 핸들러
-    handleClickItem,
-    handleClickItemAdd,
-    handleClickItemDelete,
-    handleClickItemCopy,
-    handleClickItemCut,
-    handleClickItemPaste,
-    handleClickItemUp,
-    handleClickItemDown,
-    handleItemExpansionToggle,
-    handleChangeItemPropToggle,
+    handleClickNode,
+    handleClickNodeAdd,
+    handleClickNodeDelete,
+    handleClickNodeCopy,
+    handleClickNodeCut,
+    handleClickNodePaste,
+    handleClickNodeUp,
+    handleClickNodeDown,
+    handleChangeNodeExpansionToggle,
+    handleChangeNodePropToggle,
+    handleKeyDown,
 
     // 다이얼로그
     deleteConfirm,

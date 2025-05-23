@@ -14,6 +14,7 @@ interface AuthenticationProviderProps {
 
 const AuthenticationContext = createContext<AuthenticationContextProps | null>(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuthentication() {
   const auth = useContext(AuthenticationContext);
 
@@ -66,6 +67,8 @@ export function AuthenticationProvider({ children }: AuthenticationProviderProps
     localStorage.removeItem('user');
 
     setSession(null);
+
+    location.href = '/intro';
   };
 
   return <AuthenticationContext value={{ loading, session, signIn, signOut }}>{children}</AuthenticationContext>;

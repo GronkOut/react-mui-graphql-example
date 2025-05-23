@@ -1,6 +1,4 @@
-import { ChangeEvent, FocusEvent, Ref, SyntheticEvent, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { useTreeView } from '@/hooks/useTreeView';
-import type { Field, FieldErrors, FieldValue, TreeViewHandle, TreeViewItem } from '@/types/treeView';
+import { ChangeEvent, FocusEvent, KeyboardEvent as ReactKeyboardEvent, Ref, SyntheticEvent, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
@@ -11,23 +9,26 @@ import UploadIcon from '@mui/icons-material/Upload';
 import { Box, Divider, FormControlLabel, IconButton, Paper, Stack, Switch, TextField, Tooltip, Typography } from '@mui/material';
 import { RichTreeView } from '@mui/x-tree-view/RichTreeView';
 import { debounce } from 'lodash-es';
-import { RegExKeyName, findItemById, findParentId, isDuplicatedKey, updateItemById } from '@/utils/treeView';
-import CustomTreeItem from './CustomTreeItem';
-import FieldList from './FieldList';
+import { useTreeView } from '@/hooks/useTreeView';
+import type { Field, FieldErrors, FieldValue, Node, TreeViewHandle } from '@/types/treeView';
+import { RegExKeyName, findNode, findParentNode, isDuplicatedKey, updateNode } from '@/utils/treeView';
+import FieldList from './Field/List';
+import Item from './Node';
 
 interface Props {
-  data: TreeViewItem[];
-  onDataChange: (updatedData: TreeViewItem[]) => void;
+  data: Node[];
+  onDataChange: (updatedData: Node[]) => void;
   onErrorsChange?: (hasErrors: boolean) => void;
 }
 
 export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref }: Props & { ref?: Ref<TreeViewHandle> }) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const keyInputRef = useRef<HTMLInputElement>(null);
-  const fieldAndKeyRefs = useRef({ fields: undefined as Field[] | undefined, nodeKeyValue: '' });
-
   const [localFields, setLocalFields] = useState<Field[] | undefined>(undefined);
   const [localNodeKeyValue, setLocalNodeKeyValue] = useState<string>('');
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const prevSelectedNodeIdRef = useRef<string | null>(null);
+  const keyInputRef = useRef<HTMLInputElement>(null);
+  const fieldAndKeyRefs = useRef<{ fields: Field[] | undefined; nodeKeyValue: string }>({ fields: undefined, nodeKeyValue: '' });
 
   const updateLocalFields = useCallback((fields: Field[] | undefined) => {
     fieldAndKeyRefs.current.fields = fields;
@@ -42,20 +43,21 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
   }, []);
 
   const {
-    selectedItemId,
-    setSelectedItemId,
-    expandedItems,
-    selectedItem,
-    handleClickItem,
-    handleChangeItemPropToggle,
-    handleClickItemAdd,
-    handleClickItemDelete,
-    handleClickItemCopy,
-    handleClickItemCut,
-    handleClickItemPaste,
-    handleClickItemUp,
-    handleClickItemDown,
-    handleItemExpansionToggle,
+    selectedNodeId,
+    setSelectedNodeId,
+    expandedNodesIds,
+    selectedNode,
+    handleClickNode,
+    handleClickNodeAdd,
+    handleClickNodeDelete,
+    handleClickNodeCopy,
+    handleClickNodeCut,
+    handleClickNodePaste,
+    handleClickNodeUp,
+    handleClickNodeDown,
+    handleChangeNodeExpansionToggle,
+    handleChangeNodePropToggle,
+    handleKeyDown,
     canPaste,
     canMoveUp,
     canMoveDown,
@@ -64,27 +66,27 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
     keyError,
     setKeyError,
     fieldErrors,
-    hasErrors: viewHasErrors,
+    hasErrors,
     setFieldErrors,
   } = useTreeView(data, onDataChange);
 
   // 필드 변경 디바운스 처리
   const changeFieldDebounceRef = useRef(
-    debounce((itemId: string, updatedFields: Field[], currentData: TreeViewItem[]) => {
+    debounce((id: string, updatedFields: Field[], currentData: Node[]) => {
       const keyMap = new Map<string, number[]>();
-      const newErrors: FieldErrors = {};
+      const newLocalErrors: FieldErrors = {};
 
-      let hasFieldErrors = false;
+      let hasLocalErrors = false;
 
       updatedFields.forEach((field, index) => {
         const key = field.key?.trim();
 
         if (!key) {
-          newErrors[index] = '키명은 반드시 입력해야 합니다.';
-          hasFieldErrors = true;
+          newLocalErrors[index] = '키명은 반드시 입력해야 합니다.';
+          hasLocalErrors = true;
         } else if (!RegExKeyName.test(key)) {
-          newErrors[index] = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
-          hasFieldErrors = true;
+          newLocalErrors[index] = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
+          hasLocalErrors = true;
         } else {
           if (!keyMap.has(key)) keyMap.set(key, []);
 
@@ -97,26 +99,26 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
       keyMap.forEach((indices) => {
         if (indices.length > 1) {
           indices.forEach((index) => {
-            newErrors[index] = '중복된 필드명이 있습니다';
-            hasFieldErrors = true;
+            newLocalErrors[index] = '중복된 필드명이 있습니다';
+            hasLocalErrors = true;
           });
         }
       });
 
-      setFieldErrors(hasFieldErrors ? newErrors : null);
+      setFieldErrors(hasLocalErrors ? newLocalErrors : null);
 
-      onDataChange(updateItemById(currentData, itemId, { fields: updatedFields }));
+      onDataChange(updateNode(currentData, id, { fields: updatedFields }));
     }, 100),
   );
 
   // 노드 키 변경 검증 및 적용
   const applyPendingNodeKeyChange = useCallback(
-    (currentData: TreeViewItem[]): TreeViewItem[] => {
-      if (!selectedItemId || !selectedItem) return currentData;
+    (currentData: Node[]): Node[] => {
+      if (!selectedNodeId || !selectedNode) return currentData;
 
       const currentValue = fieldAndKeyRefs.current.nodeKeyValue;
       const trimmedKey = currentValue.trim();
-      const parentId = findParentId(currentData, selectedItemId);
+      const parentId = findParentNode(currentData, selectedNodeId);
 
       let currentKeyError: string | null = null;
 
@@ -124,35 +126,33 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
         currentKeyError = '키명은 반드시 입력해야 합니다.';
       } else if (!RegExKeyName.test(trimmedKey)) {
         currentKeyError = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
-      } else if (isDuplicatedKey(currentData, trimmedKey, selectedItemId, parentId)) {
+      } else if (isDuplicatedKey(currentData, trimmedKey, selectedNodeId, parentId)) {
         currentKeyError = '동일한 뎁스에 같은 키명이 존재합니다.';
       }
 
       setKeyError(currentKeyError);
 
-      if (currentKeyError === null && selectedItem.key !== currentValue) {
-        return updateItemById(currentData, selectedItemId, { key: currentValue });
+      if (currentKeyError === null && selectedNode.key !== currentValue) {
+        return updateNode(currentData, selectedNodeId, { key: currentValue });
       }
 
       return currentData;
     },
-    [selectedItemId, selectedItem, setKeyError],
+    [selectedNodeId, selectedNode, setKeyError],
   );
 
   // 외부에서 TreeView 컴포넌트의 변경사항을 적용할 수 있도록 핸들 제공
   useImperativeHandle(
     ref,
     () => ({
-      flushChanges: (): TreeViewItem[] => {
+      flushChanges: (): Node[] => {
         let processedData = applyPendingNodeKeyChange([...data]);
 
-        if (selectedItem && fieldAndKeyRefs.current.fields) {
+        if (selectedNode && fieldAndKeyRefs.current.fields) {
           changeFieldDebounceRef.current.flush();
 
-          const currentFieldsFromSelectedItem = findItemById(processedData, selectedItem.id)?.fields;
-
-          if (JSON.stringify(currentFieldsFromSelectedItem) !== JSON.stringify(fieldAndKeyRefs.current.fields)) {
-            processedData = updateItemById(processedData, selectedItem.id, { fields: fieldAndKeyRefs.current.fields });
+          if (JSON.stringify(findNode(processedData, selectedNode.id)?.fields) !== JSON.stringify(fieldAndKeyRefs.current.fields)) {
+            processedData = updateNode(processedData, selectedNode.id, { fields: fieldAndKeyRefs.current.fields });
           }
         }
 
@@ -163,14 +163,14 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
         return processedData;
       },
     }),
-    [applyPendingNodeKeyChange, data, onDataChange, selectedItem],
+    [applyPendingNodeKeyChange, data, onDataChange, selectedNode],
   );
 
   // 노드 키 변경 핸들러
   const handleChangeNodeKey = useCallback((event: ChangeEvent<HTMLInputElement>) => updateLocalNodeKeyValue(event.target.value), [updateLocalNodeKeyValue]);
 
   // 노드 키 포커스 아웃 핸들러
-  const handleNodeKeyBlur = useCallback(
+  const handleBlurNodeKey = useCallback(
     (_event: FocusEvent<HTMLInputElement>) => {
       const updatedData = applyPendingNodeKeyChange(data);
 
@@ -182,65 +182,75 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
   // 필드 값 변경 핸들러
   const handleChangeField = useCallback(
     (index: number, key: keyof Field, value: FieldValue) => {
-      if (!selectedItem || !fieldAndKeyRefs.current.fields) return;
+      if (!selectedNode || !fieldAndKeyRefs.current.fields) return;
 
       const updatedLocalFields = [...fieldAndKeyRefs.current.fields];
       const updatedField = { ...updatedLocalFields[index] } as Field;
 
       updatedField[key] = value as never;
 
-      if (key === 'key' && typeof value === 'string') updatedField.key = value;
-      else if (!updatedField.key) updatedField.key = '';
+      if (key === 'key' && typeof value === 'string') {
+        updatedField.key = value;
+      } else if (!updatedField.key) {
+        updatedField.key = '';
+      }
 
       updatedLocalFields[index] = updatedField;
 
       updateLocalFields(updatedLocalFields);
 
-      let newErrors: FieldErrors = fieldErrors ? { ...fieldErrors } : {};
-      let hasValidationError = false;
+      let newLocalErrors: FieldErrors = fieldErrors ? { ...fieldErrors } : {};
+      let hasLocalErrors = false;
 
       if (key === 'key') {
         const keyString = String(value ?? '').trim();
 
         if (keyString === '') {
-          newErrors[index] = '키명은 반드시 입력해야 합니다.';
-          hasValidationError = true;
+          newLocalErrors[index] = '키명은 반드시 입력해야 합니다.';
+          hasLocalErrors = true;
         } else if (!RegExKeyName.test(keyString)) {
-          newErrors[index] = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
-          hasValidationError = true;
+          newLocalErrors[index] = '영문 대소문자로 시작해야하고, 이후에 영문, 숫자, 언더바만 입력 가능합니다.';
+          hasLocalErrors = true;
         } else {
-          delete newErrors[index];
+          delete newLocalErrors[index];
 
           for (let i = 0; i < updatedLocalFields.length; i++) {
             const field = updatedLocalFields[i];
 
             if (i !== index && field && field.key?.trim() === keyString) {
-              newErrors[index] = '중복된 필드명이 있습니다';
-              hasValidationError = true;
+              newLocalErrors[index] = '중복된 필드명이 있습니다';
 
-              if (updatedLocalFields[i]) newErrors[i] = '중복된 필드명이 있습니다';
+              if (field) newLocalErrors[i] = '중복된 필드명이 있습니다';
 
+              hasLocalErrors = true;
               break;
             }
           }
         }
       }
 
-      if (!hasValidationError && newErrors && newErrors[index]) delete newErrors[index];
-      if (newErrors && Object.keys(newErrors).length === 0) newErrors = null;
+      if (!hasLocalErrors && newLocalErrors && Object.keys(newLocalErrors).length === 0) newLocalErrors = null;
 
-      setFieldErrors(newErrors);
+      setFieldErrors(newLocalErrors);
 
-      changeFieldDebounceRef.current(selectedItem.id, updatedLocalFields, data);
+      if ((key === 'value' && typeof value === 'boolean') || key === 'editable' || key === 'required' || key === 'visible' || key === 'type') {
+        // 즉시 업데이트 대상 (스위치)
+        changeFieldDebounceRef.current.cancel();
+
+        onDataChange(updateNode(data, selectedNode.id, { fields: updatedLocalFields }));
+      } else {
+        // 디바운스 처리 대상
+        changeFieldDebounceRef.current(selectedNode.id, updatedLocalFields, data);
+      }
     },
-    [selectedItem, fieldErrors, setFieldErrors, data, updateLocalFields],
+    [selectedNode, fieldErrors, setFieldErrors, data, onDataChange, updateLocalFields],
   );
 
   // 필드 추가 핸들러
   const handleAddField = useCallback(() => {
-    if (!selectedItem) return;
+    if (!selectedNode) return;
 
-    const newField: Field = { key: '', type: 'text', editable: true, required: true, visible: true, value: '', regex: '' };
+    const newField: Field = { key: '', type: 'text', editable: true, required: true, visible: true, value: '', regex: '', extra: '' };
     const currentFields = fieldAndKeyRefs.current.fields ?? [];
     const newFields = [...currentFields, newField];
     const newFieldErrorIndex = newFields.length - 1;
@@ -249,13 +259,13 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
 
     setFieldErrors((prevErrors) => ({ ...(prevErrors || {}), [newFieldErrorIndex]: '키명은 반드시 입력해야 합니다.' }));
 
-    changeFieldDebounceRef.current(selectedItem.id, newFields, data);
-  }, [selectedItem, setFieldErrors, data, updateLocalFields]);
+    changeFieldDebounceRef.current(selectedNode.id, newFields, data);
+  }, [selectedNode, setFieldErrors, data, updateLocalFields]);
 
   // 필드 삭제 핸들러
   const handleDeleteField = useCallback(
     (index: number) => {
-      if (!selectedItem || !fieldAndKeyRefs.current.fields) return;
+      if (!selectedNode || !fieldAndKeyRefs.current.fields) return;
 
       const updatedFields = fieldAndKeyRefs.current.fields.filter((_, i) => i !== index);
 
@@ -264,7 +274,7 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
       setFieldErrors((prevErrors) => {
         if (!prevErrors) return null;
 
-        const newErrors: FieldErrors = {};
+        const newLocalErrors: FieldErrors = {};
 
         let hasAnyError = false;
 
@@ -273,23 +283,23 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
 
           if (keyNum !== index) {
             const newIndex = keyNum > index ? keyNum - 1 : keyNum;
-            newErrors[newIndex] = value;
+            newLocalErrors[newIndex] = value;
             hasAnyError = true;
           }
         });
 
-        return hasAnyError ? newErrors : null;
+        return hasAnyError ? newLocalErrors : null;
       });
 
-      changeFieldDebounceRef.current(selectedItem.id, updatedFields, data);
+      changeFieldDebounceRef.current(selectedNode.id, updatedFields, data);
     },
-    [selectedItem, setFieldErrors, data, updateLocalFields],
+    [selectedNode, setFieldErrors, data, updateLocalFields],
   );
 
   // 여러 필드 값 동시 변경 핸들러
   const handleChangeFields = useCallback(
     (index: number, dataArr: { key: keyof Field; value: FieldValue }[]) => {
-      if (!selectedItem || !fieldAndKeyRefs.current.fields) return;
+      if (!selectedNode || !fieldAndKeyRefs.current.fields) return;
 
       const updatedLocalFields = [...fieldAndKeyRefs.current.fields];
       const updatedField = { ...updatedLocalFields[index] } as Field;
@@ -302,25 +312,50 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
 
       updateLocalFields(updatedLocalFields);
 
-      onDataChange(updateItemById(data, selectedItem.id, { fields: updatedLocalFields }));
-
       changeFieldDebounceRef.current.cancel();
+
+      onDataChange(updateNode(data, selectedNode.id, { fields: updatedLocalFields }));
     },
-    [selectedItem, onDataChange, data, updateLocalFields],
+    [selectedNode, onDataChange, data, updateLocalFields],
   );
 
   // 필드 토글 핸들러
   const handleChangeFieldToggle = useCallback((index: number, prop: 'required' | 'editable' | 'visible', checked: boolean) => handleChangeField(index, prop, checked), [handleChangeField]);
 
+  // 필드 탐색 핸들러
+  const handleTreeViewKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLDivElement>) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+        if (keyInputRef.current === event.target) {
+          if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        } else {
+          return;
+        }
+      }
+
+      handleKeyDown(event);
+    },
+    [handleKeyDown, keyInputRef],
+  );
+
   useEffect(() => {
-    if (selectedItem) {
-      updateLocalNodeKeyValue(selectedItem.key || '');
-      updateLocalFields(selectedItem.fields ? [...selectedItem.fields] : undefined);
+    const currentSelectedId = selectedNodeId;
+
+    if (selectedNode) {
+      updateLocalNodeKeyValue(selectedNode.key || '');
+      updateLocalFields(selectedNode.fields ? [...selectedNode.fields] : undefined);
+
+      if (keyInputRef.current && currentSelectedId && prevSelectedNodeIdRef.current !== currentSelectedId && (selectedNode.key === '' || typeof selectedNode.key === 'undefined') && !hasErrors) {
+        setTimeout(() => {
+          keyInputRef.current?.focus();
+        }, 0);
+      }
     } else {
       updateLocalNodeKeyValue('');
       updateLocalFields(undefined);
     }
-  }, [selectedItem, updateLocalFields, updateLocalNodeKeyValue]);
+    prevSelectedNodeIdRef.current = currentSelectedId;
+  }, [selectedNode, selectedNodeId, updateLocalFields, updateLocalNodeKeyValue, hasErrors]);
 
   // 컴포넌트 언마운트 시 디바운스 취소
   useEffect(() => {
@@ -333,117 +368,115 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
 
   // 에러 상태 변경 시 콜백 호출
   useEffect(() => {
-    if (onErrorsChange) onErrorsChange(viewHasErrors);
-  }, [viewHasErrors, onErrorsChange]);
+    if (onErrorsChange) onErrorsChange(hasErrors);
+  }, [hasErrors, onErrorsChange]);
 
-  // 초기 아이템 선택 및 확장
+  // 최초 루트 노드 선택 및 확장
   useEffect(() => {
-    if (!data || data.length === 0) return;
+    if (!data?.length) return;
 
-    const firstItem = data[0];
+    const rootNode = data[0];
 
-    if (!firstItem) return;
-    if (!selectedItemId) setSelectedItemId(firstItem.id);
+    if (!rootNode) return;
+    if (!selectedNodeId) setSelectedNodeId(rootNode.id);
 
-    const hasChildren = firstItem.children && firstItem.children.length > 0;
-    const isExpanded = expandedItems.includes(firstItem.id);
+    const hasChildren = rootNode.children && rootNode.children.length > 0;
+    const isExpanded = expandedNodesIds.includes(rootNode.id);
 
-    if (hasChildren && !isExpanded) handleItemExpansionToggle(null as unknown as SyntheticEvent, firstItem.id, true);
-  }, [data, expandedItems, handleItemExpansionToggle, selectedItemId, setSelectedItemId]);
+    if (hasChildren && !isExpanded && !hasErrors) {
+      handleChangeNodeExpansionToggle(null as unknown as SyntheticEvent, rootNode.id, true);
+    }
+  }, [data, expandedNodesIds, handleChangeNodeExpansionToggle, selectedNodeId, setSelectedNodeId, hasErrors]);
 
   return (
-    <Box ref={containerRef} sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, flex: 1 }}>
+    <Box ref={containerRef} sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, flex: 1, outline: 'none' }} tabIndex={0} onKeyDown={handleTreeViewKeyDown}>
       <Paper sx={{ overflow: 'auto', width: { xs: '100%', lg: '400px' }, padding: '20px', boxShadow: 'none', borderRadius: '0' }}>
-        <Box sx={{ display: 'flex', gap: '5px', padding: '10px 18px', marginBottom: '20px', flexWrap: 'wrap', borderRadius: '5px', backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: '4px', padding: '10px 16px', marginBottom: '20px', flexWrap: 'wrap', borderRadius: '5px', backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
           <Tooltip title="추가하기">
             <span>
-              <IconButton size="small" color="primary" disabled={!selectedItemId || viewHasErrors} onClick={handleClickItemAdd}>
+              <IconButton size="small" color="primary" disabled={(!selectedNodeId && data.length > 0) || hasErrors} onClick={handleClickNodeAdd}>
                 <NoteAddIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
           <Tooltip title="삭제하기">
             <span>
-              <IconButton size="small" color="error" disabled={!selectedItemId} onClick={handleClickItemDelete}>
+              <IconButton size="small" color="error" disabled={!selectedNodeId} onClick={handleClickNodeDelete}>
                 <DeleteIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
-          <div style={{ margin: '0 18px', width: '1px', height: '30px', backgroundColor: '#fff', mixBlendMode: 'overlay' }} />
+          <div style={{ margin: '0 16px', width: '1px', height: '30px', backgroundColor: '#fff', mixBlendMode: 'overlay' }} />
           <Tooltip title="복사하기">
             <span>
-              <IconButton size="small" color="secondary" disabled={!selectedItemId || viewHasErrors} onClick={handleClickItemCopy}>
+              <IconButton size="small" color="secondary" disabled={!selectedNodeId || hasErrors} onClick={handleClickNodeCopy}>
                 <ContentCopyIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
           <Tooltip title="잘라내기">
             <span>
-              <IconButton size="small" color="secondary" disabled={!selectedItemId || viewHasErrors} onClick={handleClickItemCut}>
+              <IconButton size="small" color="secondary" disabled={!selectedNodeId || hasErrors} onClick={handleClickNodeCut}>
                 <ContentCutIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
           <Tooltip title="붙여넣기">
             <span>
-              <IconButton size="small" color="success" disabled={!canPaste() || viewHasErrors} onClick={handleClickItemPaste}>
+              <IconButton size="small" color="success" disabled={!canPaste() || hasErrors} onClick={handleClickNodePaste}>
                 <ContentPasteIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
-          <div style={{ margin: '0 18px', width: '1px', height: '30px', backgroundColor: '#fff', mixBlendMode: 'overlay' }} />
+          <div style={{ margin: '0 16px', width: '1px', height: '30px', backgroundColor: '#fff', mixBlendMode: 'overlay' }} />
           <Tooltip title="순서 위로">
             <span>
-              <IconButton size="small" color="primary" disabled={!canMoveUp()} onClick={handleClickItemUp}>
+              <IconButton size="small" color="primary" disabled={!canMoveUp()} onClick={handleClickNodeUp}>
                 <UploadIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
           <Tooltip title="순서 아래로">
             <span>
-              <IconButton size="small" color="primary" disabled={!canMoveDown()} onClick={handleClickItemDown}>
+              <IconButton size="small" color="primary" disabled={!canMoveDown()} onClick={handleClickNodeDown}>
                 <DownloadIcon sx={{ fontSize: '20px' }} />
               </IconButton>
             </span>
           </Tooltip>
         </Box>
-
         <RichTreeView
           items={data}
-          slots={{ item: CustomTreeItem }}
+          slots={{ item: Item }}
           expansionTrigger="iconContainer"
-          selectedItems={selectedItemId}
-          expandedItems={expandedItems}
-          onItemClick={handleClickItem as (event: SyntheticEvent, itemId: string) => void}
-          onItemExpansionToggle={handleItemExpansionToggle as (event: SyntheticEvent, itemId: string, isExpanded: boolean) => void}
-          getItemLabel={(item) => item.key || ''}
+          selectedItems={selectedNodeId}
+          expandedItems={expandedNodesIds}
+          onItemClick={handleClickNode as (event: SyntheticEvent, id: string) => void}
+          onItemExpansionToggle={handleChangeNodeExpansionToggle as (event: SyntheticEvent, id: string, isExpanded: boolean) => void}
+          getItemLabel={(node) => node.key || ''}
           sx={{ '& .MuiCollapse-root': { paddingLeft: '25px' } }}
         />
       </Paper>
-
       <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', lg: 'block' } }} />
       <Divider sx={{ display: { xs: 'block', lg: 'none' } }} />
-
-      {selectedItem && (
+      {selectedNode && (
         <Paper sx={{ overflowY: 'auto', flex: 1, padding: '20px', boxShadow: 'none', borderRadius: '0' }}>
           <Typography sx={{ marginBottom: '20px', fontSize: '20px' }}>기본 정보</Typography>
           <Stack>
-            <TextField label="ID" value={selectedItem.id} autoComplete="off" fullWidth disabled sx={{ marginBottom: '20px' }} />
-            <TextField inputRef={keyInputRef} label="Key" value={localNodeKeyValue} autoComplete="off" fullWidth error={!!keyError} helperText={keyError} sx={{ marginBottom: '20px' }} onChange={handleChangeNodeKey} onBlur={handleNodeKeyBlur} />
+            <TextField label="ID" autoComplete="off" value={selectedNode.id} fullWidth disabled sx={{ marginBottom: '20px' }} />
+            <TextField inputRef={keyInputRef} label="Key" autoComplete="off" value={localNodeKeyValue} fullWidth error={!!keyError} helperText={keyError} sx={{ marginBottom: '20px' }} onChange={handleChangeNodeKey} onBlur={handleBlurNodeKey} />
             <FormControlLabel
               label="사용자 어드민에서 현재 노드를 삭제할 수 있도록 허용합니다."
               labelPlacement="start"
-              control={<Switch checked={selectedItem.editable ?? true} onChange={handleChangeItemPropToggle('editable')} />}
+              control={<Switch checked={selectedNode.editable ?? true} onChange={handleChangeNodePropToggle('editable')} />}
               sx={{ marginBottom: '5px', width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
             />
             <FormControlLabel
               label="사용자 어드민에서 하위 노드의 순서를 바꿀 수 있도록 허용 합니다."
               labelPlacement="start"
-              control={<Switch checked={selectedItem.orderable ?? true} onChange={handleChangeItemPropToggle('orderable')} />}
+              control={<Switch checked={selectedNode.orderable ?? true} onChange={handleChangeNodePropToggle('orderable')} />}
               sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginLeft: 0, marginRight: 0 }}
             />
           </Stack>
-
           <FieldList
             localFields={localFields}
             containerRef={containerRef}
@@ -456,11 +489,7 @@ export default memo(function TreeView({ data, onDataChange, onErrorsChange, ref 
           />
         </Paper>
       )}
-
-      {/* 삭제 확인 다이얼로그 */}
       {deleteConfirm.ConfirmDialog}
-
-      {/* 잘라내기 확인 다이얼로그 */}
       {cutConfirm.ConfirmDialog}
     </Box>
   );

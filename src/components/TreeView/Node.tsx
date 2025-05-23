@@ -13,17 +13,17 @@ import { UseTreeItem2Parameters, useTreeItem2 } from '@mui/x-tree-view/useTreeIt
 import clsx from 'clsx';
 import { isExpandable } from '@/utils/treeView';
 
-interface CustomTreeItemProps extends Omit<UseTreeItem2Parameters, 'rootRef'>, Omit<HTMLAttributes<HTMLLIElement>, 'onFocus'> {
+interface NodeProps extends Omit<UseTreeItem2Parameters, 'rootRef'>, Omit<HTMLAttributes<HTMLLIElement>, 'onFocus'> {
   ref?: Ref<HTMLLIElement>;
 }
 
-interface CustomTreeItemLabelProps {
+interface LabelProps {
   children: ReactNode;
   icon?: ElementType;
   expandable?: 'true' | 'false';
 }
 
-const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
+const Content = styled(TreeItem2Content)(({ theme }) => ({
   flexDirection: 'row-reverse',
   margin: '3px 0',
   padding: '5px',
@@ -39,17 +39,16 @@ const CustomTreeItemContent = styled(TreeItem2Content)(({ theme }) => ({
   },
 }));
 
-const CustomTreeItemLabel = ({ icon: Icon, children, ...other }: CustomTreeItemLabelProps) => {
+const Label = ({ icon: Icon, children, ...other }: LabelProps) => {
   return (
     <TreeItem2Label {...other} sx={{ display: 'flex', alignItems: 'center' }}>
       {Icon && <Box component={Icon} className="labelIcon" color="inherit" sx={{ margin: '0 5px', fontSize: '20px' }} />}
-      {children}
+      <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{children}</div>
     </TreeItem2Label>
   );
 };
 
-export default memo(function CustomTreeItem(props: CustomTreeItemProps) {
-  const { id, itemId, label, disabled, children, ref } = props;
+export default memo(function Node({ id, itemId, label, disabled, children, ref }: NodeProps) {
   const expandable = isExpandable(children);
   const icon = expandable ? FileCopyIcon : InsertDriveFileIcon;
 
@@ -57,7 +56,7 @@ export default memo(function CustomTreeItem(props: CustomTreeItemProps) {
 
   return (
     <TreeItem2Provider itemId={itemId}>
-      <CustomTreeItemContent
+      <Content
         {...getContentProps({
           className: clsx('content', {
             'Mui-expanded': status.expanded,
@@ -71,9 +70,9 @@ export default memo(function CustomTreeItem(props: CustomTreeItemProps) {
           <TreeItem2Icon status={status} />
         </TreeItem2IconContainer>
         <TreeItem2Checkbox {...getCheckboxProps()} />
-        <CustomTreeItemLabel {...getLabelProps({ icon, expandable: expandable && status.expanded ? 'true' : 'false' })} />
+        <Label {...getLabelProps({ icon, expandable: expandable && status.expanded ? 'true' : 'false' })} />
         <TreeItem2DragAndDropOverlay {...getDragAndDropOverlayProps()} />
-      </CustomTreeItemContent>
+      </Content>
       {children && <Collapse {...getGroupTransitionProps()} />}
     </TreeItem2Provider>
   );

@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children }: Props) {
   }
 
   if (!session?.user) {
-    return <Navigate to="/sign-in" replace />;
+    return <Navigate to="/intro" replace />;
   }
 
   return <>{children}</>;

@@ -3,17 +3,17 @@ import { useNavigate, useParams } from 'react-router';
 import { ContentsData, GET_CONTENTS } from '@/graphql/content';
 import { GET_TEMPLATES, TemplatesData } from '@/graphql/template';
 import { DELETE_TENANTS, DeleteTenantsResponse, DeleteTenantsVariables, GET_TENANT, ReadTenantVariables, TenantData } from '@/graphql/tenant';
-import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import { useMutation, useQuery } from '@apollo/client';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Button, Card, CardActions, CardContent, Divider, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { LoadingIndicator } from '@/components/LoadingIndicator';
 import dayjs from 'dayjs';
+import { useConfirmDialog } from '@/hooks/useConfirmDialog';
+import { LoadingIndicator } from '@/components/LoadingIndicator';
 
-export default function PagesTenantManagementRead() {
+export default function PagesTenantRead() {
   const { tenantId } = useParams<{ tenantId: string }>();
   const navigate = useNavigate();
   const notifications = useNotifications();
@@ -37,16 +37,16 @@ export default function PagesTenantManagementRead() {
 
         notifications.show('테넌트를 삭제했습니다.', { severity: 'success', autoHideDuration: 1000 });
 
-        navigate('/tenant-management');
+        navigate('/tenant');
       } catch (error) {
         notifications.show(error instanceof Error ? error.message : '테넌트 삭제에 실패했습니다.', { severity: 'error', autoHideDuration: 2000 });
       }
     }, [deleteTenants, navigate, notifications, tenantId]),
   });
 
-  const handleClickList = useCallback(() => navigate('/tenant-management'), [navigate]);
+  const handleClickList = () => navigate('/tenant');
 
-  const handleClickEdit = useCallback(() => navigate(`/tenant-management/${tenantId}/edit`), [navigate, tenantId]);
+  const handleClickEdit = () => navigate(`/tenant/${tenantId}/edit`);
 
   if (tenantLoading || contentsLoading || templatesLoading) {
     return <LoadingIndicator />;
@@ -65,13 +65,11 @@ export default function PagesTenantManagementRead() {
       <Card sx={{ background: 'none', boxShadow: 'none' }}>
         <CardContent>
           <Stack sx={{ gap: '20px' }}>
-            <TextField label="이름" value={tenant.name} autoComplete="off" disabled />
+            <TextField label="이름" autoComplete="off" value={tenant.name} disabled />
             <Stack sx={{ gap: '20px', flexDirection: { xs: 'column', lg: 'row' } }}>
-              <TextField label="생성일" value={dayjs(tenant.createdAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
-              <TextField label="수정일" value={dayjs(tenant.updatedAt).format('YYYY-MM-DD HH:mm:ss')} autoComplete="off" disabled sx={{ flexGrow: 1 }} />
+              <TextField label="생성일" autoComplete="off" value={dayjs(tenant.createdAt).format('YYYY-MM-DD HH:mm:ss')} disabled sx={{ flexGrow: 1 }} />
+              <TextField label="수정일" autoComplete="off" value={dayjs(tenant.updatedAt).format('YYYY-MM-DD HH:mm:ss')} disabled sx={{ flexGrow: 1 }} />
             </Stack>
-
-            {/* 콘텐츠 목록 */}
             {contents.map((content) => {
               const templateMapping = tenant.templateMappings?.find((mapping) => mapping.contentId === content.id);
               const selectedTemplateId = templateMapping?.templateId || '';
@@ -105,8 +103,6 @@ export default function PagesTenantManagementRead() {
           </Button>
         </CardActions>
       </Card>
-
-      {/* 테넌트 삭제 다이얼로그 */}
       {deleteConfirm.ConfirmDialog}
     </>
   );

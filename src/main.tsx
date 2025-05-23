@@ -1,26 +1,29 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
-import ContentManagementCreatePage from '@/pages/ContentManagement/Create';
-import ContentManagementListPage from '@/pages/ContentManagement/List';
-import ContentManagementReadPage from '@/pages/ContentManagement/Read';
-import ContentManagementUpdatePage from '@/pages/ContentManagement/Update';
-import NotFoundPage from '@/pages/Error/NotFound';
-import SignInPage from '@/pages/SignIn';
-import TemplateManagementCreatePage from '@/pages/TemplateManagement/Create';
-import TemplateManagementReadPage from '@/pages/TemplateManagement/Read';
-import TemplateManagementUpdatePage from '@/pages/TemplateManagement/Update';
-import TenantManagementCreatePage from '@/pages/TenantManagement/Create';
-import TenantManagementListPage from '@/pages/TenantManagement/List';
-import TenantManagementReadPage from '@/pages/TenantManagement/Read';
-import TenantManagementUpdatePage from '@/pages/TenantManagement/Update';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AuthenticationProvider } from '@/contexts/Authentication';
 import DefaultLayout from '@/components/DefaultLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import ContentCreatePage from '@/pages/Content/Create';
+import ContentListPage from '@/pages/Content/List';
+import ContentReadPage from '@/pages/Content/Read';
+import ContentUpdatePage from '@/pages/Content/Update';
+import ForbiddenPage from '@/pages/Error/Forbidden';
+import NotFoundPage from '@/pages/Error/NotFound';
+import IntroPage from '@/pages/Intro';
+import TemplateCreatePage from '@/pages/Template/Create';
+import TemplateReadPage from '@/pages/Template/Read';
+import TemplateUpdatePage from '@/pages/Template/Update';
+import TenantCreatePage from '@/pages/Tenant/Create';
+import TenantListPage from '@/pages/Tenant/List';
+import TenantReadPage from '@/pages/Tenant/Read';
+import TenantUpdatePage from '@/pages/Tenant/Update';
 import Application from './Application';
-import { AuthenticationProvider } from '@/contexts/Authentication';
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   uri: 'http://localhost:4000/',
   cache: new InMemoryCache(),
   defaultOptions: {
@@ -33,18 +36,31 @@ const client = new ApolloClient({
   },
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 createRoot(document.getElementById('application')!).render(
   <StrictMode>
-    <AuthenticationProvider>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider
           router={createBrowserRouter([
             {
-              Component: Application,
+              Component: () => (
+                <AuthenticationProvider>
+                  <Application />
+                </AuthenticationProvider>
+              ),
               children: [
                 {
-                  path: 'sign-in',
-                  Component: SignInPage,
+                  path: 'intro',
+                  Component: IntroPage,
                 },
                 {
                   path: '/',
@@ -55,67 +71,67 @@ createRoot(document.getElementById('application')!).render(
                   ),
                   children: [
                     {
-                      path: 'tenant-management',
+                      path: 'tenant',
                       children: [
                         {
                           path: '',
-                          Component: TenantManagementListPage,
+                          Component: TenantListPage,
                         },
                         {
                           path: 'create',
-                          Component: TenantManagementCreatePage,
+                          Component: TenantCreatePage,
                         },
                         {
                           path: ':tenantId',
                           children: [
                             {
                               path: '',
-                              Component: TenantManagementReadPage,
+                              Component: TenantReadPage,
                             },
                             {
                               path: 'edit',
-                              Component: TenantManagementUpdatePage,
+                              Component: TenantUpdatePage,
                             },
                           ],
                         },
                       ],
                     },
                     {
-                      path: 'content-management',
+                      path: 'content',
                       children: [
                         {
                           path: '',
-                          Component: ContentManagementListPage,
+                          Component: ContentListPage,
                         },
                         {
                           path: 'create',
-                          Component: ContentManagementCreatePage,
+                          Component: ContentCreatePage,
                         },
                         {
                           path: ':contentId',
                           children: [
                             {
                               path: '',
-                              Component: ContentManagementReadPage,
+                              Component: ContentReadPage,
                             },
                             {
                               path: 'edit',
-                              Component: ContentManagementUpdatePage,
+                              Component: ContentUpdatePage,
                             },
                             {
                               path: 'create',
-                              Component: TemplateManagementCreatePage,
+                              Component: TemplateCreatePage,
                             },
                             {
                               path: ':templateId',
                               children: [
                                 {
                                   path: '',
-                                  Component: TemplateManagementReadPage,
+                                  Component: TemplateReadPage,
                                 },
                                 {
                                   path: 'edit',
-                                  Component: TemplateManagementUpdatePage,
+                                  Component: TemplateUpdatePage,
                                 },
                               ],
                             },
@@ -129,11 +145,16 @@ createRoot(document.getElementById('application')!).render(
                     },
                   ],
                 },
+                {
+                  path: 'forbidden',
+                  Component: ForbiddenPage,
+                },
               ],
             },
           ])}
         />
-      </ApolloProvider>
-    </AuthenticationProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ApolloProvider>
   </StrictMode>,
 );

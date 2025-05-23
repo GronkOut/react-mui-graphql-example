@@ -43,6 +43,10 @@ export interface UpdateTemplateVariables {
   data?: string | null;
 }
 
+export interface DuplicateTemplateVariables {
+  id: string;
+}
+
 export interface DeleteTemplatesVariables {
   ids: string[];
 }
@@ -53,6 +57,10 @@ export interface CreateTemplateResponse {
 
 export interface UpdateTemplateResponse {
   updateTemplate: Template;
+}
+
+export interface DuplicateTemplateResponse {
+  duplicateTemplate: { id: string };
 }
 
 export interface DeleteTemplatesResponse {
@@ -129,6 +137,14 @@ export const UPDATE_TEMPLATE = gql`
       tenantCount
       createdAt
       updatedAt
+    }
+  }
+`;
+
+export const DUPLICATE_TEMPLATE = gql`
+  mutation DuplicateTemplate($id: ID!) {
+    duplicateTemplate(id: $id) {
+      id
     }
   }
 `;

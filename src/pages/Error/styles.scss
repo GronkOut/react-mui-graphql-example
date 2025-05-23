@@ -1,0 +1,51 @@
+#error {
+  color-scheme: dark;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(17, 18, 21, 1);
+  .content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .logo {
+      height: 162px;
+      margin-bottom: 40px;
+    }
+    .title {
+      margin: 0 auto 24px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .description {
+      white-space: pre;
+      color: rgba(153, 156, 166, 1);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 30px;
+      .email {
+        color: #0e8cf1;
+        text-decoration: underline solid;
+        text-underline-offset: auto;
+        text-underline-position: under;
+      }
+    }
+    .button {
+      margin: 118px auto 0;
+      width: 160px;
+      height: 42px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgb(196, 199, 204);
+      border: 1px solid rgb(49, 51, 58);
+      border-radius: 6px;
+      background-color: transparent;
+      transition: 0.2s;
+      cursor: pointer;
+      &:hover {
+        border-color: rgb(64, 66, 75);
+      }
+    }
+  }
+}

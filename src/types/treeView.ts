@@ -1,34 +1,27 @@
 import { TreeViewBaseItem } from '@mui/x-tree-view/models';
 
-/**
- * UI 유형
- * checkbox: switch // boolean
- * color: input, colorPicker, tag // string[]
- * image: input, image container // string
- * number: input // number
- * none: UI에 표현하지 않음 // string|number|boolean // 제거함
- * select: select // single // Todo 현재 select가 single|multiple 선택하는 것에만 고정된 듯..
- * tag: input, tag // string[]
- * text: input // string
- * textList: textarea // string
- * locale: 사용되지 않은 것같아서 제거 했음
- */
-
 export interface TreeViewHandle {
-  flushChanges: () => TreeViewItem[];
+  flushChanges: () => Node[];
 }
 
-export type TreeViewItem = TreeViewBaseItem<{
+export type Node = TreeViewBaseItem<{
   id: string;
   key: string;
   editable: boolean;
   orderable: boolean;
   fields: Field[];
-  children?: TreeViewItem[];
+  children?: Node[];
 }>;
 
-export interface ClipboardItem {
-  item: TreeViewItem;
+export interface FlatNode {
+  id: string;
+  data: Omit<Node, 'children'>;
+  parent: string | null;
+  children: string[];
+}
+
+export interface ClipboardNode {
+  node: Node;
   operation: 'copy' | 'cut';
   sourceId: string;
 }
@@ -37,6 +30,12 @@ export const FIELD_TYPES = ['text', 'textList', 'number', 'checkbox', 'color', '
 
 export type FieldType = (typeof FIELD_TYPES)[number];
 
+export interface FieldValueSelect {
+  key: string;
+  value: string;
+  selected: boolean;
+}
+
 type FieldValueMap = {
   text: string;
   textList: string[];
@@ -44,7 +43,7 @@ type FieldValueMap = {
   checkbox: boolean;
   color: string[];
   image: string;
-  select: { type: string; value: string }[];
+  select: FieldValueSelect[];
   tag: string[];
 };
 
@@ -52,13 +51,13 @@ export type FieldValue = FieldValueMap[FieldType];
 
 export const FIELD_TYPES_DEFAULT: FieldValueMap = {
   text: '',
-  textList: [''],
+  textList: [],
   number: 0,
   checkbox: true,
-  color: [''],
-  image: '',
-  select: [{ type: '', value: '' }],
-  tag: [''],
+  color: [],
+  image: 'https://',
+  select: [],
+  tag: [],
 };
 
 export interface Field {
@@ -69,6 +68,7 @@ export interface Field {
   visible: boolean;
   value: FieldValue;
   regex: string;
+  extra: string;
 }
 
 export type FieldErrors = Record<number, string> | null;

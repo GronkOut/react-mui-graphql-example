@@ -8,7 +8,7 @@ import { Button, Card, CardActions, CardContent, Divider, Stack, TextField } fro
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { templateNameValidation } from '@/utils/dataGrid';
 
-export default function PagesTemplateManagementCreate() {
+export default function PagesTemplateCreate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
@@ -23,12 +23,12 @@ export default function PagesTemplateManagementCreate() {
   });
   const [createTemplate, { loading: isSubmitting }] = useMutation<CreateTemplateResponse, CreateTemplateVariables>(CREATE_TEMPLATE);
 
-  const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setError(null);
-  }, []);
+  };
 
-  const handleClickCancel = useCallback(() => navigate(`/content-management/${contentId}`), [navigate, contentId]);
+  const handleClickCancel = () => navigate(`/content/${contentId}`);
 
   const handleClickCreate = useCallback(async () => {
     try {
@@ -65,7 +65,7 @@ export default function PagesTemplateManagementCreate() {
 
       notifications.show('템플릿을 생성했습니다.', { severity: 'success', autoHideDuration: 1000 });
 
-      navigate(`/content-management/${contentId}/${data?.createTemplate.id}`);
+      navigate(`/content/${contentId}/${data?.createTemplate.id}`);
     } catch (error) {
       notifications.show('템플릿 생성 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
 
@@ -83,16 +83,14 @@ export default function PagesTemplateManagementCreate() {
   );
 
   useEffect(() => {
-    if (nameRef.current) {
-      nameRef.current.focus();
-    }
+    nameRef.current?.focus();
   }, []);
 
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
         <Stack sx={{ gap: '20px' }}>
-          <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
+          <TextField inputRef={nameRef} label="이름" autoComplete="off" value={name} error={!!error} helperText={error} disabled={isSubmitting} onChange={handleChangeName} onKeyDown={handleKeyDownName} />
         </Stack>
       </CardContent>
       <Divider sx={{ margin: '20px 0' }} />

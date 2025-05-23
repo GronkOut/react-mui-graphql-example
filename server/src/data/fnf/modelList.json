@@ -1,6 +1,6 @@
 [
   {
-    "id": "7ce9ba98-ef70-4751-8ac3-e35e914effa6",
+    "id": "05d78701-38b7-4c1f-aafd-8fca756a95f8",
     "key": "model",
     "orderable": true,
     "editable": false,
@@ -8,25 +8,27 @@
       {
         "key": "name_ko",
         "type": "text",
-        "editable": true,
-        "required": true,
+        "editable": false,
+        "required": false,
         "visible": false,
         "value": "모델",
-        "regex": "문자열 정규식"
+        "regex": "",
+        "extra": ""
       },
       {
         "key": "name_en",
         "type": "text",
-        "editable": true,
-        "required": true,
+        "editable": false,
+        "required": false,
         "visible": false,
         "value": "Model",
-        "regex": "문자열 정규식"
+        "regex": "",
+        "extra": ""
       }
     ],
     "children": [
       {
-        "id": "be48df56-d29d-43f2-b1b6-ccc17ab894bb",
+        "id": "1a2fccba-55e6-4d95-bfbc-235539b28d7a",
         "key": "generateProductImage",
         "orderable": true,
         "editable": false,
@@ -38,7 +40,8 @@
             "required": true,
             "visible": true,
             "value": "제품 이미지 생성",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -47,12 +50,310 @@
             "required": true,
             "visible": true,
             "value": "Generate product image",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "40f7ab4c-670a-41de-b1f0-dfacef7e325e",
+            "id": "0cca616b-a57b-4168-9f61-4bd3b86b2ae0",
+            "key": "clothesXlV1F1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "clothes_xl_v1_F1",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품 F&F 의류 V2",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "Fashion Clothes",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "추천: 제품(의류)",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "(worst quality, low quality)++, (normal quality)+, watermark, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://rc-varco-saas-static.s3.ap-northeast-2.amazonaws.com/qa/0KFM616NQ1MKH",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "c59ec674-8e75-4adb-8597-85c8647a9755",
+            "key": "accessoriesXlV1F1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "accessories_xl_v1_F1",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품 F&F 용품 V2",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "Fashion Acc",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "추천: 제품(용품)",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "(worst quality, low quality)++, (normal quality)+, watermark, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://rc-varco-saas-static.s3.ap-northeast-2.amazonaws.com/qa/0KFM61TT7MWKE",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "c7ff877c-dbb0-43e6-a335-f159f099dacb",
+            "key": "shoesXlV1F1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "shoes_xl_v1_F1",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "제품 F&F 신발 V2",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "Fashion Shoes",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "추천: 제품(신발)",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "(worst quality, low quality)++, (normal quality)+, watermark, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://rc-varco-saas-static.s3.ap-northeast-2.amazonaws.com/qa/0KFM62EXP7WNH",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "9bcf97b9-5279-4914-9b1b-4d138b9f3f80",
             "key": "realisticvisionv60b1V51vaeClothes",
             "orderable": false,
             "editable": false,
@@ -64,7 +365,8 @@
                 "required": true,
                 "visible": true,
                 "value": "realisticVisionV60B1_v51VAE_clothes",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -72,8 +374,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "제품_F&F_의류",
-                "regex": "문자열 정규식"
+                "value": "제품 F&F 의류 V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -82,7 +385,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Fashion Clothes",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -91,7 +395,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 제품(의류)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -100,7 +405,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -109,7 +415,8 @@
                 "required": false,
                 "visible": true,
                 "value": "no humans, simple background, product shot, center alignment",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -118,7 +425,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed, 8k uhd",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -126,8 +434,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
-                "regex": "문자열 정규식"
+                "value": "humans, (worst quality, low quality)++++, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -136,13 +445,14 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ25JP1JK7N",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
           },
           {
-            "id": "466f74b8-bfac-4495-b2d8-1a3297ca6a9c",
+            "id": "e6ffeb5e-3b18-4e05-b71a-0bb08c28e369",
             "key": "absoluterealityV181Accessories",
             "orderable": false,
             "editable": false,
@@ -154,7 +464,8 @@
                 "required": true,
                 "visible": true,
                 "value": "absolutereality_v181_accessories",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -162,8 +473,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "제품_F&F_용품",
-                "regex": "문자열 정규식"
+                "value": "제품 F&F 용품 V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -172,7 +484,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Fashion Acc",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -181,7 +494,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 제품(용품)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -190,7 +504,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -199,7 +514,8 @@
                 "required": false,
                 "visible": true,
                 "value": "no humans, simple background, product shot, center alignment",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -208,7 +524,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed, 8k uhd",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -216,8 +533,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
-                "regex": "문자열 정규식"
+                "value": "humans, (worst quality, low quality)++++, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -226,13 +544,14 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ1XC8YNZ5D",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
           },
           {
-            "id": "4277783c-dc36-4713-8a25-929e78027367",
+            "id": "06ce6327-4fda-43ff-bd47-d7f2461b6343",
             "key": "realisticvisionv60b1V51vaeShoes",
             "orderable": false,
             "editable": false,
@@ -244,7 +563,8 @@
                 "required": true,
                 "visible": true,
                 "value": "realisticVisionV60B1_v51VAE_shoes",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -252,8 +572,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "제품_F&F_신발",
-                "regex": "문자열 정규식"
+                "value": "제품 F&F 신발 V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -262,7 +583,8 @@
                 "required": true,
                 "visible": true,
                 "value": "Fashion Shoes",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -271,7 +593,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 제품(신발)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -280,7 +603,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -289,7 +613,8 @@
                 "required": false,
                 "visible": true,
                 "value": "no humans, simple background, product shot, center alignment",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -298,7 +623,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed, 8k uhd",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -306,8 +632,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "humans, (worst quality, low quality)1.4, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
-                "regex": "문자열 정규식"
+                "value": "humans, (worst quality, low quality)++++, (normal quality)+, watermark, cartoon, 3d, animation, NSFW, nsfw, nude, JPEG artifacts",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -316,13 +643,14 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ21Q34GQ65",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
           },
           {
-            "id": "d252530f-2854-4454-ad81-a34966c8061c",
+            "id": "a06533e6-c7a8-4483-9f59-fc36065e5bdc",
             "key": "arthemyobjectsV10",
             "orderable": false,
             "editable": false,
@@ -334,7 +662,8 @@
                 "required": true,
                 "visible": true,
                 "value": "arthemyObjects_v10",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -342,8 +671,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "제품_A",
-                "regex": "문자열 정규식"
+                "value": "제품 A V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -352,7 +682,8 @@
                 "required": true,
                 "visible": true,
                 "value": "ArthemyObjects",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -361,7 +692,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 제품",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -370,7 +702,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -378,8 +711,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "no human, (masterpiece, best quality)+, (realistic)1.3, (hyperdetailed)1.3, depth of field, sharp focus, (object)+, (product photography)1.4, studio lighting, center alignment",
-                "regex": "문자열 정규식"
+                "value": "no human, (masterpiece, best quality)+, (realistic)+++, (hyperdetailed)+++, depth of field, sharp focus, (object)+, (product photography)++++, studio lighting, center alignment",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -388,7 +722,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -396,8 +731,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, sketch, cartoon, drawing, anime, (model)++, (person, people, human, girl, man, boy, guy)+, 1girl, female, male, woman, deformed, distorted, disfigured, camera, carmera lens, hanger",
-                "regex": "문자열 정규식"
+                "value": "(worst quality, low quality)++++, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, sketch, cartoon, drawing, anime, (model)++, (person, people, human, girl, man, boy, guy)+, 1girl, female, male, woman, deformed, distorted, disfigured, camera, carmera lens, hanger",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -406,7 +742,8 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ1MSEYDAYQ",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
@@ -414,7 +751,7 @@
         ]
       },
       {
-        "id": "b8fe9f1a-afbf-486c-af1d-645da55c3cc7",
+        "id": "3c310f00-322e-4ebd-a484-a35fc4ba8e43",
         "key": "characterProductImage",
         "orderable": true,
         "editable": false,
@@ -426,7 +763,8 @@
             "required": true,
             "visible": true,
             "value": "인물 이미지 생성",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           },
           {
             "key": "name_en",
@@ -435,13 +773,14 @@
             "required": true,
             "visible": true,
             "value": "Character product image",
-            "regex": "문자열 정규식"
+            "regex": "",
+            "extra": ""
           }
         ],
         "children": [
           {
-            "id": "634e0729-b4a5-409d-b939-6c286b672259",
-            "key": "fluxV1Schnell",
+            "id": "e42ecf90-855d-453c-8139-262ef16899af",
+            "key": "humanFigureXlV1",
             "orderable": false,
             "editable": false,
             "fields": [
@@ -451,8 +790,9 @@
                 "editable": false,
                 "required": true,
                 "visible": true,
-                "value": "FLUX_v1_schnell",
-                "regex": "문자열 정규식"
+                "value": "human_figure_xl_v1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -460,8 +800,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "올라운더(FLUX)",
-                "regex": "문자열 정규식"
+                "value": "인물 F&F V2",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -469,8 +810,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "All-Rounder(FLUX)",
-                "regex": "문자열 정규식"
+                "value": "FnF XL",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -478,8 +820,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "다양한 컨셉에 대해 고품질의 이미지",
-                "regex": "문자열 정규식"
+                "value": "추천: 인물",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -487,8 +830,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "다양한 컨셉에 대해 고품질의 이미지",
-                "regex": "문자열 정규식"
+                "value": "",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -496,8 +840,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "",
-                "regex": "문자열 정규식"
+                "value": "(8k, RAW photo, best quality, masterpiece)+, (photorealistic)+++, sharp focus, detailed background, (hyperdetailed)+++, depth of field, portrait, nutural lighting, epic composition",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -505,8 +850,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "",
-                "regex": "문자열 정규식"
+                "value": "extremely detailed",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -514,8 +860,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "",
-                "regex": "문자열 정규식"
+                "value": "(worst quality, low quality)+++, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -523,14 +870,15 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "https://varco-art-op.s3.ap-northeast-2.amazonaws.com/ncsoft-op/0J7K96KX22H7W",
-                "regex": "이미지 정규식"
+                "value": "https://rc-varco-saas-static.s3.ap-northeast-2.amazonaws.com/qa/0KFM63FWGMCQR",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
           },
           {
-            "id": "af889a2c-ae1e-43f0-ac25-8ff172c8fb88",
+            "id": "64eb856c-beb5-4a5a-a88c-885002cc7963",
             "key": "absoluterealityF1",
             "orderable": false,
             "editable": false,
@@ -542,7 +890,8 @@
                 "required": true,
                 "visible": true,
                 "value": "AbsoluteReality_F1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -550,8 +899,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "인물_F&F_A",
-                "regex": "문자열 정규식"
+                "value": "인물_F&F A V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -560,7 +910,8 @@
                 "required": true,
                 "visible": true,
                 "value": "FnF AbsoluteReality",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -569,7 +920,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 인물(동양인)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -578,7 +930,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -586,8 +939,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "(8k, RAW photo, best quality, masterpiece)+, (photorealistic)1.3, sharp focus, detailed background, (hyperdetailed)1.3, depth of field, portrait, nutural lighting, epic composition",
-                "regex": "문자열 정규식"
+                "value": "(8k, RAW photo, best quality, masterpiece)+, (photorealistic)+++, sharp focus, detailed background, (hyperdetailed)+++, depth of field, portrait, nutural lighting, epic composition",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -596,7 +950,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -604,8 +959,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
-                "regex": "문자열 정규식"
+                "value": "(worst quality, low quality)++++, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -614,13 +970,14 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ3M7DP2FMR",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []
           },
           {
-            "id": "0e6249ae-e5c7-42c7-b636-24af2e7f2717",
+            "id": "86846817-4c46-4547-aa20-cd7af0e75452",
             "key": "cyberrealisticF1",
             "orderable": false,
             "editable": false,
@@ -632,7 +989,8 @@
                 "required": true,
                 "visible": true,
                 "value": "CyberRealistic_F1",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_ko",
@@ -640,8 +998,9 @@
                 "editable": true,
                 "required": true,
                 "visible": true,
-                "value": "인물_F&F_C",
-                "regex": "문자열 정규식"
+                "value": "인물 F&F C V1",
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "name_en",
@@ -650,7 +1009,8 @@
                 "required": true,
                 "visible": true,
                 "value": "FnF CyberRealistic",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_ko",
@@ -659,7 +1019,8 @@
                 "required": false,
                 "visible": true,
                 "value": "추천: 인물(전신)",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "tags_en",
@@ -668,7 +1029,8 @@
                 "required": false,
                 "visible": true,
                 "value": "",
-                "regex": "문자열 정규식"
+                "regex": "",
+                "extra": ""
               },
               {
                 "key": "prompt_head",
@@ -676,8 +1038,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "(8k, photorealistic, physically based rendering, masterpiece)+, sharp focus, detailed background, (hyperdetailed)1.3, depth of field, portrait, nutural lighting, epic composition",
-                "regex": "문자열 정규식"
+                "value": "(8k, photorealistic, physically based rendering, masterpiece)+, sharp focus, detailed background, (hyperdetailed)+++, depth of field, portrait, nutural lighting, epic composition",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_tail",
@@ -686,7 +1049,8 @@
                 "required": false,
                 "visible": true,
                 "value": "extremely detailed",
-                "regex": "문자열 정규식"
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "prompt_negative",
@@ -694,8 +1058,9 @@
                 "editable": true,
                 "required": false,
                 "visible": true,
-                "value": "(worst quality, low quality)1.4, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, JPEG artifacts, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
-                "regex": "문자열 정규식"
+                "value": "(worst quality, low quality)++++, (watermark)+, picture frame, blurry, deformed, (nsfw)+, (poorly drawn)+, low res, grainy, out of frame, out of focus, cgi, 3d, render, sketch, cartoon, drawing, anime, (text)+, JPEG artifacts, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
               },
               {
                 "key": "thumbnail",
@@ -704,7 +1069,236 @@
                 "required": true,
                 "visible": true,
                 "value": "https://varco-art-dev.s3.ap-northeast-3.amazonaws.com/ncsoft-dev/0JYQ3QCDYCQQV",
-                "regex": "이미지 정규식"
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
+              }
+            ],
+            "children": []
+          },
+          {
+            "id": "e1607940-4717-401d-a9cc-c92cea463292",
+            "key": "fluxV1Schnell",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "FLUX_v1_schnell",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "올라운더(FLUX)",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "All-Rounder(FLUX)",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "다양한 컨셉에 대해 고품질의 이미지",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "다양한 컨셉에 대해 고품질의 이미지",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://varco-art-op.s3.ap-northeast-2.amazonaws.com/ncsoft-op/0J7K96KX22H7W",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "d110b67b-0666-40eb-a31b-1aa21273bcdd",
+        "key": "graphicImage",
+        "orderable": true,
+        "editable": false,
+        "fields": [
+          {
+            "key": "name_ko",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": "그래픽 이미지 생성",
+            "regex": "",
+            "extra": ""
+          },
+          {
+            "key": "name_en",
+            "type": "text",
+            "editable": true,
+            "required": true,
+            "visible": true,
+            "value": "Graphic image generation",
+            "regex": "",
+            "extra": ""
+          }
+        ],
+        "children": [
+          {
+            "id": "5de5e8ab-c5c4-45e8-9ce3-d86c9ec07e5f",
+            "key": "nyLogoXlV1",
+            "orderable": false,
+            "editable": false,
+            "fields": [
+              {
+                "key": "modelId",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "visible": true,
+                "value": "ny_logo_xl_v1",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_ko",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "MLB NY 로고",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "name_en",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "MLB NY Logo",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_ko",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "추천: MLB NY 로고",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "tags_en",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "",
+                "extra": ""
+              },
+              {
+                "key": "prompt_head",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "ny logo, yankees logo",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_tail",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "prompt_negative",
+                "type": "textList",
+                "editable": true,
+                "required": false,
+                "visible": true,
+                "value": "",
+                "regex": "/^[a-zA-Z0-9.,&'+()_ \\-]*$/",
+                "extra": ""
+              },
+              {
+                "key": "thumbnail",
+                "type": "image",
+                "editable": true,
+                "required": true,
+                "visible": true,
+                "value": "https://rc-varco-saas-static.s3.ap-northeast-2.amazonaws.com/qa/0KFM7NZBB9N7F",
+                "regex": "",
+                "extra": "{maxFileCount:1,maxFileSize:1048576,mimeTypes:['image/jpeg','image/png','image/gif','image/svg+xml'],fileExtensions:['jpeg','jpg','png','gif','svg']}"
               }
             ],
             "children": []

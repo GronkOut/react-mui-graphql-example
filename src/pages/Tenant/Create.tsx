@@ -8,7 +8,7 @@ import { Button, Card, CardActions, CardContent, Divider, Stack, TextField } fro
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { tenantNameValidation } from '@/utils/dataGrid';
 
-export default function PagesTenantManagementCreate() {
+export default function PagesTenantCreate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
@@ -18,12 +18,12 @@ export default function PagesTenantManagementCreate() {
 
   const [createTenant, { loading: isSubmitting }] = useMutation<CreateTenantResponse, CreateTenantVariables>(CREATE_TENANT);
 
-  const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setError(null);
-  }, []);
+  };
 
-  const handleClickCancel = useCallback(() => navigate('/tenant-management'), [navigate]);
+  const handleClickCancel = () => navigate('/tenant');
 
   const handleClickCreate = useCallback(async () => {
     try {
@@ -43,7 +43,7 @@ export default function PagesTenantManagementCreate() {
 
       notifications.show('테턴트를 생성했습니다.', { severity: 'success', autoHideDuration: 1000 });
 
-      navigate(`/tenant-management/${data?.createTenant.id}`);
+      navigate(`/tenant/${data?.createTenant.id}`);
     } catch (error) {
       notifications.show('테넌트 생성 중 오류가 발생했습니다.', { severity: 'error', autoHideDuration: 2000 });
 
@@ -61,16 +61,14 @@ export default function PagesTenantManagementCreate() {
   );
 
   useEffect(() => {
-    if (nameRef.current) {
-      nameRef.current.focus();
-    }
+    nameRef.current?.focus();
   }, []);
 
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
         <Stack sx={{ gap: '20px' }}>
-          <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
+          <TextField inputRef={nameRef} label="이름" autoComplete="off" value={name} error={!!error} helperText={error} disabled={isSubmitting} onChange={handleChangeName} onKeyDown={handleKeyDownName} />
         </Stack>
       </CardContent>
       <Divider sx={{ margin: '20px 0' }} />

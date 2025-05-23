@@ -1,0 +1,4 @@
+onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - core-js
+  - esbuild

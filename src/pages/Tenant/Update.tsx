@@ -16,7 +16,7 @@ interface TenantTemplateMappingState {
   templateId: string | null;
 }
 
-export default function PagesTenantManagementUpdate() {
+export default function PagesTenantUpdate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [templateMappings, setTemplateMappings] = useState<TenantTemplateMappingState[]>([]);
@@ -34,14 +34,14 @@ export default function PagesTenantManagementUpdate() {
   const { data: templatesData, loading: templatesLoading } = useQuery<TemplatesData>(GET_TEMPLATES);
   const [updateTenant, { loading: isSubmitting }] = useMutation<UpdateTenantResponse, UpdateTenantVariables>(UPDATE_TENANT, {
     onCompleted: () => {
-      navigate(`/tenant-management/${tenantId}`);
+      navigate(`/tenant/${tenantId}`);
     },
   });
 
-  const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setError(null);
-  }, []);
+  };
 
   const handleChangeTemplate = useCallback(
     (contentId: string) => (event: SelectChangeEvent<string>) => {
@@ -65,7 +65,7 @@ export default function PagesTenantManagementUpdate() {
     [],
   );
 
-  const handleClickCancel = useCallback(() => navigate(`/tenant-management/${tenantId}`), [navigate, tenantId]);
+  const handleClickCancel = () => navigate(`/tenant/${tenantId}`);
 
   const handleClickSave = useCallback(async () => {
     try {
@@ -91,14 +91,11 @@ export default function PagesTenantManagementUpdate() {
     }
   }, [name, updateTenant, tenantId, templateMappings, notifications]);
 
-  const handleKeyDownName = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) {
-        handleClickSave();
-      }
-    },
-    [handleClickSave, isSubmitting],
-  );
+  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !isSubmitting) {
+      handleClickSave();
+    }
+  };
 
   useEffect(() => {
     if (tenantData?.tenant) {
@@ -127,12 +124,8 @@ export default function PagesTenantManagementUpdate() {
     return <LoadingIndicator />;
   }
 
-  if (!tenantData?.tenant) {
-    return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>테넌트 정보를 찾을 수 없습니다. (ID: {tenantId})</Stack>;
-  }
-
-  if (!contentsData?.contents || !templatesData?.templates) {
-    return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>콘텐츠 또는 템플릿 데이터를 불러올 수 없습니다.</Stack>;
+  if (!tenantData?.tenant || !contentsData?.contents || !templatesData?.templates) {
+    return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>데이터가 없습니다.</Stack>;
   }
 
   const { contents } = contentsData;
@@ -142,9 +135,7 @@ export default function PagesTenantManagementUpdate() {
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
         <Stack sx={{ gap: '20px' }}>
-          <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
-
-          {/* 콘텐츠 목록 */}
+          <TextField inputRef={nameRef} label="이름" autoComplete="off" value={name} error={!!error} helperText={error} disabled={isSubmitting} onChange={handleChangeName} onKeyDown={handleKeyDownName} />
           {contents.map((content) => {
             const templateMapping = templateMappings.find((mapping) => mapping.contentId === content.id);
             const selectedTemplateId = templateMapping?.templateId || '';

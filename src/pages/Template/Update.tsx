@@ -9,7 +9,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
 import { templateNameValidation } from '@/utils/dataGrid';
 
-export default function PagesTemplateManagementUpdate() {
+export default function PagesTemplateUpdate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
@@ -18,24 +18,22 @@ export default function PagesTemplateManagementUpdate() {
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { data, loading } = useQuery<TemplateData, ReadTemplateVariables>(GET_TEMPLATE, {
+  const { data: templateData, loading } = useQuery<TemplateData, ReadTemplateVariables>(GET_TEMPLATE, {
     variables: { id: templateId || '' },
     skip: !templateId,
   });
   const [updateTemplate, { loading: isSubmitting }] = useMutation<UpdateTemplateResponse, UpdateTemplateVariables>(UPDATE_TEMPLATE, {
     onCompleted: () => {
-      navigate(`/content-management/${contentId}/${templateId}`);
+      navigate(`/content/${contentId}/${templateId}`);
     },
   });
 
-  const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setError(null);
-  }, []);
+  };
 
-  const handleClickCancel = useCallback(() => {
-    navigate(`/content-management/${contentId}/${templateId}`);
-  }, [navigate, contentId, templateId]);
+  const handleClickCancel = () => navigate(`/content/${contentId}/${templateId}`);
 
   const handleClickSave = useCallback(async () => {
     try {
@@ -61,36 +59,37 @@ export default function PagesTemplateManagementUpdate() {
     }
   }, [name, updateTemplate, templateId, notifications]);
 
-  const handleKeyDownName = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) {
-        handleClickSave();
-      }
-    },
-    [handleClickSave, isSubmitting],
-  );
-
-  useEffect(() => {
-    if (data?.template) {
-      setName(data.template.name);
+  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !isSubmitting) {
+      handleClickSave();
     }
-  }, [data]);
+  };
 
   useEffect(() => {
-    if (nameRef.current && !loading && data?.template) {
+    if (templateData?.template) {
+      setName(templateData.template.name);
+    }
+  }, [templateData]);
+
+  useEffect(() => {
+    if (nameRef.current && !loading && templateData?.template) {
       nameRef.current.focus();
     }
-  }, [data, loading]);
+  }, [templateData, loading]);
 
   if (loading) {
     return <LoadingIndicator />;
+  }
+
+  if (!templateData?.template) {
+    return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>데이터가 없습니다.</Stack>;
   }
 
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
         <Stack sx={{ gap: '20px' }}>
-          <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
+          <TextField inputRef={nameRef} label="이름" autoComplete="off" value={name} error={!!error} helperText={error} disabled={isSubmitting} onChange={handleChangeName} onKeyDown={handleKeyDownName} />
         </Stack>
       </CardContent>
       <Divider sx={{ margin: '20px 0' }} />

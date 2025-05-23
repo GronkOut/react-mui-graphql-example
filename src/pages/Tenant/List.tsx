@@ -1,23 +1,23 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { DELETE_TENANTS, DeleteTenantsResponse, DeleteTenantsVariables, GET_TENANTS, TenantsData } from '@/graphql/tenant';
-import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import { useMutation, useQuery } from '@apollo/client';
 import { Card, CardContent } from '@mui/material';
 import { DataGrid, GridColDef, GridEventListener, GridRowSelectionModel } from '@mui/x-data-grid';
 import { useNotifications } from '@toolpad/core/useNotifications';
+import dayjs from 'dayjs';
+import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 import { Toolbar } from '@/components/DataGridToolbar';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
 import { localeText, styles } from '@/utils/dataGrid';
-import dayjs from 'dayjs';
 
-export default function PagesTenantManagementList() {
+export default function PagesTenantList() {
   const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { loading, data, refetch } = useQuery<TenantsData>(GET_TENANTS);
+  const { loading, data: tenantsData, refetch } = useQuery<TenantsData>(GET_TENANTS);
   const [deleteTenants] = useMutation<DeleteTenantsResponse, DeleteTenantsVariables>(DELETE_TENANTS);
 
   const deleteConfirm = useConfirmDialog({
@@ -48,31 +48,31 @@ export default function PagesTenantManagementList() {
         field: 'createdAt',
         headerName: '생성일',
         width: 155,
-        valueGetter: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
+        valueFormatter: ({ value }) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
       },
       {
         field: 'updatedAt',
         headerName: '수정일',
         width: 155,
-        valueGetter: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
+        valueFormatter: ({ value }) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
       },
     ],
     [],
   );
 
-  const handleRowClick: GridEventListener<'rowClick'> = useCallback(({ row }) => navigate(`/tenant-management/${row.id}`), [navigate]);
+  const handleRowClick: GridEventListener<'rowClick'> = useCallback(({ row }) => navigate(`/tenant/${row.id}`), [navigate]);
 
-  const handleClickCreate = useCallback(() => navigate('/tenant-management/create'), [navigate]);
+  const handleClickCreate = useCallback(() => navigate('/tenant/create'), [navigate]);
 
   if (loading) {
     return <LoadingIndicator />;
   }
 
-  if (!data?.tenants) {
+  if (!tenantsData?.tenants) {
     return null;
   }
 
-  const { tenants } = data;
+  const { tenants } = tenantsData;
 
   return (
     <>
@@ -81,19 +81,15 @@ export default function PagesTenantManagementList() {
           <DataGrid
             loading={loading}
             columns={columns}
-            rows={tenants || []}
-            initialState={{
-              pagination: { paginationModel: { page: 0, pageSize: 10 } },
-            }}
+            rows={tenants}
+            initialState={{ pagination: { paginationModel: { page: 0, pageSize: 10 } } }}
             pageSizeOptions={[10, 20, 50]}
             checkboxSelection
             disableColumnMenu
             disableRowSelectionOnClick
             sx={styles}
             onRowClick={handleRowClick}
-            onRowSelectionModelChange={(newRowSelectionModel) => {
-              setRowSelectionModel(newRowSelectionModel);
-            }}
+            onRowSelectionModelChange={(newRowSelectionModel) => setRowSelectionModel(newRowSelectionModel)}
             rowSelectionModel={rowSelectionModel}
             localeText={localeText}
             slots={{ toolbar: Toolbar }}
@@ -108,8 +104,6 @@ export default function PagesTenantManagementList() {
           />
         </CardContent>
       </Card>
-
-      {/* 테넌트 삭제 다이얼로그 */}
       {deleteConfirm.ConfirmDialog}
     </>
   );

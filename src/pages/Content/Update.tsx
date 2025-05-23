@@ -9,7 +9,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { LoadingIndicator } from '@/components/LoadingIndicator';
 import { contentNameValidation } from '@/utils/dataGrid';
 
-export default function PagesContentManagementUpdate() {
+export default function PagesContentUpdate() {
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState('');
 
@@ -18,22 +18,22 @@ export default function PagesContentManagementUpdate() {
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  const { data, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
+  const { data: contentData, loading } = useQuery<ContentData, ReadContentVariables>(GET_CONTENT, {
     variables: { id: contentId || '' },
     skip: !contentId,
   });
   const [updateContent, { loading: isSubmitting }] = useMutation<UpdateContentResponse, UpdateContentVariables>(UPDATE_CONTENT, {
     onCompleted: () => {
-      navigate(`/content-management/${contentId}`);
+      navigate(`/content/${contentId}`);
     },
   });
 
-  const handleChangeName = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setError(null);
-  }, []);
+  };
 
-  const handleClickCancel = useCallback(() => navigate(`/content-management/${contentId}`), [navigate, contentId]);
+  const handleClickCancel = () => navigate(`/content/${contentId}`);
 
   const handleClickSave = useCallback(async () => {
     try {
@@ -59,36 +59,37 @@ export default function PagesContentManagementUpdate() {
     }
   }, [name, updateContent, contentId, notifications]);
 
-  const handleKeyDownName = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter' && !isSubmitting) {
-        handleClickSave();
-      }
-    },
-    [handleClickSave, isSubmitting],
-  );
-
-  useEffect(() => {
-    if (data?.content) {
-      setName(data.content.name);
+  const handleKeyDownName = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && !isSubmitting) {
+      handleClickSave();
     }
-  }, [data]);
+  };
 
   useEffect(() => {
-    if (nameRef.current && !loading && data?.content) {
+    if (contentData?.content) {
+      setName(contentData.content.name);
+    }
+  }, [contentData]);
+
+  useEffect(() => {
+    if (nameRef.current && !loading && contentData?.content) {
       nameRef.current.focus();
     }
-  }, [data, loading]);
+  }, [contentData, loading]);
 
   if (loading) {
     return <LoadingIndicator />;
+  }
+
+  if (!contentData?.content) {
+    return <Stack sx={{ alignItems: 'center', justifyContent: 'center', height: '400px' }}>데이터가 없습니다.</Stack>;
   }
 
   return (
     <Card sx={{ background: 'none', boxShadow: 'none' }}>
       <CardContent>
         <Stack sx={{ gap: '20px' }}>
-          <TextField inputRef={nameRef} label="이름" value={name} error={!!error} helperText={error} disabled={isSubmitting} autoComplete="off" onChange={handleChangeName} onKeyDown={handleKeyDownName} />
+          <TextField inputRef={nameRef} label="이름" autoComplete="off" value={name} error={!!error} helperText={error} disabled={isSubmitting} onChange={handleChangeName} onKeyDown={handleKeyDownName} />
         </Stack>
       </CardContent>
       <Divider sx={{ margin: '20px 0' }} />

@@ -1,0 +1,59 @@
+#intro {
+  color-scheme: dark;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(17, 18, 21, 1);
+  .content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-fill-mode: both;
+    animation-delay: 500ms;
+    .logo {
+      width: 88px;
+    }
+    .text {
+      width: 450px;
+    }
+    .description {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      color: rgba(196, 199, 204, 1);
+    }
+    .button {
+      margin-top: 119px;
+      padding: 22px 58px;
+      border-radius: 36px;
+      border: 2px solid #3ff3d3;
+      color: #3ff3d3;
+      background-color: transparent;
+      transition: all 0.1s;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.2;
+      cursor: pointer;
+      &:hover {
+        border: 2px solid #2fb39c;
+        background-color: #2fb39c;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
